@@ -1,0 +1,150 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">Medilogs Bill Here:</h4>
+                      <p class="card-category"> Here is a list of bill for medilpogs app</p>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead class=" text-primary">
+                                  <th>
+                                      ID
+                                  </th>
+                                  <th>
+                                      Employee Name
+                                  </th>
+                                  <th>
+                                      Employer Name
+                                  </th>
+                                  <th>
+                                      Email
+                                  </th>
+                                  <th>
+                                      Bill date
+                                  </th>
+                                  <th>
+                                      disease
+                                  </th>
+                                  <th>
+                                      degination
+                                  </th>
+                                  <th>
+                                      Action
+                                  </th>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let item of keysArray;let i=index">
+                                      <td>
+                                          {{i+1}}
+                                      </td>
+                                      <td>
+                                          {{item.employeeName}}
+                                      </td>
+                                      <td>
+                                          {{item.employerName}}
+                                      </td>
+                                      <td>
+                                          {{item.email}}
+                                      </td>
+                                      <td class="text-primary">
+                                         {{item.billissueDate}}
+                                      </td>
+                                      <td class="text-primary">
+                                         {{item.disease}}
+                                      </td>
+                                      <td class="text-primary">
+                                         {{item.degination}}
+
+                                      </td>
+                                      <!-- <td class="text-primary">
+                                        <iframe  [src]="pdfsrc | safeHtml" width="640" height="360" frameborder="0"
+                                        webkitallowfullscreen mozallowfullscreen allowfullscreen style="float: left;width: 100%;">
+                                          </iframe>
+                                     </td> -->
+                                      <td class="text-primary">
+                                         <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="view(item,0)">view</button>
+                                         <button mat-raised-button type="button" matTooltip="Delete Logs" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="delete(item)">
+                                                  <i class="material-icons">close</i>
+                                              </button>
+                                      </td>
+                                  </tr>
+                                  <tr *ngIf="keysArray.length===0">
+                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>No Data found!.</td>
+                                    <td></td>
+                                    <td></td>
+                                    <!-- <td></td> -->
+                                    <td></td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+       
+      </div>
+  </div>
+</div>
+
+ <!-- notice modal -->
+<div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="position:realtive;">
+  
+
+<div class="modal-dialog modal-notice mdbx-hd">
+    <div class="modal-content" style="width: 150%!important;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Deposit</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+            </div>
+        <div class="modal-body text-center">
+          <div class="row">
+             <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="viewLogById(0)">Your Bills</button>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="viewLogById(1)">Prescription</button>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="viewLogById(2)">Your Reports</button>
+          </div>
+            <div class="row" *ngIf="!noBillAdded">
+              <img *ngIf="imgsrc" src="{{imgsrc}}" alt="Waiting..." style="height:50%;width:50%;">
+              
+              <iframe  [src]="pdfsrc | safeHtml" width="640" height="360" frameborder="0"
+              webkitallowfullscreen mozallowfullscreen allowfullscreen style="float: left;width: 100%;">
+                </iframe>
+             
+            </div>
+
+            <div class="row" *ngIf="noBillAdded">
+              No bills Added!.
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<img src="../assets/img/loader.gif" *ngIf="loading" style="height:15%;width:5%;z-index:9999!important;position :absolute;top:100px;bottom:0;left:170px;right:0;margin:0 auto;">
+
+
+
+<div class="modal fade" id="deleteItembyIdmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-small ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+            </div>
+            <div class="modal-body text-center">
+                <h5>Are you sure you want to do this? </h5>
+            </div>
+            <div class="modal-footer text-center d-block">
+                <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+                <button type="button" class="btn btn-info btn-simple" data-dismiss="modal" (click)="confirmDelete()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
