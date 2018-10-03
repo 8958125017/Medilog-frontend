@@ -1,0 +1,1004 @@
+  <section class="signup signip-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4 p-0">
+                    <div class="left-panel">
+                        <div class="signup-content">
+                            <div class="">
+                                <a [routerLink]="['/home']">
+                                    <img src="assets/images/white-logo.png" alt="logo" width="260">
+                                </a>
+                            </div>
+                           <h1 class="login-heading mt-4">
+                                Decentralized <strong>Health-Care</strong> 
+                           </h1>
+                           <p>
+                               MediLocks is Blockchain based EHR infrastructure. It provides immutable, transparent provenance, and data control to users. 
+                           </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8 p-0">
+                    <div class="right-panel-sign">
+                        <div class="desktop" *ngIf="allsignup">
+                            <div>                                
+                                <div class="float-right">
+                                 <a [routerLink]="['/login']">Login</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="box" (click)="signupFor('hospital')">
+                                        <div class="box-img">
+                                            <img src="assets/images/hospital.svg" alt="image" width="50">
+                                        </div>
+                                        <div class="box-heading ">
+                                            Hospital
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="box " (click)="signupFor('doctor')">
+                                        <div class="box-img">
+                                            <img src="assets/images/doctor.svg" alt="image" width="50">
+                                        </div>
+                                        <div class="box-heading ">
+                                           Doctor
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="box" (click)="signupFor('patient')">
+                                        <div class="box-img">
+                                            <img src="assets/images/patient.svg" alt="image" width="50">
+                                        </div>
+                                        <div class="box-heading ">
+                                            Patient
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-sm-4">
+                                    <div class="box" (click)="signupFor('pharmacy')">
+                                        <div class="box-img">
+                                            <img src="assets/images/medicine.svg" alt="image" width="50">
+                                        </div>
+                                        <div class="box-heading ">
+                                            Pharmacy
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="box" (click)="signupFor('labs')">
+                                        <div class="box-img">
+                                            <img src="assets/images/diagno.svg" alt="image" width="50">
+                                        </div>
+                                        <div class="box-heading ">
+                                            Diagnostic  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="signupas">
+                            <div>
+                                <h1 class="login-heading float-left">
+                                    Signup as <strong>{{accountType}}</strong>
+                                </h1>
+                                <div class="float-right">
+                                    <a (click)="allSignup()">Change Signup</a> / <a [routerLink]="['/login']">Login</a> 
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                             <!-- Patients Signup Form start here -->
+                        <div *ngIf="accountType==='doctor'">
+                            <form class="mt-5" [formGroup]="doctorForm" >
+                              <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Enter First Name</label>
+                                                <input type="text" formControlName="firstName" name="firstname" data-required="1" placeholder="enter first name" class="form-control " />
+                                                <div class="small" *ngIf="!doctorForm.controls['firstName'].valid&&doctorForm.controls['firstName'].dirty" class="redlabe">
+                                                    <span *ngIf="doctorForm.controls['firstName'].errors['required']" class="small redlabe text-danger"> First Name cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['firstName'].errors['pattern']" class="small redlabe text-danger">First Name must contain 3-28 characters, only alphabets and no spaces</span>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Enter Last Name</label>
+                                                <input type="text" name="lastname" data-required="1" placeholder="enter last name" class="form-control" formControlName="lastName" />
+                                                <div class="small" *ngIf="!doctorForm.controls['lastName'].valid&&doctorForm.controls['lastName'].dirty" class="redlabe">
+                                                    <span *ngIf="doctorForm.controls['lastName'].errors['required']" class="small redlabe text-danger"> Last Name cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['lastName'].errors['pattern']" class="small redlabe text-danger">Last Name must contain 3-28 characters, only alphabets and no spaces</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Enter Mobile Number</label>
+                                                <input name="mobileNo" type="number" placeholder="mobile number" class="form-control "  formControlName="mobileNo" min="0" (keydown)="minus($event)"/>
+                                                <div *ngIf="!doctorForm.controls['mobileNo'].valid&&doctorForm.controls['mobileNo'].dirty">
+                                                    <span class="text-capitalize small text-danger" *ngIf="doctorForm.controls['mobileNo'].errors['required']" class="small redlabe text-danger">Phone Number is required</span>
+                                                    <span class="text-capitalize small text-danger"*ngIf="doctorForm.controls['mobileNo'].errors['pattern']" class="small redlabe text-danger">Phone Number is not valid</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Enter Your Email</label>
+                                                <input type="text" class="form-control" name="email" placeholder="Email Address" formControlName="email"/>
+                                                <div class="small" *ngIf="!doctorForm.controls['email'].valid&&doctorForm.controls['email'].dirty" class="redlabe">
+                                                    <span *ngIf="doctorForm.controls['email'].errors['required']" class="small redlabe text-danger"> Email cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['email'].errors['pattern']" class="small redlabe text-danger">Email must be valid</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Gender</label>
+                                            <select class="form-control" name="gender" formControlName="gender">
+                                                <option value="">Select...</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!doctorForm.controls['gender'].valid&&doctorForm.controls['gender'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="doctorForm.controls['gender'].errors['required']"> Gender cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Age</label>
+                                            <input min="0" (keydown)="minus($event)" type="number" name="age" class="form-control" placeholder="Age" formControlName="age">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input type="text" name="city" class="form-control" placeholder="City" formControlName="city">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label>Blood Group</label>
+                                            <select class="form-control" formControlName="bloodgroup">
+                                               <option value="">Blood Group</option>
+                                                   <option  *ngFor="let bg of bloodgroup" value= {{bg}}> {{bg}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>DOB</label>
+                                            <input type="date" name="dob" class="form-control" placeholder="Date Of Birth" formControlName="dob">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label>Education</label>
+                                            <select class="form-control" formControlName="degree" name="degree">
+                                                  <option value="">Select Degree</option>
+                                                   <option  *ngFor="let bg of degreee" value= {{bg}}> {{bg}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Departments</label>
+                                             <select class="form-control" name="department" formControlName="department">
+                                                   <option value="">Select Departments</option>
+                                                   <option  *ngFor="let bg of departments" value= {{bg}}> {{bg}}</option>
+                                            </select>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!doctorForm.controls['department'].valid&&doctorForm.controls['department'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="doctorForm.controls['department'].errors['required']"> Department cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Specialities</label>
+                                            <select class="form-control" formControlName="practiceSpecialties">
+                                                <option value="">Select Specialities</option>
+                                                   <option  *ngFor="let bg of specialities" value= {{bg}}> {{bg}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" name="pswd" data-required="1" placeholder="enter Password" class="form-control" formControlName="password"/>
+                                                <div class="small" *ngIf="!doctorForm.controls['password'].valid&&doctorForm.controls['password'].dirty">
+                                                    <span *ngIf="doctorForm.controls['password'].errors['required']" class="small redlabe text-danger">Password cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['password'].errors['minlength']" class="small redlabe text-danger">password must be atleast 6 characters</span>
+                                                    <span *ngIf="doctorForm.controls['password'].errors['pattern']&&!doctorForm.controls['password'].errors['minlength']" class="small redlabe text-danger">Password must contain at least 6 characters including 1 uppercase and 1 lowercase letter, 1 special character and 1 number</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+                                            <div class="small redlabe text-danger" *ngIf="!doctorForm.controls['confirmPassword'].valid&&doctorForm.controls['confirmPassword'].dirty">
+                                            </div>
+                                            <div *ngIf="doctorForm.controls['confirmPassword'].dirty&&doctorForm.hasError('mismatchedPasswords')"><span class="small redlabe text-danger"> Passwords do not match.</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Aadhar Card Number</label>
+                                                <input type="number" name="aadharNo" data-required="1" placeholder="Aadhar Number" class="form-control " formControlName="aadharNo" min="0" (keydown)="minus($event)"/>
+                                                <div *ngIf="!doctorForm.controls['aadharNo'].valid&&doctorForm.controls['aadharNo'].dirty">
+                                                    <span class="text-capitalize small text-danger" *ngIf="doctorForm.controls['aadharNo'].errors['required']" class="small redlabe text-danger">Adhar Number is required</span>
+                                                    <span class="text-capitalize small text-danger"*ngIf="doctorForm.controls['aadharNo'].errors['pattern']" class="small redlabe text-danger">Adhar Number is not valid</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    
+                                    <div class="col-sm-6">
+                                        <!-- Next control will be here -->
+                                        
+                                        <label>Designation</label>
+                                            <select class="form-control" formControlName="designation">
+                                                <option value="Level A">Level A</option>
+                                                <option value="Level B">Level B</option>
+                                                <option value="Level C">Level C</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="row">                                  
+                                     <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea class="form-control" formControlName="address" rows="4"></textarea>
+                                           
+                                            <div class="small" *ngIf="!doctorForm.controls['address'].valid&&doctorForm.controls['address'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="doctorForm.controls['address'].errors['required']"> address cannot be left blank</span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-6">
+                                        <label>Description</label>
+                                        <textarea class="form-control" formControlName="description" rows="4"></textarea>
+                                    </div>
+                               </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Profile</label>
+                                              <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg" id="uploadBtn">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3 text-center" >
+                                    <button type="submit" [disabled]="!doctorForm.valid" class="btn btn-info" (click)="doctorSendRequestToAdmin()">Submit</button>
+                                    <button type="button" class="btn btn-default" (click)="reset()">Clear</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Patients Signup Form start here -->
+                        <div *ngIf="accountType==='patient'">
+                            <div class="clearfix"></div>
+                            <div class="signup-box">
+                                <form class="mt-5" [formGroup]="patientForm">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Enter First Name</label>
+                                                <input type="text" formControlName="firstName" name="firstname" data-required="1" placeholder="enter first name" class="form-control " />
+                                                <div class="small" *ngIf="!patientForm.controls['firstName'].valid&&patientForm.controls['firstName'].dirty" class="redlabe">
+                                                    <span *ngIf="patientForm.controls['firstName'].errors['required']" class="small redlabe text-danger"> First Name cannot be left blank</span>
+                                                    <span *ngIf="patientForm.controls['firstName'].errors['pattern']" class="small redlabe text-danger">First Name must contain 3-28 characters, only alphabets and no spaces</span>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Enter Last Name</label>
+                                                <input type="text" name="lastname" data-required="1" placeholder="enter last name" class="form-control" formControlName="lastName" />
+                                                <div class="small" *ngIf="!patientForm.controls['lastName'].valid&&patientForm.controls['lastName'].dirty" class="redlabe">
+                                                    <span *ngIf="patientForm.controls['lastName'].errors['required']" class="small redlabe text-danger"> Last Name cannot be left blank</span>
+                                                    <span *ngIf="patientForm.controls['lastName'].errors['pattern']" class="small redlabe text-danger">Last Name must contain 3-28 characters, only alphabets and no spaces</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Enter Mobile Number</label>
+                                                <input name="mobileNo" type="number" placeholder="mobile number" class="form-control "  formControlName="mobileNo" min="0" (keydown)="minus($event)"/>
+                                                <div *ngIf="!patientForm.controls['mobileNo'].valid&&patientForm.controls['mobileNo'].dirty">
+                                                    <span class="text-capitalize small text-danger" *ngIf="patientForm.controls['mobileNo'].errors['required']" class="small redlabe text-danger">Phone Number is required</span>
+                                                    <span class="text-capitalize small text-danger"*ngIf="patientForm.controls['mobileNo'].errors['pattern']" class="small redlabe text-danger">Phone Number is not valid</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Enter Your Email</label>
+                                                <input type="text" class="form-control" name="email" placeholder="Email Address" formControlName="email"/>
+                                                <div class="small" *ngIf="!patientForm.controls['email'].valid&&patientForm.controls['email'].dirty" class="redlabe">
+                                                    <span *ngIf="patientForm.controls['email'].errors['required']" class="small redlabe text-danger"> Email cannot be left blank</span>
+                                                    <span *ngIf="patientForm.controls['email'].errors['pattern']" class="small redlabe text-danger">Email must be valid</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" name="pswd" data-required="1" placeholder="enter Password" class="form-control" formControlName="password"/>
+                                                <div class="small" *ngIf="!patientForm.controls['password'].valid&&patientForm.controls['password'].dirty">
+                                                    <span *ngIf="patientForm.controls['password'].errors['required']" class="small redlabe text-danger">Password cannot be left blank</span>
+                                                    <span *ngIf="patientForm.controls['password'].errors['minlength']" class="small redlabe text-danger">password must be atleast 6 characters</span>
+                                                    <span *ngIf="patientForm.controls['password'].errors['pattern']&&!patientForm.controls['password'].errors['minlength']" class="small redlabe text-danger">Password must contain at least 6 characters including 1 uppercase and 1 lowercase letter, 1 special character and 1 number</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Confirm Password</label>
+                                                <input type="password" name="cnfmPwd" data-required="1" placeholder="Reenter your password" class="form-control" formControlName="confirmPassword"/>
+                                                <div class="small" *ngIf="!patientForm.controls['confirmPassword'].valid&&patientForm.controls['confirmPassword'].dirty">
+                                                </div>
+                                                <div *ngIf="patientForm.controls['confirmPassword'].dirty&&patientForm.hasError('mismatchedPasswords')"><span class="small" class="small redlabe text-danger"> Passwords do not match.</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Gender</label>
+                                                <select class="form-control" name="gender" formControlName="gender">
+                                                    <option value="">Select...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select>
+                                                <div class="small" *ngIf="!patientForm.controls['gender'].valid&&patientForm.controls['gender'].dirty" class="redlabe">
+                                                    <span *ngIf="patientForm.controls['gender'].errors['required']" class="small redlabe text-danger"> Gender cannot be left blank</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Age</label>
+                                                <input name="age" type="number" placeholder="age " class="form-control" formControlName="age" (keydown)="minus($event)" (keydown)="minus($event)" min="0"/>
+                                                <div class="small" *ngIf="!patientForm.controls['age'].valid&&patientForm.controls['age'].dirty" class="redlabe">
+                                                    <span *ngIf="patientForm.controls['age'].errors['age']" class="small redlabe text-danger"> Age cannot be left blank</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>City</label>
+                                                <input type="text" name="city" data-required="1" placeholder="enter city" class="form-control " formControlName="city"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Addres</label>
+                                                <textarea name="address" placeholder="address" class="form-control-textarea" rows="5" formControlName="address"></textarea>
+                                                 <div class="small redlabe text-danger"
+                                                *ngIf="!patientForm.controls['address'].valid&&patientForm.controls['address'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="patientForm.controls['address'].errors['required']"> Address cannot be left blank</span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>DOB</label>
+                                                <input class="form-control " size="16" placeholder="date of Birth" type="date" formControlName="dob">
+                                                <div class="small" *ngIf="!patientForm.controls['dob'].valid&&patientForm.controls['dob'].dirty">
+                                                    <span class="text-capitalize text-danger" *ngIf="patientForm.controls['dob'].errors['required']">DOB is required</span>
+                                                    <span class="text-capitalize text-danger" *ngIf="patientForm.controls['dob'].errors['pattern']">DOB is not valid</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Blood Group</label>
+                                            <select class="form-control" formControlName="bloodgroup">
+
+                                                  <option value="">Blood Group</option>
+                                                   <option  *ngFor="let bg of bloodgroup" value= {{bg}}> {{bg}}</option>
+                                            </select>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                     <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Aadhar Card Number</label>
+                                                 <input type="number" name="aadharNo" data-required="1" placeholder="Aadhar Number" class="form-control " formControlName="aadharNo" min="0" (keydown)="minus($event)"/>
+                                                <div *ngIf="!patientForm.controls['aadharNo'].valid&&patientForm.controls['aadharNo'].dirty">
+                                                    <span class="text-capitalize small text-danger" *ngIf="patientForm.controls['aadharNo'].errors['required']" class="small redlabe text-danger">Adhar Number is required</span>
+                                                    <span class="text-capitalize small text-danger"*ngIf="patientForm.controls['aadharNo'].errors['pattern']" class="small redlabe text-danger">Adhar Number is not valid</span>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                         <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Image</label>
+                                                        <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg">
+                                                    
+                                                </div>
+                                            </div>
+
+                                    </div>
+
+                                <div class="row">
+                                      
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Descriptiom</label>
+                                                <textarea name="description"  class="form-control-textarea" rows="5" formControlName="description"></textarea>
+                                       
+                                            </div>
+                                            </div>
+                                        </div>
+
+
+                                    <div class="mt-3 text-center">
+                                       <button type="submit" [disabled]="!patientForm.valid" class="btn btn-info" (click)="patientSignup(patientForm.value)">Submit</button>
+                                    <button type="button" class="btn btn-default" (click)="reset()">Clear</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Hospital Signup Form -->
+
+                        <div *ngIf="accountType==='hospital'">
+                            <form class="mt-5" [formGroup]="hospitalForm" >
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Enter Name</label>
+                                            <input type="text" formControlName="name" name="name" data-required="1" placeholder="Enter  name" class="form-control" />
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!hospitalForm.controls['name'].valid&&hospitalForm.controls['name'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['name'].errors['required']"> Name cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="col-sm-6">
+                                    <div class="form-group">
+                                            <label>Enter Your Email</label>
+                                            <input type="text" class="form-control" name="email" placeholder="Email Address" formControlName="email"/>
+                                            <div class="small" *ngIf="!hospitalForm.controls['email'].valid&&hospitalForm.controls['email'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['email'].errors['required']"> Email cannot be left blank</span>
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['email'].errors['pattern']">Email must be valid</span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Enter Contact Number</label>
+                                            <input min="0" (keydown)="minus($event)" name="contactNo" type="number" placeholder="Contact number" class="form-control" formControlName="contactNo"/>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!hospitalForm.controls['contactNo'].valid&&hospitalForm.controls['contactNo'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['contactNo'].errors['contactNo']"> Contact No cannot be left blank</span>
+                                                <span class="text-capitalize small text-danger"*ngIf="hospitalForm.controls['contactNo'].errors['pattern']" class="small redlabe text-danger">Contact No is not valid</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Specialty</label>
+                                            <select class="form-control" name="Specialty" formControlName="Specialty">
+                                                <option value="">Select...</option>
+                                                <option value="multiSpecialty">MultiSpecialty</option>
+                                                <option value="Ortho">Ortho</option>
+                                            </select>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!hospitalForm.controls['Specialty'].valid&&hospitalForm.controls['Specialty'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['Specialty'].errors['required']"> Specialty cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Open Time</label>
+                                            <input min="0" (keydown)="minus($event)" name="open" type="time" placeholder="open time" class="form-control" formControlName="open"/>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!hospitalForm.controls['open'].valid&&hospitalForm.controls['open'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['open'].errors['open']"> Open Time cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Close Time</label>
+                                            <input type="time" class="form-control" name="close" placeholder="close time" formControlName="close"/>
+                                            <div class="small" *ngIf="!hospitalForm.controls['close'].valid&&hospitalForm.controls['close'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['close'].errors['required']"> Close Time cannot be left blank</span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>City</label>
+                                                <input type="text" name="city" data-required="1" placeholder="Eenter your city" class="form-control " formControlName="city"/>
+                                            </div>
+                                        </div>
+                                    <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label>Enter Your location</label>
+                                            <input type="text" class="form-control" name="location" placeholder="Location" formControlName="location"/>
+                                            <div class="small" *ngIf="!hospitalForm.controls['location'].valid&&hospitalForm.controls['location'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['location'].errors['required']"> Location cannot be left blank</span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                  
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" name="pswd" data-required="1" placeholder="enter Password" class="form-control" formControlName="password"/>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!hospitalForm.controls['password'].valid&&hospitalForm.controls['password'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['password'].errors['required']"> Password cannot be left blank</span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+                                            <div class="small redlabe text-danger" *ngIf="!hospitalForm.controls['confirmPassword'].valid&&hospitalForm.controls['confirmPassword'].dirty">
+                                            </div>
+                                            <div *ngIf="hospitalForm.controls['confirmPassword'].dirty&&hospitalForm.hasError('mismatchedPasswords')"><span class="small redlabe text-danger"> Passwords do not match.</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="row">                                  
+                                     <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea class="form-control" formControlName="address" rows="4"></textarea>
+                                           <!--  <input type="text" class="form-control" name="address" placeholder="address" formControlName="address"/> -->
+                                            <div class="small" *ngIf="!hospitalForm.controls['address'].valid&&hospitalForm.controls['address'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="hospitalForm.controls['address'].errors['required']"> address cannot be left blank</span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-6">
+                                        <label>Description</label>
+                                        <textarea class="form-control" formControlName="description" rows="4"></textarea>
+                                        <!-- <input type="textarea" rows="10" cols="30" class="form-control" name="location" placeholder="Location" formControlName="location"/> -->
+                                    </div>
+                               </div>
+                               <div class="row">
+                                  <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Image</label>
+                                                <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg">
+                                            
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="mt-3 text-center" >
+                                    <button type="submit"  (click)="hospitalSignup()" [disabled]="!hospitalForm.valid" class="btn btn-info" >Submit</button>
+                                    <button type="button" class="btn btn-default" (click)="reset()">Clear</button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <!-- Pharmacy sign up form start here -->
+
+                        <div *ngIf="accountType==='pharmacy'">
+                            <form class="mt-5" [formGroup]="pharmacyForm" >
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Enter Name</label>
+                                            <input type="text" formControlName="name" name="name" data-required="1" placeholder="Enter  name" class="form-control" />
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!pharmacyForm.controls['name'].valid&&pharmacyForm.controls['name'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['name'].errors['required']"> Name cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="col-sm-6">
+                                    <div class="form-group">
+                                            <label>Enter Your Email</label>
+                                            <input type="text" class="form-control" name="email" placeholder="Email Address" formControlName="email"/>
+                                            <div class="small" *ngIf="!pharmacyForm.controls['email'].valid&&pharmacyForm.controls['email'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['email'].errors['required']"> Email cannot be left blank</span>
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['email'].errors['pattern']">Email must be valid</span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Enter Contact Number</label>
+                                            <input min="0" (keydown)="minus($event)" name="contactNo" type="number" placeholder="Contact number" class="form-control" formControlName="contactNo"/>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!pharmacyForm.controls['contactNo'].valid&&pharmacyForm.controls['contactNo'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['contactNo'].errors['contactNo']"> Contact No cannot be left blank</span>
+                                                <span class="text-capitalize small text-danger"*ngIf="pharmacyForm.controls['contactNo'].errors['pattern']" class="small redlabe text-danger">Contact No is not valid</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Enter Your License No.</label>
+                                            <input type="text" class="form-control" name="license" placeholder="License Number" formControlName="license"/>
+                                            <div class="small" *ngIf="!pharmacyForm.controls['license'].valid&&pharmacyForm.controls['license'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['license'].errors['required']"> license number cannot be left blank</span>
+                                               
+                                            </div>
+                                        </div>
+                                        </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Open Time</label>
+                                            <input min="0" (keydown)="minus($event)" name="open" type="time" placeholder="open time" class="form-control" formControlName="open"/>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!pharmacyForm.controls['open'].valid&&pharmacyForm.controls['open'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['open'].errors['open']"> Open Time cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Close Time</label>
+                                            <input type="time" class="form-control" name="close" placeholder="close time" formControlName="close"/>
+                                            <div class="small" *ngIf="!pharmacyForm.controls['close'].valid&&pharmacyForm.controls['close'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['close'].errors['required']"> Close Time cannot be left blank</span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>City</label>
+                                                <input type="text" name="city" data-required="1" placeholder="Eenter your city" class="form-control " formControlName="city"/>
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+                  
+                                <div class="row">
+                                   <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" name="pswd" data-required="1" placeholder="enter Password" class="form-control" formControlName="password"/>
+                                                <div class="small" *ngIf="!pharmacyForm.controls['password'].valid&&pharmacyForm.controls['password'].dirty">
+                                                    <span *ngIf="pharmacyForm.controls['password'].errors['required']" class="small redlabe text-danger">Password cannot be left blank</span>
+                                                    <span *ngIf="pharmacyForm.controls['password'].errors['minlength']" class="small redlabe text-danger">password must be atleast 6 characters</span>
+                                                    <span *ngIf="pharmacyForm.controls['password'].errors['pattern']&&!pharmacyForm.controls['password'].errors['minlength']" class="small redlabe text-danger">Password must contain at least 6 characters including 1 uppercase and 1 lowercase letter, 1 special character and 1 number</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+                                            <div class="small redlabe text-danger" *ngIf="!pharmacyForm.controls['confirmPassword'].valid&&pharmacyForm.controls['confirmPassword'].dirty">
+                                            </div>
+                                            <div *ngIf="pharmacyForm.controls['confirmPassword'].dirty&&pharmacyForm.hasError('mismatchedPasswords')"><span class="small redlabe text-danger"> Passwords do not match.</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="row">                                  
+                                     <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea class="form-control" formControlName="address" rows="4"></textarea>
+                                           
+                                            <div class="small" *ngIf="!pharmacyForm.controls['address'].valid&&pharmacyForm.controls['address'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['address'].errors['required']"> address cannot be left blank</span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-6">
+                                        <label>Description</label>
+                                        <textarea class="form-control" formControlName="description" rows="4"></textarea>
+                                    </div>
+                               </div>
+                                  <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Image</label>
+                                                <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg">
+                                            
+                                        </div>
+                                    </div>
+                               </div>
+                                <div class="mt-3 text-center" >
+                                    <button type="submit"  (click)="pharmacySignup()" [disabled]="!pharmacyForm.valid" class="btn btn-info" >Submit</button>
+                                    <button type="button" class="btn btn-default" (click)="reset()">Clear</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Lab sign up form start here -->
+
+                        <div *ngIf="accountType==='labs'">
+                            <form class="mt-5" [formGroup]="labForm" >
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Enter Name</label>
+                                            <input type="text" formControlName="name" name="name" data-required="1" placeholder="Enter  name" class="form-control" />
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!labForm.controls['name'].valid&&labForm.controls['name'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="labForm.controls['name'].errors['required']"> Name cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="col-sm-6">
+                                    <div class="form-group">
+                                            <label>Enter Your Email</label>
+                                            <input type="text" class="form-control" name="email" placeholder="Email Address" formControlName="email"/>
+                                            <div class="small" *ngIf="!labForm.controls['email'].valid&&labForm.controls['email'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="labForm.controls['email'].errors['required']"> Email cannot be left blank</span>
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="labForm.controls['email'].errors['pattern']">Email must be valid</span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Enter Contact Number</label>
+                                            <input min="0" (keydown)="minus($event)" name="contactNo" type="number" placeholder="Contact number" class="form-control" formControlName="contactNo"/>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!labForm.controls['contactNo'].valid&&labForm.controls['contactNo'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="labForm.controls['contactNo'].errors['contactNo']"> Contact No cannot be left blank</span>
+                                                <span class="text-capitalize small text-danger"*ngIf="labForm.controls['contactNo'].errors['pattern']" class="small redlabe text-danger">Contact No is not valid</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Enter Your License No.</label>
+                                            <input type="text" class="form-control" name="license" placeholder="License Number" formControlName="license"/>
+                                            <div class="small" *ngIf="!labForm.controls['license'].valid&&labForm.controls['license'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="labForm.controls['license'].errors['required']"> license number cannot be left blank</span>
+                                               
+                                            </div>
+                                        </div>
+                                        </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Open Time</label>
+                                            <input min="0" (keydown)="minus($event)" name="open" type="time" placeholder="open time" class="form-control" formControlName="open"/>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!labForm.controls['open'].valid&&labForm.controls['open'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="labForm.controls['open'].errors['open']"> Open Time cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Close Time</label>
+                                            <input type="time" class="form-control" name="close" placeholder="close time" formControlName="close"/>
+                                            <div class="small" *ngIf="!labForm.controls['close'].valid&&labForm.controls['close'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="labForm.controls['close'].errors['required']"> Close Time cannot be left blank</span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>City</label>
+                                                <input type="text" name="city" data-required="1" placeholder="Eenter your city" class="form-control " formControlName="city"/>
+                                                <div class="small redlabe text-danger"
+                                                *ngIf="!labForm.controls['city'].valid&&labForm.controls['city'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="labForm.controls['city'].errors['from']"> city cannot be left blank</span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+                  
+                                <div class="row">
+                                    
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" name="pswd" data-required="1" placeholder="enter Password" class="form-control" formControlName="password"/>
+                                                <div class="small" *ngIf="!labForm.controls['password'].valid&&labForm.controls['password'].dirty">
+                                                    <span *ngIf="labForm.controls['password'].errors['required']" class="small redlabe text-danger">Password cannot be left blank</span>
+                                                    <span *ngIf="labForm.controls['password'].errors['minlength']" class="small redlabe text-danger">password must be atleast 6 characters</span>
+                                                    <span *ngIf="labForm.controls['password'].errors['pattern']&&!labForm.controls['password'].errors['minlength']" class="small redlabe text-danger">Password must contain at least 6 characters including 1 uppercase and 1 lowercase letter, 1 special character and 1 number</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+                                            <div class="small redlabe text-danger" *ngIf="!labForm.controls['confirmPassword'].valid&&labForm.controls['confirmPassword'].dirty">
+                                            </div>
+                                            <div *ngIf="labForm.controls['confirmPassword'].dirty&&labForm.hasError('mismatchedPasswords')"><span class="small redlabe text-danger"> Passwords do not match.</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="row">                                  
+                                     <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea class="form-control" formControlName="address" rows="4"></textarea>            
+                                            <div class="small" *ngIf="!labForm.controls['address'].valid&&labForm.controls['address'].dirty" class="small redlabe text-danger">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="labForm.controls['address'].errors['required']"> address cannot be left blank</span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-6">
+                                        <label>Description</label>
+                                        <textarea class="form-control" formControlName="description" rows="4"></textarea>
+                                    </div>
+                               </div>
+                                  <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Image</label>
+                                                <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg">
+                                            
+                                        </div>
+                                    </div>
+                               </div>
+                                <div class="mt-3 text-center" >
+                                    <button type="submit"  (click)="labSignup()" [disabled]="!labForm.valid" class="btn btn-info" >Submit</button>
+                                    <button type="button" class="btn btn-default" (click)="reset()">Clear</button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class="modal fade" id="otpModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">OTP Verification</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form [formGroup]="otpForm">
+                        <div class="form-group">
+                            <div class="">
+                                <label>OTP*</label>
+                                <input type="tel" [(ngModel)]="OTP" formControlName="OTP" name="mobile" class="form-control" placeholder="Enter OTP Number">
+                                  <div class="small redlabe text-danger" *ngIf="!otpForm.controls['OTP'].valid&&otpForm.controls['OTP'].dirty">
+                                <span *ngIf="otpForm.controls['OTP'].errors['required']"> OTP cannot be left blank</span>
+                                
+                            </div>
+                            </div>
+                        </div>
+                         <div class="modal-footer">
+                    <button [disabled]="!otpForm.valid"  type="button" class="btn btn-primary" (click)="sendOTP()">Verify OTP</button>
+                  </div>
+                  
+                    </form>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>

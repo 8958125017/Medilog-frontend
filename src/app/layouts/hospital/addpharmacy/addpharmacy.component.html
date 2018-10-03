@@ -1,0 +1,165 @@
+<div id="main-content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Add Pharmacy</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item">Pharmacy</li>
+                            <li class="breadcrumb-item active">Add Pharmacy</li>
+                        </ul>
+                    </div>            
+                  <!--   <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                        <div class="bh_chart hidden-xs">
+                            <div class="float-left m-r-15">
+                                <small>Visitors</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-user"></i> 1,784</h6>
+                            </div>
+                            <span class="bh_visitors float-right">2,5,1,8,3,6,7,5</span>
+                        </div>
+                        <div class="bh_chart hidden-sm">
+                            <div class="float-left m-r-15">
+                                <small>Visits</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-globe"></i> 325</h6>
+                            </div>
+                            <span class="bh_visits float-right">10,8,9,3,5,8,5</span>
+                        </div>
+                        <div class="bh_chart hidden-sm">
+                            <div class="float-left m-r-15">
+                                <small>Chats</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-bubbles"></i> 13</h6>
+                            </div>
+                            <span class="bh_chats float-right">1,8,5,6,2,4,3,2</span>
+                        </div>                        
+                    </div> -->
+                </div>
+            </div>
+            
+           <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Basic Information <small>Description text here...</small> </h2>                            
+                        </div>
+                        <div class="body">
+                            <form class="mt-5" [formGroup]="pharmacyForm" >
+                            <div class="row clearfix">
+                               <div class="col-sm-4">
+                                    <div class="form-group">
+                                         <input type="text" formControlName="name" name="name" data-required="1" placeholder="Enter  name" class="form-control" />
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!pharmacyForm.controls['name'].valid&&pharmacyForm.controls['name'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['name'].errors['required']"> Name cannot be left blak</span>
+                                                </div>
+                                    </div>
+                                </div> 
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="email" placeholder="Email Address" formControlName="email"/>
+                                            <div class="small" *ngIf="!pharmacyForm.controls['email'].valid&&pharmacyForm.controls['email'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['email'].errors['required']"> Email cannot be left blak</span>
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['email'].errors['pattern']">Email must be valid</span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                         <input min="0" (keydown)="minus($event)" name="contactNo" type="number" placeholder="Contact number" class="form-control" formControlName="contactNo"/>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!pharmacyForm.controls['contactNo'].valid&&pharmacyForm.controls['contactNo'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['contactNo'].errors['contactNo']"> Contact No cannot be left blak</span>
+                                                <span class="text-capitalize small text-danger"*ngIf="pharmacyForm.controls['contactNo'].errors['pattern']" class="small redlabe text-danger">Contact No is not valid</span>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">                            
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">                                        
+                                          <input type="text" class="form-control" name="license" placeholder="License Number" formControlName="license"/>
+                                            <div class="small" *ngIf="!pharmacyForm.controls['license'].valid&&pharmacyForm.controls['license'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['license'].errors['required']"> license number cannot be left blak</span>
+                                               
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                       <input min="0" (keydown)="minus($event)" name="open" type="time" placeholder="open time" class="form-control" formControlName="open"/>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!pharmacyForm.controls['open'].valid&&pharmacyForm.controls['open'].dirty" >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['open'].errors['open']"> Open Time cannot be left blak</span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="time" class="form-control" name="close" placeholder="close time" formControlName="close"/>
+                                            <div class="small" *ngIf="!pharmacyForm.controls['close'].valid&&pharmacyForm.controls['close'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['close'].errors['required']"> Close Time cannot be left blak</span>
+                                                
+                                            </div>
+                                    </div>
+                                </div>                            
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                         <input type="text" name="city" data-required="1" placeholder="Eenter your city" class="form-control " formControlName="city"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                             <div class="col-sm-6">
+                                    <div class="form-group">
+                                          <input type="password" name="pswd" data-required="1" placeholder="enter Password" class="form-control" formControlName="password"/>
+                                                <div class="small" *ngIf="!pharmacyForm.controls['password'].valid&&pharmacyForm.controls['password'].dirty">
+                                                    <span *ngIf="pharmacyForm.controls['password'].errors['required']" class="small redlabe text-danger">Password cannot be left blank</span>
+                                                    <span *ngIf="pharmacyForm.controls['password'].errors['minlength']" class="small redlabe text-danger">password must be atleast 6 characters</span>
+                                                    <span *ngIf="pharmacyForm.controls['password'].errors['pattern']&&!pharmacyForm.controls['password'].errors['minlength']" class="small redlabe text-danger">Password must contain at least 6 characters including 1 uppercase and 1 lowercase letter, 1 special character and 1 number</span>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                       <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+                                            <div class="small redlabe text-danger" *ngIf="!pharmacyForm.controls['confirmPassword'].valid&&pharmacyForm.controls['confirmPassword'].dirty">
+                                            </div>
+                                            <div *ngIf="pharmacyForm.controls['confirmPassword'].dirty&&pharmacyForm.hasError('mismatchedPasswords')"><span class="small redlabe text-danger"> Passwords do not match.</span>
+                                            </div>
+                                    </div>
+                                </div>
+
+                            <div class="row clearfix">
+                                <div class="col-lg-12">
+                                     <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg">
+                                </div>
+                            </div>
+                            <div class="row clearfix">                            
+                                <div class="col-sm-12">
+                                    <div class="form-group m-t-20">
+                                        <textarea rows="6" class="form-control" placeholder="Description" formControlName="description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary" (click)="pharmacySignup()" [disabled]="!pharmacyForm.valid">Submit</button>
+                                    <button type="submit" class="btn btn-outline-secondary" (click)="reset()">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,76 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="page-bar">
+            <div class="page-title-breadcrumb">
+                <div class=" pull-left">
+                    <div class="page-title">Upload Bills</div>
+                </div>
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li>
+                    <li><a class="parent-item">Lab</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li>
+                    <li class="active">upload bill</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="card card-box">
+                    <div class="card-head">
+                        <header>Basic Information</header>
+                        <button id="panel-button" class="mdl-button mdl-js-button mdl-button--icon pull-right" data-upgraded=",MaterialButton">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" data-mdl-for="panel-button">
+                            <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+                            <li class="mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+                            <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+                        </ul>
+                    </div>
+                    <div class="card-body" id="bar-parent">
+                        <form [formGroup]="billForm" id="form_sample_1" class="form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3">Aadhar No
+                                        <span class="required"> * </span>
+                                    </label>
+                                    <div class="col-md-5">
+                                        <input type="number" name="aadharno" data-required="1" placeholder="Aadhar Number" class="form-control " formControlName="aadharno" min="0" (keydown)="minus($event)"/>
+                                                <div *ngIf="!billForm.controls['aadharno'].valid&&billForm.controls['aadharno'].dirty">
+                                                    <span class="text-capitalize small text-danger" *ngIf="billForm.controls['aadharno'].errors['required']" class="small redlabe text-danger">Aadhar Number is required</span>
+                                                    <span class="text-capitalize small text-danger"*ngIf="billForm.controls['aadharno'].errors['pattern']" class="small redlabe text-danger">Aadhar Number is not valid</span>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3">Choose Bill
+                                         <span class="required"> * </span>
+                                    </label>
+                                    <div class="col-md-5">
+                                       <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg,application/pdf">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3">Description
+                                        <span class="required"> * </span>
+                                    </label>
+                                    <div class="col-md-5">
+                                        <textarea class="form-control" formControlName="description" rows="4"></textarea> </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="offset-md-3 col-md-9">
+                                            <button type="submit" data-toggle="modal" class="btn btn-info" (click)="sendRequest()" [disabled]="!billForm.valid">Submit</button>
+                                            <button type="button" class="btn btn-default" (click)="reset()">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

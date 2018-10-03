@@ -1,0 +1,251 @@
+  <div id="main-content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Add Doctors</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item">Doctor</li>
+                            <li class="breadcrumb-item active">Add Doctors</li>
+                        </ul>
+                    </div>            
+                  <!--   <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                        <div class="bh_chart hidden-xs">
+                            <div class="float-left m-r-15">
+                                <small>Visitors</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-user"></i> 1,784</h6>
+                            </div>
+                            <span class="bh_visitors float-right">2,5,1,8,3,6,7,5</span>
+                        </div>
+                        <div class="bh_chart hidden-sm">
+                            <div class="float-left m-r-15">
+                                <small>Visits</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-globe"></i> 325</h6>
+                            </div>
+                            <span class="bh_visits float-right">10,8,9,3,5,8,5</span>
+                        </div>
+                        <div class="bh_chart hidden-sm">
+                            <div class="float-left m-r-15">
+                                <small>Chats</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-bubbles"></i> 13</h6>
+                            </div>
+                            <span class="bh_chats float-right">1,8,5,6,2,4,3,2</span>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+           
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Basic Information <small>Description text here...</small> </h2>                            
+                        </div>
+                        <div class="body">
+                            <form class="mt-5" [formGroup]="doctorForm" >
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                         <input type="text" formControlName="firstName" name="firstname" data-required="1" placeholder="enter first name" class="form-control " />
+                                                <div class="small" *ngIf="!doctorForm.controls['firstName'].valid&&doctorForm.controls['firstName'].dirty" class="redlabe">
+                                                    <span *ngIf="doctorForm.controls['firstName'].errors['required']" class="small redlabe text-danger"> First Name cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['firstName'].errors['pattern']" class="small redlabe text-danger">First Name must contain 3-28 characters, only alphabets and no spaces</span>
+                                                    
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" name="lastname" data-required="1" placeholder="enter last name" class="form-control" formControlName="lastName" />
+                                                <div class="small" *ngIf="!doctorForm.controls['lastName'].valid&&doctorForm.controls['lastName'].dirty" class="redlabe">
+                                                    <span *ngIf="doctorForm.controls['lastName'].errors['required']" class="small redlabe text-danger"> Last Name cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['lastName'].errors['pattern']" class="small redlabe text-danger">Last Name must contain 3-28 characters, only alphabets and no spaces</span>
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row clearfix">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                         <input type="date" name="dob" class="form-control" placeholder="Date Of Birth" formControlName="dob">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                              <select class="form-control" name="gender" formControlName="gender">
+                                                <option value="">Gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                            <div class="small redlabe text-danger"
+                                                *ngIf="!doctorForm.controls['gender'].valid&&doctorForm.controls['gender'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="doctorForm.controls['gender'].errors['required']"> Gender cannot be left blank</span>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                                 <select class="form-control" formControlName="practiceSpecialty">
+                                               <option value="">Select Specialities</option>
+                                                   <option  *ngFor="let bg of specialities" value= {{bg}}> {{bg}}</option>
+                                            </select>
+                                        </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                         <input name="mobileNo" type="number" placeholder="mobile number" class="form-control "  formControlName="mobileNo" min="0" (keydown)="minus($event)"/>
+                                                <div *ngIf="!doctorForm.controls['mobileNo'].valid&&doctorForm.controls['mobileNo'].dirty">
+                                                    <span class="text-capitalize small text-danger" *ngIf="doctorForm.controls['mobileNo'].errors['required']" class="small redlabe text-danger">Phone Number is required</span>
+                                                    <span class="text-capitalize small text-danger"*ngIf="doctorForm.controls['mobileNo'].errors['pattern']" class="small redlabe text-danger">Phone Number is not valid</span>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                       <select class="form-control" formControlName="degree" name="degree">
+                                                <option value="">Select Degree</option>
+                                                   <option  *ngFor="let bg of degreee" value= {{bg}}> {{bg}}</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                          <input type="text" class="form-control" name="email" placeholder="Email Address" formControlName="email"/>
+                                                <div class="small" *ngIf="!doctorForm.controls['email'].valid&&doctorForm.controls['email'].dirty" class="redlabe">
+                                                    <span *ngIf="doctorForm.controls['email'].errors['required']" class="small redlabe text-danger"> Email cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['email'].errors['pattern']" class="small redlabe text-danger">Email must be valid</span>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <select class="form-control" formControlName="bloodgroup">
+                                                <option value="">Blood Group</option>
+                                                   <option  *ngFor="let bg of bloodgroup" value= {{bg}}> {{bg}}</option>
+                                            </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                          <input type="password" name="pswd" data-required="1" placeholder="enter Password" class="form-control" formControlName="password"/>
+                                                <div class="small" *ngIf="!doctorForm.controls['password'].valid&&doctorForm.controls['password'].dirty">
+                                                    <span *ngIf="doctorForm.controls['password'].errors['required']" class="small redlabe text-danger">Password cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['password'].errors['minlength']" class="small redlabe text-danger">password must be atleast 6 characters</span>
+                                                    <span *ngIf="doctorForm.controls['password'].errors['pattern']&&!doctorForm.controls['password'].errors['minlength']" class="small redlabe text-danger">Password must contain at least 6 characters including 1 uppercase and 1 lowercase letter, 1 special character and 1 number</span>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                       <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+                                            <div class="small redlabe text-danger" *ngIf="!doctorForm.controls['confirmPassword'].valid&&doctorForm.controls['confirmPassword'].dirty">
+                                            </div>
+                                            <div *ngIf="doctorForm.controls['confirmPassword'].dirty&&doctorForm.hasError('mismatchedPasswords')"><span class="small redlabe text-danger"> Passwords do not match.</span>
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                                 <div class="col-sm-6">
+                                    <div class="form-group">
+                                          <input type="number" name="aadhar" data-required="1" placeholder="enter Aadhar Number" class="form-control" formControlName="aadharNo"/>
+                                                <div class="small" *ngIf="!doctorForm.controls['aadharNo'].valid&&doctorForm.controls['aadharNo'].dirty">
+                                                    <span *ngIf="doctorForm.controls['aadharNo'].errors['required']" class="small redlabe text-danger">Aadhar cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['aadharNo'].errors['minlength']" class="small redlabe text-danger">Aadhar must be atleast 6 characters</span>
+                                                    <span *ngIf="doctorForm.controls['aadharNo'].errors['pattern']&&!doctorForm.controls['aadharNo'].errors['minlength']" class="small redlabe text-danger">Password must contain at 12 number</span>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                     <textarea class="form-control" placeholder="description" formControlName="description" rows="4"></textarea>
+                                    </div>
+                                </div>
+
+                            
+                                <div class="col-lg-12">
+                                     <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg" id="uploadBtn">
+                                </div>
+                      
+                                <div >
+                                    <button type="submit" [disabled]="!doctorForm.valid" (click)="doctorSendRequestToAdmin()" class="btn btn-primary">Submit</button>
+                                    <button type="submit" (click)="reset()" class="btn btn-outline-secondary">Clear</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--  <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Doctor's Account Information <small>Description text here...</small> </h2>
+                        </div>
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="User Name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Confirm Password">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-outline-secondary">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+    
+
+    
+  <div class="modal fade" id="otpModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">OTP Verification</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form [formGroup]="otpForm">
+                        <div class="form-group">
+                            <div class="">
+                                <label>OTP*</label>
+                                <input type="tel" [(ngModel)]="otp" formControlName="otp" name="mobile" class="form-control" placeholder="Enter OTP Number">
+                                  <div class="small redlabe text-danger" *ngIf="!otpForm.controls['otp'].valid&&otpForm.controls['otp'].dirty">
+                                <span *ngIf="otpForm.controls['otp'].errors['required']"> OTP cannot be left blak</span>
+                                
+                            </div>
+                            </div>
+                        </div>
+                         <div class="modal-footer">
+                    <button [disabled]="!otpForm.valid"  type="button" class="btn btn-primary" (click)="sendOTP()">Verify OTP</button>
+                  </div>
+                  
+                    </form>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>

@@ -1,0 +1,75 @@
+
+        
+            <!-- start sidebar menu -->
+            <div class="sidebar-container">
+                <div class="sidemenu-container navbar-collapse collapse fixed-menu">
+                    <div id="remove-scroll" class="left-sidemenu">
+                        <ul class="sidemenu  page-header-fixed slimscroll-style" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                            <li class="sidebar-toggler-wrapper hide">
+                                <div class="sidebar-toggler">
+                                    <span></span>
+                                </div>
+                            </li>
+                            <li class="sidebar-user-panel">
+                                <div class="user-panel">
+                                    <div class="pull-left image">
+                                        <!--  <img src="{{user?.image}}" class="img-circle user-img-circle" alt="User Image" /> -->
+                                         <img alt="hello" class="img-circle " src="{{user?.image ? user?.image : '../../../assets/img/default-avatar.png'}}"/>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div class="dropdown">
+                                        <span>Welcome,</span>
+                                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{user?.name}}</strong></a>
+                                        <ul class="dropdown-menu dropdown-menu-right account">
+                                           <!--  <li><a ><i class="icon-user"></i>My Profile</a></li>
+                                            <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
+                                            <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li> -->
+                                            <li class="divider"></li>
+                                            <li><a (click)="logout()"><i class="icon-power"></i>Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                 
+
+                                <li  *ngFor="let menuItem of menuItems"  class="{{menuItem.class}} nav-item">
+                                    <a *ngIf="menuItem.type === 'link'" class="nav-link " [routerLink]="[menuItem.path]">
+                                        <i class="material-icons" style="{{menuItem?.style}}">{{menuItem.icon}}</i>
+                                        <p>{{menuItem.title}}</p>
+                                    </a>
+
+                                         <a *ngIf="menuItem?.type === 'sub'" class="nav-link nav-toggle " [routerLink]="[menuItem?.path]">
+                                            <i class="material-icons" style="{{menuItem?.style}}">{{menuItem?.icon}}</i>
+                                            <span class="title">{{menuItem?.title}}</span>
+                                           
+                                        </a>
+                                         <ul *ngIf="menuItem?.type === 'sub'" class="sub-menu">
+                                            <li class="nav-item " routerLinkActive="active" *ngFor="let childitem of menuItem.children">
+                                                <a [routerLink]="[childitem.path]" class="nav-link "> 
+                                                    <i class="material-icons" style="{{childitem?.style}}">{{childitem?.icon}}</i>
+                                                    <span class="title">{{childitem.title}}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+
+                                </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+      
+
+
+
+
+
+
+
+
+
+        
+   

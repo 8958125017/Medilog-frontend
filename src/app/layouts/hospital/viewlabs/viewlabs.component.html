@@ -1,0 +1,115 @@
+<div id="main-content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> All Diagnostic Center</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>                            
+                            <!-- <li class="breadcrumb-item">Patient</li> -->
+                            <li class="breadcrumb-item active">All Diagnostic</li>
+                        </ul>
+                    </div>            
+                    <!-- <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                        <div class="bh_chart hidden-xs">
+                            <div class="float-left m-r-15">
+                                <small>Visitors</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-user"></i> 1,784</h6>
+                            </div>
+                            <span class="bh_visitors float-right">2,5,1,8,3,6,7,5</span>
+                        </div>
+                        <div class="bh_chart hidden-sm">
+                            <div class="float-left m-r-15">
+                                <small>Visits</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-globe"></i> 325</h6>
+                            </div>
+                            <span class="bh_visits float-right">10,8,9,3,5,8,5</span>
+                        </div>
+                        <div class="bh_chart hidden-sm">
+                            <div class="float-left m-r-15">
+                                <small>Chats</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-bubbles"></i> 13</h6>
+                            </div>
+                            <span class="bh_chats float-right">1,8,5,6,2,4,3,2</span>
+                        </div>                        
+                    </div> -->
+                </div>
+            </div>
+            
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card patients-list">
+                        <div class="header">
+                            <h2>Diagnostic List</h2>
+                            <ul class="header-dropdown">
+                                <!-- <li><a class="tab_btn" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Weekly">W</a></li>
+                                <li><a class="tab_btn" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Monthly">M</a></li>
+                                <li><a class="tab_btn active" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Yearly">Y</a></li> -->
+                                <li>
+                                    <a class="btn btn-sm btn-primary" [routerLink]="['/hospital/adddiagnostic']">+ Add</a>
+                                </li>
+                                <!-- <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another Action</a></li>
+                                        <li><a href="javascript:void(0);">Something else</a></li>
+                                    </ul>
+                                </li> -->
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <!-- Nav tabs -->
+                            <!-- <ul class="nav nav-tabs-new2">
+                                <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#All">All</a></li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#USA">USA</a></li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#India">India</a></li>
+                            </ul> -->
+                                
+                            <!-- Tab panes -->
+                            <div class="tab-content m-t-10 padding-0">
+                                <div class="tab-pane table-responsive active show" id="All">
+                                    <table class="table m-b-0 table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>                                       
+                                                <th>Media</th>
+                                                <th>Diagnostic ID</th>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Number</th>
+                                                <!-- <th>Last Visit</th> -->
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="labLength<1">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                   
+                                                                    <td>No Data Found</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    
+                                                                   
+                                                                </tr>
+                                            <tr *ngFor="let lab of labs">
+                                                <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar2.jpg" alt=""></span></td>
+                                                <td><span class="list-name">{{lab._d ? la._id : 'NA'}}</span></td>
+                                                <td>{{lab.name ? lab.name : 'NA'}}</td>
+                                                <td>{{lab.address ? lab.address : 'NA'}}</td>
+                                                <td>{{lab.contactNo ? lab.contactNo : 'NA'}}</td>
+                                                <!-- <td>15 Jan 2018</td> -->
+                                                <td><span class="badge badge-success">Approved</span></td>
+                                            </tr>
+                                           
+                                        </tbody>
+                                    </table>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

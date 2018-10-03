@@ -1,0 +1,183 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+       
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="row">
+                    <div class="col align-self-center">
+                        <div class="card">
+                      <div class="card-header card-header-danger bgblue">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <span class="float-right"> <i class="material-icons">account_circle</i></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="float-left"><h4 class="card-title ">User Profile</h4></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            <div class="card-body">
+                                <div>
+                                    <div class="mt-3 ">
+                                      <div class="col-md-10 offset-md-1">
+                                        <ul class="nav nav-pills mb-3 ml-10 text-center" id="pills-tab" role="tablist" style="margin-left: 10%;">
+                                            <li class="nav-item">
+                                                <a class="nav-link active bg-transparent" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
+                                                
+                                                    <button mat-raised-button type="submit" class="btn bgblue text-center mybtn"><i class="material-icons mr-2">person</i>My Profile</button>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a class="nav-link bg-transparent" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+                                                
+                                                    <button (click)="fillUserProfile()" mat-raised-button type="submit" class="btn bgblue text-center mybtn"><i class="material-icons mr-2">settings</i>Edit Profile</button>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                          <div class="col-md-10 offset-md-1">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead class="text-warning">
+                         
+                          </thead>
+                                                    <tbody class="table-bordered">
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>{{fullUserProfile?.name?fullUserProfile.name:'-'}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Profession</td>
+                                                            <td>{{fullUserProfile?.profession?fullUserProfile.profession:'-'}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mobile No.</td>
+                                                            <td>{{fullUserProfile?.mobile?fullUserProfile.mobile:'-'}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Email Id</td>
+                                                            <td>{{fullUserProfile?.email?fullUserProfile.email:'-'}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>DOB</td>
+                                                            <td>{{fullUserProfile?.DOB?fullUserProfile.DOB:'-'}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>URN</td>
+                                                            <td>{{fullUserProfile?._id?fullUserProfile._id:'-'}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                           <div class="col-md-10 offset-md-1">
+                        <div >
+                           <!--  <div class="card-header card-header-danger bgblue">
+                                <h4 class="card-title">Edit Profile</h4>
+                                <p class="card-category">Complete your profile</p>
+                            </div> -->
+                            <div class="card-body table-bordered">
+                                <div [formGroup]="updateUserForm">                               
+                                    <div class="row">
+                                        <div class="col-md-12 ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput formControlName="name" placeholder="Name" type="text">
+                                                </mat-form-field>                           
+                                        </div>
+                                        <div class="small" *ngIf="!updateUserForm.controls['name'].valid&&updateUserForm.controls['name'].dirty">
+                                                <span *ngIf="updateUserForm.controls['name'].errors['required']">name is required</span>
+                                                <span *ngIf="updateUserForm.controls['name'].errors['pattern']">name is not valid</span>
+                                            </div>
+                                        <div class="col-md-12 ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput formControlName="profession" placeholder="Profession" type="text">
+                                                </mat-form-field>                                          
+                                        </div>
+                                        <div class="small" *ngIf="!updateUserForm.controls['profession'].valid&&updateUserForm.controls['profession'].dirty">
+                                                <span *ngIf="updateUserForm.controls['profession'].errors['required']">profession is required</span>
+                                                <span *ngIf="updateUserForm.controls['profession'].errors['pattern']">profession is not valid</span>
+                                            </div>
+                                        <div class="col-md-12 ">
+                                              <mat-form-field class="example-full-width">
+                                                <input matInput formControlName="mobile" placeholder="Mobile Number" type="text">
+                                                </mat-form-field>
+                                        </div>
+                                        <div class="small" *ngIf="!updateUserForm.controls['mobile'].valid&&updateUserForm.controls['mobile'].dirty">
+                                                <span *ngIf="updateUserForm.controls['mobile'].errors['required']">mobile is required</span>
+                                                <span *ngIf="updateUserForm.controls['mobile'].errors['pattern']">mobile is not valid</span>
+                                            </div>
+                                        <div class="col-md-12 ">
+                                           <mat-form-field class="example-full-width">
+                                                <input matInput formControlName="email" placeholder="Email address" type="text">
+                                              </mat-form-field>
+                                        </div>
+                                        <div class="small" *ngIf="!updateUserForm.controls['email'].valid&&updateUserForm.controls['email'].dirty">
+                                                <span *ngIf="updateUserForm.controls['email'].errors['required']">email is required</span>
+                                                <span *ngIf="updateUserForm.controls['email'].errors['pattern']">email is not valid</span>
+                                            </div>
+                                        <div class="col-md-12 ">
+                                           <mat-form-field class="example-full-width">
+                                                <input matInput formControlName="DOB" placeholder="DOB" type="text">
+                                              </mat-form-field>
+                                        </div>
+                                        <div class="small" *ngIf="!updateUserForm.controls['DOB'].valid&&updateUserForm.controls['DOB'].dirty">
+                                                <span *ngIf="updateUserForm.controls['DOB'].errors['required']">DOB is required</span>
+                                                <span *ngIf="updateUserForm.controls['DOB'].errors['pattern']">DOB is not valid</span>
+                                            </div>
+                                        <div class="col-md-12 ">
+                                           <mat-form-field class="example-full-width">
+                                                <input matInput formControlName="_id" placeholder="URN" type="text">
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="small" *ngIf="!updateUserForm.controls['_id'].valid&&updateUserForm.controls['_id'].dirty">
+                                                <span *ngIf="updateUserForm.controls['_id'].errors['required']">URN is required</span>
+                                                <span *ngIf="updateUserForm.controls['_id'].errors['pattern']">URN is not valid</span>
+                                            </div>
+                                    </div>
+                                    <button  mat-raised-button (click)="updateUserProfile(updateUserForm.value)" [disabled]="!updateUserForm.valid" class="btn bgblue pull-right">Update Profile</button>
+                                    <div class="clearfix"></div>
+                                </div>
+                    <!-- <form [formGroup]="updateUserForm">
+                        <div class="login_input_area">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" formControlName="name" class="form-control mt-5" name="name" id="name" placeholder="Name"  required>
+                                         
+                                          <div class="small" *ngIf="!updateUserForm.controls['name'].valid&&updateUserForm.controls['name'].dirty">
+                                                <span *ngIf="updateUserForm.controls['name'].errors['required']">name is required</span>
+                                                <span *ngIf="updateUserForm.controls['name'].errors['pattern']">name is not valid</span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn submit-btn mt-3" (click)="updateUserProfile(updateUserForm.value)"  [disabled]="!updateUserForm.valid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form> -->
+                            </div>
+                        </div>
+                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

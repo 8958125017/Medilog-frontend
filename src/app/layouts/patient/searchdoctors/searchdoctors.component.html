@@ -1,0 +1,122 @@
+  <div id="main-content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12">
+                        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Search Doctors</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index3.html"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item active">Doctors</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-4 col-md-4 col-sm-12 text-right">
+                        &nbsp;
+
+                        Search By :
+                        <input type="text" name="searchname" placeholder="Type Name" [(ngModel)]="searchName">
+                        <select (change)="searchByCategory($event)">
+                            <option value="All">All</option>
+                            <option value="Select Degree">Select Degree</option>
+                            <option value="Category 3">Category 3</option>
+                            <option value="Category 4">Category 4</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let doctor of doctors">
+                    <div class="card" (click)="viewDoctorProfile(doctor?.aadharNo)">
+                        <div class="body text-center">
+                            <div class="chart easy-pie-chart-1" data-percent="75"> <span>
+                                <img src="{{doctor?.image ? doctor?.image : '../../.././assets/img/default-avatar.png'}}" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/></span> </div>
+                            <h6 class="mb-0"><a title="" >{{doctor?.firstName +' '+doctor?.lastName}}</a> </h6>
+                            <div>
+                                <strong>{{doctor?.department}}</strong>
+                            </div>
+                            <span>{{doctor?.address}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="body text-center">
+                            <div class="chart easy-pie-chart-1" data-percent="67"> <span><img src="../assets/images/sm/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/></span> </div>
+                            <h6 class="mb-0"><a href="#" title="" >Hossein Shams</a></h6>
+                            <div>
+                                <strong>Gynecologist</strong>
+                            </div>
+                            <span>795 Folsom Ave, Suite 600 San Francisco, faCADGE 94107</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="body text-center">
+                            <div class="chart easy-pie-chart-1" data-percent="23"> <span><img src="../assets/images/sm/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/></span> </div>
+                            <h6 class="mb-0"><a href="#" title="">Maryam Amiri</a></h6>
+                            <div>
+                                <strong>
+                                    Nursing
+                                </strong>
+                            </div>
+                            <span>795 Folsom Ave, Suite 600 San Francisco,faCADGE 94107</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="body text-center">
+                            <div class="chart easy-pie-chart-1" data-percent="49"> <span><img src="../assets/images/sm/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/></span> </div>
+                            <h6 class="mb-0"><a href="#" title="">Tim Hank</a></h6>
+                            <div>
+                                <strong>Audiology</strong>
+                            </div>
+                            <span>795 Folsom Ave, Suite 600 San Francisco,faCADGE 94107</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="body text-center">
+                            <div class="chart easy-pie-chart-1" data-percent="75"> <span><img src="../assets/images/sm/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/></span> </div>
+                            <h6 class="mb-0"><a href="#">John Smith</a></h6>
+                            <div>
+                                <strong>
+                                    Physical Therapy
+                                </strong>
+                            </div>
+                            <span>795 Folsom Ave, Suite 600 San Francisco,faCADGE 94107</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="body text-center">
+                            <div class="chart easy-pie-chart-1" data-percent="88"> <span><img src="../assets/images/sm/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/></span> </div>
+                            <h6 class="mb-0"><a href="#" title="">Frank Camly</a></h6>
+                            <div>
+                                <strong>
+                                    Physical Therapy
+                                </strong>
+                            </div>
+                            <span>795 Folsom Ave, Suite 600 San Francisco,faCADGE 94107</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="body text-center">
+                            <div class="chart easy-pie-chart-1" data-percent="37"> <span><img src="../assets/images/sm/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/></span> </div>
+                            <h6 class="mb-0"><a href="#" title="">Gary Camara</a></h6>
+                            <div>
+                                <strong>Dentist</strong>
+                            </div>
+                            <span>795 Folsom Ave, Suite 600 San Francisco,faCADGE 94107</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            
+        </div>
+    </div>

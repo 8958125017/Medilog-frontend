@@ -1,0 +1,220 @@
+
+body{
+    transition: all 0.3s;
+}
+
+
+
+/*Buttin css start */
+.btn{
+    border-radius: 0%;
+    padding: 0.5rem 1.75rem;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #42387a;
+  border-color: #42387a;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #2a1d57;
+  border-color: #2a1d57;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(42, 29, 87, 0.5);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #fff;
+  background-color: #2a1d57;
+  border-color: #2a1d57;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color:#2a1d57;
+  border-color: #2a1d57;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(42, 29, 87, 0.5);
+}
+
+.fs-30{
+    font-size: 30px;
+    font-weight: 300;
+}
+
+
+
+
+.left-panel{
+    background-color: #fff;
+    min-height: 655px;
+}
+.right-panel{
+    background-color: #f7f8f9;
+    /*background: -webkit-linear-gradient(60deg, #42387a, #9d41e0);
+    background: linear-gradient(60deg, #42387a, #9d41e0);*/
+    min-height: 810px;
+    
+}
+.all-login{
+    padding: 140px 110px;
+}
+
+.box{
+    padding: 37px 11px;
+    text-align: center;
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+    cursor: pointer;
+}
+.box-heading{
+    font-size: 22px;
+    padding-top: 20px;
+}
+.box:hover{
+    background-color: #fff;
+    box-shadow: 0 0 30px 0px rgba(0,0,0,0.18);
+    -moz-box-shadow: 0 0 30px 0px rgba(0,0,0,0.18);
+    -webkit-box-shadow: 0 0 30px 0px rgba(0,0,0,0.18);
+    transform: translate(0, -10px);
+    -webkit-transform: translate(0, -10px);
+    -moz-transform: translate(0, -10px);
+}
+.login-as{
+    padding: 35px;
+    display: none;
+}
+.login-heading{
+    font-size: 30px;
+}
+
+.login-box{
+    /*padding: 233px;*/
+    width: 50%;
+    margin: 139px auto;
+    padding: 25px;
+}
+
+/*Sign up css start here*/
+.all-signup{
+    padding: 180px 110px;
+}
+.right-panel-sign{
+    background-color: #f7f8f9;
+    /*background: -webkit-linear-gradient(60deg, #42387a, #9d41e0);
+    background: linear-gradient(60deg, #42387a, #9d41e0);*/
+    min-height: 810px;
+}
+
+
+.signup .left-panel{
+    background-color: #42387a;
+    min-height: 810px;
+}
+.signup-as{
+    padding: 35px;
+    display: none;
+}
+.signup-box{
+    /*padding: 233px;*/
+    width: 100%;
+    /*margin: 40px auto;*/
+    padding: 25px;
+}
+.d-inline{
+    display: inline-block;
+}
+
+
+
+.p-0{
+    padding: 0px;
+}
+
+.mt-4{
+    margin-top: 15px;
+}
+.login-heading{
+    font-size: 36px;
+    font-weight: 300;
+}
+.login-content{
+    padding: 20px;
+    margin-top: 150px;
+}
+.signup-content{
+    padding: 20px;
+    padding-top: 150px;
+    color: #fff;
+}
+
+
+@media (min-width:320px) and (max-width:920px) {
+    .left-panel{
+        background-color: #fff;
+        min-height: 50px;
+    }
+    .all-login {
+        padding: 29px 20px;
+    }
+    .box-img{
+       display: inline-block;
+    }
+    .box-heading{
+        display: inline-block;
+    }
+    .box::after{
+        clear: both;
+        content: '';
+    }
+    .box-heading::after{
+        clear: both;
+        content: '';
+    }
+    .box-heading{
+        padding-top: 10px;
+        padding-left: 25px;
+    }
+    .all-login .mt-4{
+        margin-top: 0px!important;
+    }
+    .box {
+        padding: 20px 15px;
+        margin-top: 25px;
+        text-align: left;
+    }
+    .box:hover{
+        box-shadow: none;
+        background-color: #f7f8f9;
+    }
+
+    .login-box {
+        /* padding: 233px; */
+        width: 100%;
+        margin: 35px auto;
+        padding: 0px;
+    }
+    /*Sign up css start here*/
+    .all-signup{
+       padding: 29px 20px;
+    }
+    .right-panel-sign{
+        background-color: #f7f8f9;
+        /*background: -webkit-linear-gradient(60deg, #42387a, #9d41e0);
+        background: linear-gradient(60deg, #42387a, #9d41e0);*/
+        min-height: 810px;
+    }
+    
+    .signup .left-panel{
+        min-height: auto;
+    }
+
+}
