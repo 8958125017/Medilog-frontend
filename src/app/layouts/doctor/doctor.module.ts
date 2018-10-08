@@ -10,10 +10,10 @@ import { CreateprescriptionComponent } from './createprescription/createprescrip
 import { RecordreviewComponent } from './recordreview/recordreview.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SeeEHRComponent } from './see-ehr/see-ehr.component';
-import { HtmlPipe } from '../../html.pipe';
+import { Safe } from '../../html.pipe';
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   imports: [
     CommonModule,
@@ -31,7 +31,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
   	RecordreviewComponent,
   	ProfileComponent,
   	SeeEHRComponent,
-    HtmlPipe,
+    Safe,
     UpdatepasswordComponent
   ],
   providers: [Ng4LoadingSpinnerService],

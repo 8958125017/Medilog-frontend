@@ -28,7 +28,7 @@ private updatePasswordForm:FormGroup;
 	            public globalService:GlobalServiceService,
 	            public ng4LoadingSpinnerService:Ng4LoadingSpinnerService) {
   			      this.user=JSON.parse(localStorage.getItem('pharmacy'));
-                   var status = this.globalService.ispharmacyLogedIn();
+              var status = this.globalService.ispharmacyLogedIn();
                 if(status==false){
                  this.router.navigateByUrl('/login');
                 }

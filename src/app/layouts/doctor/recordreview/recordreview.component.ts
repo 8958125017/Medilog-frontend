@@ -22,7 +22,11 @@ user  : any;
   	private router: Router,
   	private fb: FormBuilder,
     private http: Http) { 
-  	
+  	  this.user=JSON.parse(localStorage.getItem('doctor'));
+            var status = this.globalService.isdoctorLogedIn();
+                if(status==false){
+                  this.router.navigateByUrl('/login');
+                }
   }
 
   ngOnInit() {

@@ -6,7 +6,7 @@ import { FormsModule, FormControl, FormBuilder, Validators, FormGroup, ReactiveF
 import { CanActivate,ActivatedRouteSnapshot,RouterStateSnapshot}from '@angular/router';
 import {Http} from '@angular/http';
 declare var $: any;
-
+import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-spinner';
 @Component({
   selector: 'app-pendingpharmacy',
   templateUrl: './pendingpharmacy.component.html',
@@ -15,10 +15,10 @@ declare var $: any;
 export class PendingpharmacyComponent implements OnInit {
 pharmacys : any[] = [];
 loading : boolean = false;
-
+p: number = 1;
   constructor(public globalService:GlobalServiceService,
   	private router: Router,
-  	private fb: FormBuilder,
+  	private fb: FormBuilder,public ng4LoadingSpinnerService:Ng4LoadingSpinnerService,
     private http: Http) { 
       var status = this.globalService.isadminLogedIn();
                 if(status==false){
@@ -34,14 +34,16 @@ loading : boolean = false;
     debugger
    this.loading=true;
    const url=this.globalService.basePath+'admin/getRequest';
-   this.http.get(url).subscribe((res)=>{
+   this.ng4LoadingSpinnerService.show();
+   this.globalService.GetRequest(url).subscribe((res)=>{
+     this.ng4LoadingSpinnerService.hide();
       this.loading=false;
-      if(res.json().status===200){
+      if(res[0].json.status===200){
         debugger
-      	this.pharmacys = res.json().data[3].pharmacy;
-        // this.globalService.showNotification(2,res.json().msg);
+      	this.pharmacys = res[0].json.data[3].pharmacy;
+        this.globalService.showNotification(2,res[0].json.message);
       }else{
-        this.globalService.showNotification(res.json().msg,4);
+        this.globalService.showNotification(res[0].json.message,4);
       }
     });
   }
@@ -56,14 +58,16 @@ loading : boolean = false;
     }
     this.loading=true;
     var postData = {requestType : 'pharmacy',mobileNo : item.contactNo,hospitalMultichainAddress: item.hospitalMultichainAddress};   
-    this.http.post(url,postData).subscribe((res)=>{
+   this.ng4LoadingSpinnerService.show();
+      this.globalService.PostRequest(url,postData).subscribe((res)=>{
+      this.ng4LoadingSpinnerService.hide();
       this.loading=false;
-      if(res.json().status===200){
+      var result=JSON.parse(res[0].json._body)
+      if(result.status===200){
         this.router.navigate(['/admin/pharmacy']);
-      	// this.router.navigateByUrl('/patients');
-        this.globalService.showNotification(res.json().message,2);
+        this.globalService.showNotification(result.message,2);
       }else{
-        this.globalService.showNotification(res.json().message,4);
+        this.globalService.showNotification(result.message,4);
       }
     });
   }

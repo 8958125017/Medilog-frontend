@@ -99,16 +99,13 @@ export class LoginComponent implements OnInit {
           const url = this.globalService.basePath + 'api/login';
           this.loginForm.value.requestType=this.requestType;
           this.globalService.PostRequestUnautorized(url,this.loginForm.value).subscribe((response) => { 
-                if(response[0].json.status==200){            
-                    this.ng4LoadingSpinnerService.hide(); 
+                this.ng4LoadingSpinnerService.hide(); 
+                if(response[0].json.status==200){ 
                     this.loading = false;
                     this.globalService.showNotification(response[0].json.message,2);
                     let type = response[0].json.data;
                     this.checkLoginType(type);
-                     
-                    
-                }else{ 
-                  this.ng4LoadingSpinnerService.hide();
+                }else{               
                   this.loading = false;
                   this.loginForm.reset();
                   this.globalService.showNotification(response[0].json.message,4); 
@@ -180,8 +177,8 @@ export class LoginComponent implements OnInit {
 
           forgotpassword(){
             $('#forgotPasswordModal').modal('hide');
-            //const url = this.globalService.basePath + 'verify';             
-            this.forgotpasswordForms.value.requestType=this.requestType;
+           const url = this.globalService.basePath + 'api/forgetPassword';           
+            //this.forgotpasswordForms.value.requestType=this.requestType;
             console.log("this.forgotpasswordForms.value = = "+JSON.stringify(this.forgotpasswordForms.value));
             // this.globalService.PostRequestUnautorized(url,this.forgotpasswordForms.value).subscribe((response) => { 
             // if(response[0].json.statusCode==200){

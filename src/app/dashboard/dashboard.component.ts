@@ -19,10 +19,10 @@ export class DashboardComponent implements OnInit {
         public globalService:GlobalServiceService
              ) {
               
-                if(!this.globalService.isadminLogedIn()){
-                   this.router.navigate(['/login']);
-                 }
-             
+                 var status = this.globalService.isadminLogedIn();
+                if(status==false){
+                 this.router.navigateByUrl('/login');
+                }
 
               }
 

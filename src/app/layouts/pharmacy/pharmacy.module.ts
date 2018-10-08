@@ -7,13 +7,16 @@ import { ProfileComponent } from './profile/profile.component';
 import { UploadbillComponent } from './uploadbill/uploadbill.component';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
-
+import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(PharmacyRoutes),
+    Ng4LoadingSpinnerModule.forRoot(),
+    NgxPaginationModule
   ],
   declarations: [PharmacyDashboardComponent, ProfileComponent, UploadbillComponent, UpdatepasswordComponent]
 })

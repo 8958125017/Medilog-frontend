@@ -164,7 +164,7 @@ export class SignupComponent implements OnInit {
         name: new FormControl('',Validators.required),
         email : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
         password : new FormControl('',Validators.compose([Validators.required,Validators.minLength(6), Validators.maxLength(16),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,100})/)])),
-        Specialty: new FormControl('', Validators.required),
+        practiceSpecialties: new FormControl('', Validators.required),
         location : new FormControl('',Validators.required),
         contactNo : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[0-9]{6,15}$/)])),
         city : new FormControl('',Validators.required),

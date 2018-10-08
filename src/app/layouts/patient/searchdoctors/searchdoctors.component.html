@@ -5,36 +5,62 @@
                     <div class="col-lg-8 col-md-8 col-sm-12">
                         <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Search Doctors</h2>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index3.html"><i class="icon-home"></i></a></li>                            
-                            <li class="breadcrumb-item active">Doctors</li>
+                            <li><a class="parent-item" [routerLink]="['/home']">home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                            </li>                      
+                            <li><a class="parent-item" [routerLink]="['/patient/dashboard']">patients</a>&nbsp;<i class="fa fa-angle-right"></i>
+                            </li>                          
+                            <li class="breadcrumb-item active">search doctor</li>
                         </ul>
                     </div>            
                     <div class="col-lg-4 col-md-4 col-sm-12 text-right">
                         &nbsp;
 
                         Search By :
-                        <input type="text" name="searchname" placeholder="Type Name" [(ngModel)]="searchName">
+                        <input type="text" name="searchname" placeholder="Type Name" [(ngModel)]="filterText">
                         <select (change)="searchByCategory($event)">
                             <option value="All">All</option>
-                            <option value="Select Degree">Select Degree</option>
-                            <option value="Category 3">Category 3</option>
-                            <option value="Category 4">Category 4</option>
+                            <option value="Select Degree">Allergists</option>
+                            <option value="Category 3">Anesthesiologists</option>
+                            <option value="Category 4">Cardiologists</option>
+                            <option value="Select Degree">Dermatologists</option>
+                            <option value="Category 3">Dentist</option>
+                            <option value="Category 4">ENT Specialist</option>
+                            <option value="Select Degree">Family Physicians</option>
+                            <option value="Category 3">Gastroenterologists</option>
+                            <option value="Category 4">Gynecologist</option>
+                            <option value="Select Degree">Neurologists</option>
+                            <option value="Category 3">Oncologists</option>
+                            <option value="Category 4">Nephrologists</option>
+                            <option value="Category 4">Medical Geneticists</option>
+                            <option value="Category 4">Pathologists</option>
                         </select>
                     </div>
                 </div>
             </div>
 
             <div class="row clearfix">
-                <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let doctor of doctors">
-                    <div class="card" (click)="viewDoctorProfile(doctor?.aadharNo)">
+                
+                 <div class="col-md-12 text-center" *ngIf="nofoundStatus">
+          <div class="text-center" *ngIf="(doctors | filter: { firstName: filterText, lastName: filterText, department: filterText}).length <= 0">
+                 <img src="../../.././assets/img/No-token-Found.png" width="500px" class="img-fluid">
+            </div>
+          </div>
+                <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let doctor of doctors | filter:{ firstName: filterText, lastName: filterText, department: filterText,department: filterText} : false ; let i=index">
+                    <div class="card" (click)="viewDoctorProfile(doctor?._id)">
                         <div class="body text-center">
                             <div class="chart easy-pie-chart-1" data-percent="75"> <span>
                                 <img src="{{doctor?.image ? doctor?.image : '../../.././assets/img/default-avatar.png'}}" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/></span> </div>
                             <h6 class="mb-0"><a title="" >{{doctor?.firstName +' '+doctor?.lastName}}</a> </h6>
                             <div>
-                                <strong>{{doctor?.department}}</strong>
+                                 <ul>
+                                    <li *ngFor="let special of doctor?.practiceSpecialties">
+                                      <b>Specialties</b>  {{special ? special : 'NA'}}
+                                    </li>
+                                 </ul>
+                                <span>
+                                 <b>Department</b> {{doctor.department ? doctor?.department : 'NA'}}</span>
                             </div>
-                            <span>{{doctor?.address}}</span>
+                           <!--  <span>{{doctor?.address}}</span> -->
                         </div>
                     </div>
                 </div>

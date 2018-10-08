@@ -22,7 +22,7 @@ export class ViewpharmacyComponent implements OnInit {
 pharmacys:any=[];
 loading:boolean=false;
 user:any;
-pharmacyLength:any;
+pharmacyLength:any=0;
    constructor(public globalService:GlobalServiceService,
   	private router: Router,
   	private fb: FormBuilder,
@@ -51,10 +51,10 @@ pharmacyLength:any;
   this.http.post(url,{patientId :patientId,multichainAddress : this.user.multichainAddress,stream :"pharmacy"}).subscribe((res)=>{
     this.ng4LoadingSpinnerService.hide();  
      this.loading=false;
+     debugger
      if(res.json().status===200){
-       debugger
        var result=res.json().data;
-       if(result.longth){
+       if(result){
          this.pharmacys = res.json().data;
          this.pharmacyLength=this.pharmacys.length;
          

@@ -5,8 +5,9 @@
                     <div class="col-lg-6 col-md-8 col-sm-12">
                         <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Add Diagnostic Center</h2>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>                            
-                            <li class="breadcrumb-item">Diagnostic</li>
+                            <li class="breadcrumb-item"><a [routerLink]="['/home']"><i class="icon-home"></i></a></li>                            
+                                                 
+                            <li class="breadcrumb-item" [routerLink]="['/hospital/viewdiagnostic']">Diagnostic</li>
                             <li class="breadcrumb-item active">Add Diagnostic</li>
                         </ul>
                     </div>            
@@ -79,25 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                    <div class="form-group">
-                                          <input type="password" name="pswd" data-required="1" placeholder="enter Password" class="form-control" formControlName="password"/>
-                                                <div class="small" *ngIf="!labForm.controls['password'].valid&&labForm.controls['password'].dirty">
-                                                    <span *ngIf="labForm.controls['password'].errors['required']" class="small redlabe text-danger">Password cannot be left blank</span>
-                                                    <span *ngIf="labForm.controls['password'].errors['minlength']" class="small redlabe text-danger">password must be atleast 6 characters</span>
-                                                    <span *ngIf="labForm.controls['password'].errors['pattern']&&!labForm.controls['password'].errors['minlength']" class="small redlabe text-danger">Password must contain at least 6 characters including 1 uppercase and 1 lowercase letter, 1 special character and 1 number</span>
-                                                </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                       <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
-                                            <div class="small redlabe text-danger" *ngIf="!labForm.controls['confirmPassword'].valid&&labForm.controls['confirmPassword'].dirty">
-                                            </div>
-                                            <div *ngIf="labForm.controls['confirmPassword'].dirty&&labForm.hasError('mismatchedPasswords')"><span class="small redlabe text-danger"> Passwords do not match.</span>
-                                            </div>
-                                    </div>
-                                </div>
+                     
                                 
                             <div class="row clearfix">                            
                                 <div class="col-sm-3">
@@ -145,15 +128,45 @@
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-lg-12">
-                                     <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg">
+                                   <div class="col-sm-6">
+                                    <div class="form-group">
+                                          <input type="password" name="pswd" data-required="1" placeholder="enter Password" class="form-control" formControlName="password"/>
+                                                <div class="small" *ngIf="!labForm.controls['password'].valid&&labForm.controls['password'].dirty">
+                                                    <span *ngIf="labForm.controls['password'].errors['required']" class="small redlabe text-danger">Password cannot be left blank</span>
+                                                    <span *ngIf="labForm.controls['password'].errors['minlength']" class="small redlabe text-danger">password must be atleast 6 characters</span>
+                                                    <span *ngIf="labForm.controls['password'].errors['pattern']&&!labForm.controls['password'].errors['minlength']" class="small redlabe text-danger">Password must contain at least 6 characters including 1 uppercase and 1 lowercase letter, 1 special character and 1 number</span>
+                                                </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row clearfix">                            
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                       <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+                                            <div class="small redlabe text-danger" *ngIf="!labForm.controls['confirmPassword'].valid&&labForm.controls['confirmPassword'].dirty">
+                                            </div>
+                                            <div *ngIf="labForm.controls['confirmPassword'].dirty&&labForm.hasError('mismatchedPasswords')"><span class="small redlabe text-danger"> Passwords do not match.</span>
+                                            </div>
+                                    </div>
+                                </div>
+                         </div>
+
+                            <div class="row clearfix">
+                               
+
+                                 <div class="col-sm-6">
+                                    <div class="form-group m-t-20">
+                                        <textarea rows="6" class="form-control" placeholder="Address" formControlName="address"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
                                     <div class="form-group m-t-20">
                                         <textarea rows="6" class="form-control" placeholder="Description" formControlName="description"></textarea>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">                            
+                                 <div class="col-lg-12">
+                                     <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg">
                                 </div>
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn btn-primary" (click)="labSignup()" [disabled]="!labForm.valid">Submit</button>

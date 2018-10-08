@@ -6,7 +6,8 @@ import { Router, ActivatedRoute,NavigationEnd } from '@angular/router';
 import { FormsModule, FormControl, FormBuilder, Validators, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { Http, Headers, RequestOptions, Response  } from '@angular/http';
 import {GlobalServiceService}from'../../global-service.service';
-
+import { MessageService } from '../../message.service';
+import { Subscription } from 'rxjs/Subscription';
 declare const $: any;
 
 declare interface RouteInfo {
@@ -34,6 +35,7 @@ export const HOSPITALROUTES : RouteInfo[]=[
      {  path:'viewpharmacy',title:'Pharmacy',icon:'person', class: '',type: 'link'},
      {  path:'viewdiagnostic',title:'Diagnostic',icon:'person', class: '',type: 'link'},
      {  path:'profile',title:'Profile',icon:'person', class: '',type: 'link'},
+     {  path:'updatepassword',title:'Update Password',icon:'person', class: '',type: 'link'},
 ]
 
 
@@ -46,13 +48,25 @@ export const HOSPITALROUTES : RouteInfo[]=[
 export class HospitalSidebarComponent implements OnInit {
   menuItems: any[];
   user:any;
+  subscription: Subscription;
   userName:any;
-  constructor(location: Location,public globalService:GlobalServiceService, private element: ElementRef, private router: Router) { }
+  userImage:any;
+  constructor(private message : MessageService,location: Location,public globalService:GlobalServiceService, private element: ElementRef, private router: Router) { }
 
 
-  ngOnInit() {   
+  ngOnInit() { 
+    this.subscription = this.message.getMessage().subscribe(message => { 
+                     if(message.text!="undefined" || message.image!="undefined") {
+                       this.userName = message.text;
+                       this.userImage=message.image;
+                     }
+                   });  
     if(localStorage.getItem('hospital')){
       this.user=JSON.parse(localStorage.getItem('hospital')); 
+      if(this.user){
+        this.userName=this.user.name;
+        this.userImage=this.user.image;
+      }
          this.menuItems = HOSPITALROUTES.filter(menuItem => menuItem);
     } 
 

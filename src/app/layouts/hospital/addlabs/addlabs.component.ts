@@ -18,7 +18,7 @@ export class AddlabsComponent implements OnInit {
   labForm : FormGroup;
   loading : boolean = false;
   user : any;
-
+  userImage:any;
   constructor(public globalService:GlobalServiceService,
     private router: Router,
     private fb: FormBuilder,
@@ -36,16 +36,17 @@ export class AddlabsComponent implements OnInit {
 
 labFormInit(){
     this.labForm = this.fb.group({
+        hospitalMultichainAddress : new FormControl(''),
         name: new FormControl('',Validators.required),
         email : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
         password : new FormControl('',Validators.compose([Validators.required,Validators.minLength(6), Validators.maxLength(16),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,100})/)])),
-        
+        address  : new FormControl(''),
         license : new FormControl('',Validators.required),
         contactNo : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[0-9]{6,15}$/)])),
         city : new FormControl('',Validators.required),
         from : new FormControl('',Validators.required),
         to : new FormControl('',Validators.required), 
-        discription: new FormControl(''), 
+        description: new FormControl(''), 
         image : new FormControl(''),
         confirmPassword:new FormControl('', Validators.required)}, { validator: this.matchingPasswords('password', 'confirmPassword') });
   }
@@ -66,20 +67,21 @@ labFormInit(){
     uploadImage(event){  
 	     let reader = new FileReader();
 	     let file = event.target.files[0];
-	     reader.onloadend = (e:any) => {            
-	          this.labForm.value.image = e.target.result;
+	     reader.onloadend = (e:any) => {    
+         this.userImage = e.target.result;	          
 	     }
 	      reader.readAsDataURL(file)
    }
 
    labSignup(){      
    this.loading=true;   
+   this.labForm.value.image = this.userImage;
    this.labForm.value.hospitalMultichainAddress = this.user.multichainAddress;
    let postData = this.labForm.value;
    const url=this.globalService.basePath+'lab/labSendRequestToAdmin';
    console.log("postData =  ="+JSON.stringify(postData));
    this.ng4LoadingSpinnerService.show();  
-   this.http.post(url,postData).subscribe((res)=>{
+   this.globalService.PostRequest(url,postData).subscribe((res)=>{
       this.loading=false;
       if(res.json().status===200){
         this.ng4LoadingSpinnerService.hide();  

@@ -6,9 +6,9 @@
                                 <div class="page-title">Patients List</div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
-                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" [routerLink]="['/home']">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li><a class="parent-item" href="#">Doctors</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><a class="parent-item"  [routerLink]="['/admin/dashboard']">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
                                 <li class="active">Patient List</li>
                             </ol>
@@ -26,14 +26,14 @@
                                         <div class="row">
 					                        <div class="col-md-12">
 					                            <div class="card card-topline-red">
-					                                <div class="card-head">
+					                               <!--  <div class="card-head">
 					                                    <header></header>
 					                                    <div class="tools">
 					                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
 						                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
 						                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
 					                                    </div>
-					                                </div>
+					                                </div> -->
 					                                <div class="card-body ">
 					                                    <div class="row">
 					                                        <div class="col-md-6 col-sm-6 col-xs-6">
@@ -43,7 +43,7 @@
 					                                                </a> -->
 					                                            </div>
 					                                        </div>
-					                                        <div class="col-md-6 col-sm-6 col-xs-6">
+					                                       <!--  <div class="col-md-6 col-sm-6 col-xs-6">
 					                                            <div class="btn-group pull-right">
 					                                                <a class="btn deepPink-bgcolor  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
 					                                                    <i class="fa fa-angle-down"></i>
@@ -63,7 +63,7 @@
 					                                                    </li>
 					                                                </ul>
 					                                            </div>
-					                                        </div>
+					                                        </div> -->
 					                                    </div>
 					                                    <div class="table-scrollable">
                                       					   <table class="table table-hover table-checkable order-column full-width" id="example4">
@@ -71,13 +71,13 @@
 					                                            <tr>
 					                                            	<th></th>
 					                                                <th> Name </th>
-					                                                <th> Sex </th>
-					                                                <th> Address </th>
+					                                                <th> Email </th>
 					                                                <th> Mobile </th>
-					                                                
-					                                                <th>Blood Group</th>
-					                                                <th>Status</th>
-					                                                <th>Action</th>
+					                                                <th> Age</th>	
+					                                                 <th> Gender</th>	                  
+					                                                <th> Blood Group</th>
+					                                                <th> Status</th>
+					                                                <th> Action</th>
 					                                            </tr>
 					                                        </thead>
 					                                        <tbody>
@@ -93,21 +93,22 @@
 					                                        		<td></td>
 					                                        	</tr>
 
-																<tr class="odd gradeX" *ngFor="let patient of patients">
+																<tr class="odd gradeX"  *ngFor="let patient of patients  | paginate: { id: 'patients',itemsPerPage: 4, currentPage: p };let i = index">
 																	<td class="patient-img">
-																			<img src="../../.././assets/img/user/user1.jpg" alt="">
+																			<img src="{{patient.image ? patient.image : '../../.././assets/img/default-avatar.png'}}" alt="" width="70" height="70" style="border-radius: 800%">
 																	</td>
 																	<td>{{patient?.name}}</td>
-																	<td class="left">{{patient?.gender}}</td>
-																	<td class="left">{{patient?.address}}</td>
+																	<td class="left">{{patient?.email}}</td>
+																	
 																	<td><a href="tel:{{patient?.mobileNo}}">
 																			{{patient?.mobileNo}} </a></td>
-																	
-																	<td class="left">{{patient?.group}}</td>
+																	<td class="left">{{patient?.age}}</td>
+																	<td class="left">{{patient?.gender}}</td>
+															       <td class="left">{{patient?.bloodgroup}}                                      </td>
 																	<td class="left">Active</td>
 																	<td>
 																		<a (click)="deletePatient(patient)" class="btn btn-danger btn-xs">
-																			<i class="fa fa-trash-o "></i>
+																			Delete
 																		</a>
 																	</td>
 																</tr>
@@ -116,6 +117,7 @@
 					                                    </table>
 					                                    </div>
 					                                </div>
+					                                <pagination-controls id="patients" (pageChange)="p = $event"></pagination-controls>
 					                            </div>
 					                        </div>
 					                    </div>

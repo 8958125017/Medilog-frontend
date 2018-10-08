@@ -16,10 +16,10 @@ declare var $: any;
   styleUrls: ['./viewlabs.component.scss']
 })
 export class ViewlabsComponent implements OnInit {
-labs:any=[];
-loading:boolean=false;
-user:any;
-labLength:any;
+   labs:any=[];
+   loading:boolean=false;
+   user:any;
+   labLength:any=0;
    constructor(public globalService:GlobalServiceService,
   	private router: Router,
   	private fb: FormBuilder,
@@ -32,26 +32,27 @@ labLength:any;
    }
 
   ngOnInit() {
-  	  var data = localStorage.getItem('hospital');
-      if(data){
-      	this.user = JSON.parse(data);
+  	 this.user = JSON.parse(localStorage.getItem('hospital'));
+      if( this.user){      	
+        this.getAlllabs();
       } 
-   this.getAlllabs();
+   
   }
 
-  getAlllabs(){
-     debugger
+  getAlllabs(){     
   this.loading=true;
-  let patientId = this.user._id;
+  let labId = this.user._id;
   const url=this.globalService.basePath+'doctor/getAllPatient';
     this.ng4LoadingSpinnerService.show();
-  this.http.post(url,{patientId :patientId,multichainAddress : this.user.multichainAddress,stream :"lab"}).subscribe((res)=>{
+  this.http.post(url,{patientId :labId,multichainAddress : this.user.multichainAddress,stream :"lab"}).subscribe((res)=>{
       this.ng4LoadingSpinnerService.hide();
      this.loading=false;
+     debugger
      if(res.json().status===200){
        var result=res.json().data;
-       if(result.length){
+       if(result){
            this.labs = res.json().data;
+           this.labLength=this.labs.length;
        }else{
          this.labLength=0;
        }
@@ -59,6 +60,7 @@ labLength:any;
          
        // this.globalService.showNotification(res.json().message,2);
      }else{
+       this.labLength=0;
        this.globalService.showNotification(res.json().message,4);
      }
    });

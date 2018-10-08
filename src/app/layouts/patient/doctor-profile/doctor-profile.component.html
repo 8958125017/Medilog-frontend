@@ -6,9 +6,11 @@
                     <div class="page-title">Doctor Profile</div>
                 </div>
                 <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
-                </li>
-                <li><a class="parent-item" href="#">Doctors</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    <!-- <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" >Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                </li> -->
+                <li><a class="parent-item" [routerLink]="['/patient/dashboard']">Patients</a>&nbsp;<i class="fa fa-angle-right"></i>
+            </li>
+            <li><a class="parent-item" [routerLink]="['/patient/searchdoctors']">Search Doctor</a>&nbsp;<i class="fa fa-angle-right"></i>
             </li>
             <li class="active" style="margin-top: 45px!important">Doctor Profile</li>
         </ol>
@@ -67,12 +69,14 @@
                         <b>Operation Done </b>
                         <div class="profile-desc-item pull-right">30+</div>
                     </li>
+                    
+                    <li *ngFor="let degree of fullUserProfile?.degree">
+                         <b>Degree </b>
+                          <div class="profile-desc-item pull-right"> {{degree}}</div>
+                           
+                        </li>
                     <li class="list-group-item">
-                        <b>Degree </b>
-                        <div class="profile-desc-item pull-right">MBBS,MD</div>
-                    </li>
-                    <li class="list-group-item">
-                        <b>Designation</b>
+                        <b>Department</b>
                         <div class="profile-desc-item pull-right">{{fullUserProfile?.department?fullUserProfile.department:'-'}}</div>
                     </li>
                 </ul>
@@ -174,17 +178,18 @@
                         </div>
                         <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile No</strong>
                             <br>
-                            <p class="text-muted">{{fullUserProfile?.mobileNo?fullUserProfile.mobileNo:'-'}}</p>
+                            <p class="text-muted">{{fullUserProfile?.mobileNo?fullUserProfile.mobileNo:'NA'}}</p>
                         </div>
                         <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
                             <br>
-                            <p class="text-muted">{{fullUserProfile?.email?fullUserProfile.email:'-'}}</p>
+                            <p class="text-muted">{{fullUserProfile?.email?fullUserProfile.email:'NA'}}</p>
                         </div>
                         <div class="col-md-3 col-xs-6"> <strong>Location</strong>
                             <br>
-                            <p class="text-muted">{{fullUserProfile?.city?fullUserProfile.city:'-'}}</p>
+                            <p class="text-muted">{{fullUserProfile?.city?fullUserProfile.city:'NA'}}</p>
                         </div>
                     </div>
+                     <h4 class="font-bold">About</h4>
                     <hr>
                     <p class="m-t-30">{{fullUserProfile?.description?fullUserProfile.description:'NA'}}</p>
                 
@@ -193,7 +198,7 @@
                     <hr>
                     <ul>
                         <li *ngFor="let degree of fullUserProfile?.degree">
-                            {{degree}}
+                            {{degree ? degree : 'NA'}}
                         </li>
                         
                     </ul>
@@ -202,7 +207,7 @@
                     <hr>
                     <ul>
                         <li *ngFor="let special of fullUserProfile?.practiceSpecialties">
-                            {{special}}
+                            {{special ? special : 'NA'}}
                         </li>
                        
                     </ul>

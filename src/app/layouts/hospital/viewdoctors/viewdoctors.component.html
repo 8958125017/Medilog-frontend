@@ -5,7 +5,7 @@
                     <div class="col-lg-6 col-md-8 col-sm-12">
                         <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"></a>Doctors</h2>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item"><a [routerLink]="['/home']"><i class="icon-home" ></i></a></li>                            
                             <li class="breadcrumb-item active">Doctors</li>
                         </ul>
                     </div>            
@@ -37,16 +37,19 @@
 
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let doctor of doctors">
-                    <div class="card">
+                    <div class="card" (click)="viewDoctorProfile(doctor?._id)">
                         <div class="body text-center">
                             <div class="chart easy-pie-chart-1" data-percent="75"> <span><img src="{{doctor.image ? doctor.image : '../../.././assets/img/user/user1.jpg' }}" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/></span> </div>
                             <h6 class="mb-0"><a href="#" title="" >Dr. {{doctor.firstName+' '+doctor.lastName}}</a> </h6>
-                            <div>
-                                <strong><p *ngFor="let special of doctor?.practiceSpecialties">
-                                                                            {{special ? special : 'NA'}}
-                                                                        </p></strong>
+                              <div>
+                                 <ul>
+                                    <li *ngFor="let special of doctor?.practiceSpecialties">
+                                      <b>Specialties</b>  {{special ? special : 'NA'}}
+                                    </li>
+                                 </ul>
+                               <!--  <span>
+                                 <b>Department</b> {{doctor.department ? doctor?.department : 'NA'}}</span> -->
                             </div>
-                            <span>{{doctor.address ? doctor.address : 'NA'}}</span>
                         </div>
                     </div>
                 </div>

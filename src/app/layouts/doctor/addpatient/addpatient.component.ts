@@ -27,6 +27,11 @@ patientsImage:any;
   	private fb: FormBuilder,
     public ng4LoadingSpinnerService:Ng4LoadingSpinnerService,
     private http: Http) {
+    this.user=JSON.parse(localStorage.getItem('doctor'));
+            var status = this.globalService.isdoctorLogedIn();
+                if(status==false){
+                  this.router.navigateByUrl('/login');
+                }
     this.otpFormInit();
   }
   otpFormInit(){
@@ -79,7 +84,9 @@ patientsImage:any;
     var postData = {doctorId : this.user._id,OTP : this.otpForm.value.OTP};
     console.log("data",postData);
       url=this.globalService.basePath+'doctor/verifyPatientSignupOTP';
+      this.ng4LoadingSpinnerService.show();
     this.http.post(url,postData).subscribe((res)=>{
+      this.ng4LoadingSpinnerService.hide();
        this.loading=false;
        if(res.json().status===200){
          debugger
@@ -105,8 +112,7 @@ patientsImage:any;
       city : new FormControl('',Validators.required),
       dob : new FormControl('',Validators.required),
       address : new FormControl('',Validators.required),
-      education : new FormControl('',Validators.required),
-      bloodgroup : new FormControl('', Validators.required),
+      bloodgroup : new FormControl(''),
       age : new FormControl('', Validators.required),
       description: new FormControl(''),
       image : new FormControl(''),
@@ -132,11 +138,10 @@ matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
        let reader = new FileReader();
        let file = event.target.files[0];
        reader.onloadend = (e:any) => {    
-       this.ng4LoadingSpinnerService.show();     
+      
        this.patientsImage=e.target.result;  
       
-       debugger   
-       this.ng4LoadingSpinnerService.hide();  
+      
      }
       reader.readAsDataURL(file)
    }
@@ -146,7 +151,9 @@ matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
     this.doctorForm.value.image = this.patientsImage;  
    let postData = this.doctorForm.value;
    const url=this.globalService.basePath+'doctor/addPatient';
+   this.ng4LoadingSpinnerService.show();
    this.http.post(url,postData).subscribe((res)=>{
+     this.ng4LoadingSpinnerService.hide();
       this.loading=false;
       if(res.json().status===200){
         this.globalService.showNotification(res.json().message,2);

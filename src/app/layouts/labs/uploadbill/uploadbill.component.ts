@@ -22,7 +22,11 @@ user : any ;
   	private fb: FormBuilder,
     private http: Http) { 
         var data = localStorage.getItem('labs');
-        debugger
+         this.user=JSON.parse(localStorage.getItem('labs'));
+                   var status = this.globalService.islabsLogedIn();
+                if(status==false){
+                 this.router.navigateByUrl('/login');
+                }
         if(data) {
         	this.user = JSON.parse(data);
 

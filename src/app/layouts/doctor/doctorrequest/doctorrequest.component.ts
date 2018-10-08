@@ -18,14 +18,18 @@ export class DoctorrequestComponent implements OnInit {
 user : any ;
 loading : boolean = false;
 aadharNo : any;
-
 requestForm : FormGroup;
 otpForm : FormGroup;
-
   constructor(public globalService:GlobalServiceService,
   	private router: Router,
   	private fb: FormBuilder,
-    private http: Http) { }
+    private http: Http) {
+       this.user=JSON.parse(localStorage.getItem('doctor'));
+            var status = this.globalService.isdoctorLogedIn();
+                if(status==false){
+                  this.router.navigateByUrl('/login');
+                }
+     }
 
   ngOnInit() {
     var data = localStorage.getItem('doctor');
@@ -93,6 +97,10 @@ otpForm : FormGroup;
 
   reset(){
     this.requestForm.reset();
+  }
+  
+  minus(e){
+          if (e.keyCode === 189 ) {return false;}
   }
 
 }

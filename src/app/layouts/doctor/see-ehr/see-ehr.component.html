@@ -5,7 +5,7 @@
                     <div class="col-lg-6 col-md-8 col-sm-12">
                         <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>{{patientName ? patientName : 'NA'}}</h2>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a ><i class="icon-home"></i></a></li>
                             <li class="breadcrumb-item">Record Review</li>
                             <li class="breadcrumb-item active">Patient Arecord View</li>
                         </ul>
@@ -39,7 +39,7 @@
                                     <p>{{item?.description}}</p>
                                     <div class="timeline_img m-b-20">
                               
-                                        <iframe  [src]="item?.data | safeHtml" frameborder="0"                                          webkitallowfullscreen mozallowfullscreen allowfullscreen style="float: left;width: 100%;height: 100%">
+                                        <iframe  [src]="item?.data | safe" frameborder="0"                                          webkitallowfullscreen mozallowfullscreen allowfullscreen style="float: left;width: 100%;height: 100%">
                                             </iframe><br/>
                                             <span>
                                                 Uploaded By : Dr.<a title="">

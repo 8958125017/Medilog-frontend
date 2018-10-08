@@ -1,20 +1,20 @@
  <div id="main-content" class="profilepage_1">
         <div class="container-fluid">
-            <div class="block-header">
-                <div class="row">
-                    <div class="col-lg-6 col-md-8 col-sm-12">
-                        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Patient Profile</h2>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index3.html"><i class="icon-home"></i></a></li>
-                            <li class="breadcrumb-item">Patient</li>
-                            <li class="breadcrumb-item active">Patient Profile</li>
-                        </ul>
-                    </div>            
-                    <!-- <div class="col-lg-6 col-md-4 col-sm-12 text-right">
-                        <a href="patient-add-profile.html" class="btn btn-primary btn-lg">Edit Profile</a>
-                    </div> -->
+            
+               <div class="page-bar">
+            <div class="page-title-breadcrumb">
+                <div class=" pull-left">
+                    <div class="page-title">Patient Profile</div>
                 </div>
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" [routerLink]="['/home']">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li>
+                    <li><a class="parent-item" [routerLink]="['/patient/dashboard']">Patients</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li>
+                    <li class="active">update password</li>
+                </ol>
             </div>
+        </div>
 
             <div class="row clearfix">
                 <div class="col-lg-4 col-md-12">
@@ -53,28 +53,15 @@
                             <h2>General Report</h2>
                         </div>
                         <div class="body">
+                            <form [formGroup]="reportForm" >
                             <ul class="list-unstyled">
+                          
+                               
                                 <li>
-                                    <div>Blood Group</div>
+                                    <div>Sugar (mg/dL)</div>
                                     <div class="m-b-20">
                                         <div class="form-group">
-                                            <input type="text" name="group" readonly class="form-control" value="{{fullUserProfile?.bloodgroup?fullUserProfile.bloodgroup:'-'}}">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>Alergy</div>
-                                    <div class="m-b-20">
-                                        <div class="form-group">
-                                            <input type="text" name="group" readonly class="form-control" value="Dust, Skin">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>Sugar</div>
-                                    <div class="m-b-20">
-                                        <div class="form-group">
-                                            <input type="text" name="group" readonly class="form-control" value="140">
+                                            <input type="number" name="group"  class="form-control" formControlName="sugar">
                                         </div>
                                     </div>
                                 </li>
@@ -82,7 +69,7 @@
                                     <div>Weight (kg)</div>
                                     <div class="m-b-20">
                                         <div class="form-group">
-                                            <input type="text" name="group" readonly class="form-control" value="82">
+                                            <input type="number" name="group"  class="form-control" formControlName="weight">
                                         </div>
                                     </div>
                                 </li>
@@ -90,10 +77,18 @@
                                     <div>Blood Pressure</div>
                                     <div class="m-b-20 row">
                                         <div class="form-group col-sm-6">
-                                            <input type="text" name="group" readonly class="form-control" value="" placeholder="Systolic">
+                                            <input type="number" name="group"  class="form-control"  placeholder="Systolic" formControlName="systolic">
                                         </div>
                                         <div class="form-group col-sm-6">
-                                            <input type="text" name="group" readonly class="form-control" value="" placeholder="Distolic">
+                                            <input type="number" name="group"  class="form-control"  placeholder="Distolic" formControlName="diastolic">
+                                        </div>
+                                    </div>
+                                </li>
+                                 <li>
+                                    <div>Pulse Rate (bpm)</div>
+                                    <div class="m-b-20">
+                                        <div class="form-group">
+                                            <input type="number" name="group"  class="form-control" formControlName="pulseRate">
                                         </div>
                                     </div>
                                 </li>
@@ -101,7 +96,7 @@
                                     <div>Temperature (*C)</div>
                                     <div class="m-b-20">
                                         <div class="form-group">
-                                            <input type="text" name="group" readonly class="form-control" value="37 C">
+                                            <input type="number" name="group"  class="form-control" formControlName="temprature">
                                         </div>
                                     </div>
                                 </li>
@@ -109,14 +104,17 @@
                                     <div>Resp. Rate (Breaths/min)</div>
                                     <div class="m-b-20">
                                         <div class="form-group">
-                                            <input type="text" name="group" readonly class="form-control" value="75">
+                                            <input type="number" name="group"  class="form-control"formControlName="respirationRate" >
                                         </div>
                                     </div>
                                 </li>
                                 <li class="text-info text-center">
-                                    <small>Last profile edited on 6 Sept,2018</small>
+                                     <button [disabled]="!reportForm.valid"  type="button" class="btn btn-primary" (click)="reportSubmit()">Submit</button>
                                 </li>
                             </ul>
+
+                            
+                             </form>
                         </div>
                     </div>
                 </div>
@@ -131,191 +129,69 @@
                             <div class="tab-content mt-3">
         
                                 <div class="tab-pane active" id="activity">
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
-                                    <div class="timeline-item danger">
-                                        <h6>Vital Signs</h6>
+                                 <!--    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p> -->
+                                   <!--  <div class="timeline-item danger">
+                                        <h6>Vital Signs</h6> -->
+                                        <div>
                                         <div class="msg">
                                             <p>
-                                                Last 30 edit history
+                                                Last 10  history
                                             </p>
                                             <div class="tab-content m-t-10 padding-0">
                                                 <div class="tab-pane table-responsive active show" id="All">
                                                     <table class="table m-b-0 table-hover">
                                                         <thead class="thead-dark">
                                                             <tr>
-                                                                <th>Date</th>                                    
+                                                                <th>Date</th>                    
                                                                 <th>Sugar</th>
                                                                 <th>Weight</th>
                                                                 <th>Blood Pressure</th>
+                                                                <th>Pluse Rate</th>
                                                                 <th>Temperature</th>
                                                                 <th>Resp. Rate</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
+                                                            <tr *ngIf="reportInfo.length===0">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    
+                                                                    <td>No Data Found</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    
+                                                                    <td></td>
+                                                                </tr>
+                                                            <tr *ngFor="let report of reportInfo  | paginate: { id: 'reportInfo',itemsPerPage: 10, currentPage: p };let i = index">
                                                                 <td>
-                                                                    06/09/18
+                                                                    {{report.date  | date:'dd/MM/yyyy'}}
                                                                 </td>
                                                                 <td>
-                                                                    140
+                                                                    {{report.sugar ? report.sugar : 'NA'}} mg/dL
                                                                 </td>
                                                                 <td>
-                                                                    82
+                                                                    {{report.weight ? report.weight : 'NA'}} kg
                                                                 </td>
                                                                 <td>
-                                                                    <span>80</span> / <span>120</span>
+                                                                     <span>{{report.systolic ? report.systolic : 'NA'}}</span> / <span>{{report.diastolic ? report.diastolic : 'NA'}}</span>
+                                                                </td>
+                                                                 <td>
+                                                                    {{report.pulseRate ? report.pulseRate : 'NA'}} bpm
                                                                 </td>
                                                                 <td>
-                                                                    37 C
+                                                                    {{report.temprature ? report.temprature : 'NA'}} C
                                                                 </td>
                                                                 <td>
-                                                                    80
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    06/09/18
-                                                                </td>
-                                                                <td>
-                                                                    140
-                                                                </td>
-                                                                <td>
-                                                                    82
-                                                                </td>
-                                                                <td>
-                                                                    <span>80</span> / <span>120</span>
-                                                                </td>
-                                                                <td>
-                                                                    37 C
-                                                                </td>
-                                                                <td>
-                                                                    80
+                                                                    {{report.respirationRate ? report.respirationRate : 'NA'}}
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    06/09/18
-                                                                </td>
-                                                                <td>
-                                                                    140
-                                                                </td>
-                                                                <td>
-                                                                    82
-                                                                </td>
-                                                                <td>
-                                                                    <span>80</span> / <span>120</span>
-                                                                </td>
-                                                                <td>
-                                                                    37 C
-                                                                </td>
-                                                                <td>
-                                                                    80
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    06/09/18
-                                                                </td>
-                                                                <td>
-                                                                    140
-                                                                </td>
-                                                                <td>
-                                                                    82
-                                                                </td>
-                                                                <td>
-                                                                    <span>80</span> / <span>120</span>
-                                                                </td>
-                                                                <td>
-                                                                    37 C
-                                                                </td>
-                                                                <td>
-                                                                    80
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    06/09/18
-                                                                </td>
-                                                                <td>
-                                                                    140
-                                                                </td>
-                                                                <td>
-                                                                    82
-                                                                </td>
-                                                                <td>
-                                                                    <span>80</span> / <span>120</span>
-                                                                </td>
-                                                                <td>
-                                                                    37 C
-                                                                </td>
-                                                                <td>
-                                                                    80
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    06/09/18
-                                                                </td>
-                                                                <td>
-                                                                    140
-                                                                </td>
-                                                                <td>
-                                                                    82
-                                                                </td>
-                                                                <td>
-                                                                    <span>80</span> / <span>120</span>
-                                                                </td>
-                                                                <td>
-                                                                    37 C
-                                                                </td>
-                                                                <td>
-                                                                    80
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    06/09/18
-                                                                </td>
-                                                                <td>
-                                                                    140
-                                                                </td>
-                                                                <td>
-                                                                    82
-                                                                </td>
-                                                                <td>
-                                                                    <span>80</span> / <span>120</span>
-                                                                </td>
-                                                                <td>
-                                                                    37 C
-                                                                </td>
-                                                                <td>
-                                                                    80
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    06/09/18
-                                                                </td>
-                                                                <td>
-                                                                    140
-                                                                </td>
-                                                                <td>
-                                                                    82
-                                                                </td>
-                                                                <td>
-                                                                    <span>80</span> / <span>120</span>
-                                                                </td>
-                                                                <td>
-                                                                    37 C
-                                                                </td>
-                                                                <td>
-                                                                    80
-                                                                </td>
-                                                            </tr>
+                                                            
                                                         </tbody>
                                                     </table>                            
                                                 </div>
                                             </div>
+                                            <pagination-controls id="reportInfo" (pageChange)="p = $event"></pagination-controls>
                                         </div>
                                     </div>        
                                 </div>

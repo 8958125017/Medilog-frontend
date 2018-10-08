@@ -7,7 +7,8 @@ import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { SettingsComponent } from '../../settings/settings.component';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
-
+import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import {
   MatButtonModule,
@@ -28,7 +29,7 @@ import { LabsComponent } from './labs/labs.component';
 import { PendinglabsComponent } from './pendinglabs/pendinglabs.component';
 import { PendingpharmacyComponent } from './pendingpharmacy/pendingpharmacy.component';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
-
+import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 
 @NgModule({
   imports: [
@@ -41,6 +42,8 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
     MatInputModule,
     QRCodeModule,
     MatTooltipModule,
+    Ng4LoadingSpinnerModule.forRoot(),
+    NgxPaginationModule
   ],
   declarations: [
     DashboardComponent,
@@ -56,7 +59,7 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
     PendinglabsComponent,
     PendingpharmacyComponent,
     PharmacyComponent,
-    // AdminLayoutComponent,
+    UpdatepasswordComponent,
   ],
   // exports : [AdminLayoutComponent]
 })

@@ -63,9 +63,12 @@ private patientForm:FormGroup;
           updatePassword(){
             const url = this.globalService.basePath + 'api/resetPassword';
              this.patientForm.value.email = this.user.email;
-             this.patientForm.value.requestType = "patient";            
+             this.patientForm.value.requestType = "patient";     
+             this.ng4LoadingSpinnerService.show();       
             this.globalService.PostRequestUnautorized(url,this.patientForm.value).subscribe((response) => { 
-              if(response[0].json.status==200){   
+              this.ng4LoadingSpinnerService.hide();  
+              if(response[0].json.status==200){  
+              this.patientForm.reset(); 
                   this.globalService.showNotification(response[0].json.message,2);                     
                } else{                 
                   this.globalService.showNotification(response[0].json.message,4);                     

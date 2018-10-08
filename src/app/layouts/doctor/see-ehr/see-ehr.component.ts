@@ -26,7 +26,13 @@ patientName :any;
   	private fb: FormBuilder,
     private http: Http,
     public ng4LoadingSpinnerService:Ng4LoadingSpinnerService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute) {
+      this.user=JSON.parse(localStorage.getItem('doctor'));
+            var status = this.globalService.isdoctorLogedIn();
+                if(status==false){
+                  this.router.navigateByUrl('/login');
+                }
+     }
 
   ngOnInit() {
   	 this.activatedRoute.params.subscribe((params: Params) => {

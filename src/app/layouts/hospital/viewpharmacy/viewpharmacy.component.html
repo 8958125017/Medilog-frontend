@@ -5,7 +5,7 @@
                     <div class="col-lg-6 col-md-8 col-sm-12">
                         <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> All Pharmacy</h2>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item"><a [routerLink]="['/home']"><i class="icon-home"></i></a></li>                            
                             <!-- <li class="breadcrumb-item">Patient</li> -->
                             <li class="breadcrumb-item active">All Pharmacy</li>
                         </ul>
@@ -82,25 +82,29 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           <tr *ngIf="pharmacyLength===0">
+                                           <tr *ngIf="pharmacyLength<1">
                                                                     <td></td>
                                                                     <td></td>
                                                                     <td></td>                                                                  
                                                                     <td>No Data Found</td>
                                                                     <td></td>
                                                                     <td></td>
-                                                                    
+                                                                    <td></td>
                                                                    
                                                                 </tr>
 
-                                            <tr *ngFor="let pharm of pharmacys">
-                                                <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar2.jpg" alt=""></span></td>
+                                            <tr  *ngFor="let pharm of pharmacys  | paginate: { id: 'pharmacys',itemsPerPage: 4, currentPage: p };let i = index">
+                                                <td><span class="list-icon">
+                                                   
+                                                   <img src="{{pharm.image ? pharm.image : '../../.././assets/img/default-avatar.png'}}" alt="" width="70" height="70" style="border-radius: 800%">
+                                                </span></td>
                                                 <td><span class="list-name">{{pharm._id ? pharm._id : 'NA'}}</span></td>
                                                 <td>{{pharm.name ? pharm.name : 'NA'}}}</td>
                                                 <td>{{pharm.open ? pharm.open :'NA'}}</td>
                                                 <td>{{pharm.close ? pharm.close :'NA'}}</td>
                                                 <td>{{pharm.contactNo ? pharm.contactNo :'NA'}}</td>
-                                                <td><span class="badge badge-success">Approved</span></td>
+                                                <td ><span class="badge badge-success" *ngIf="lab.isApproved">Approved</span></td>
+                                                 <td ><span class="badge badge-danger" *ngIf="!lab.isApproved">Not Approved</span></td>
                                             </tr>
                                            
                                             
@@ -109,6 +113,7 @@
                                 </div>
                             </div>
                         </div>
+                        <pagination-controls id="pharmacys" (pageChange)="p = $event"></pagination-controls>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ import { FormsModule, FormControl, FormBuilder, Validators, FormGroup, ReactiveF
 import { CanActivate,ActivatedRouteSnapshot,RouterStateSnapshot}from '@angular/router';
 import {Http} from '@angular/http';
 declare var $: any;
-
+import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-spinner';
 @Component({
   selector: 'app-pendinghospital',
   templateUrl: './pendinghospital.component.html',
@@ -14,8 +14,9 @@ declare var $: any;
 export class PendinghospitalComponent implements OnInit {
 hospitals : any[] = [];
 loading : boolean = false;
+p: number = 1;
   constructor(public globalService:GlobalServiceService,
-  	private router: Router,
+  	private router: Router,public ng4LoadingSpinnerService:Ng4LoadingSpinnerService,
   	private fb: FormBuilder,
     private http: Http) { 
       var status = this.globalService.isadminLogedIn();
@@ -31,7 +32,9 @@ loading : boolean = false;
   getAllHospitals(){
    this.loading=true;
    const url=this.globalService.basePath+'admin/getRequest';
+     this.ng4LoadingSpinnerService.show();
    this.http.get(url).subscribe((res)=>{
+       this.ng4LoadingSpinnerService.hide();
       this.loading=false;
       if(res.json().status===200){
         this.hospitals = res.json().data[2].hospital;      
@@ -41,13 +44,20 @@ loading : boolean = false;
     });
   }
 
-  checkRequest(item,status){
+  checkRequest(item,status){    
     let url ='';
-    if(status==='approve') url=this.globalService.basePath+'admin/approvedRequest';
-    else url=this.globalService.basePath+'admin/blockRequest';
+    if(status==='approve') 
+      {
+         url=this.globalService.basePath+'admin/approvedRequest';
+      }
+    else {
+         url=this.globalService.basePath+'admin/blockRequest';
+    }
     this.loading=true;
     var postData = {requestType : 'hospital',mobileNo : item.contactNo};   
+      this.ng4LoadingSpinnerService.show();
    this.http.post(url,postData).subscribe((res)=>{
+       this.ng4LoadingSpinnerService.hide();
       this.loading=false;
       if(res.json().status===200){
         this.router.navigate(['/admin/hospitals']);      	

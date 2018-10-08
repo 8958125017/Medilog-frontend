@@ -57,4 +57,8 @@ user:any;
    });
  }
 
+   viewDoctorProfile(aadharNo){
+    this.router.navigate(['/hospital/doctorProfile/'+aadharNo]);
+  }
+
 }

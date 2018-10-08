@@ -16,12 +16,14 @@ export class PatientProfileComponent implements OnInit {
 user:any;
 fullUserProfile:any;
 private updateUserForm:FormGroup;
+private reportForm:FormGroup;
 activityStatus:boolean=true;
 billingsStatus:boolean=false;
 editProfileStatus:boolean=false;
 bloodgroup:any=[];
 userImage:any;
-
+reportInfo : any[] = [];
+p: number = 1;
   constructor(private http: Http,
 	        private route: ActivatedRoute,
 	        private router: Router,
@@ -57,25 +59,27 @@ ngOnInit() {
  	  this.getUserProfile();
     this.updateUserFormInit();
     this.getBloodGroup();
+    this.reportFormInit();
+    this.getPetientsReport();
 }
 
 getUserProfile(){
 	let self = this;
     const url = this.globalService.basePath+'api/viewProfile';
     let data ={id:this.user._id, requestType :'patient'}
-      // this.ng4LoadingSpinnerService.show();
+       this.ng4LoadingSpinnerService.show();
   this.globalService.PostRequestUnautorized(url,data)
-  .subscribe((response) => { 
-  	debugger;
+  .subscribe((response) => {   	
+    this.ng4LoadingSpinnerService.hide();
       if(response[0].json.status==200){            
            this.fullUserProfile=response[0].json.data;  
                           let userName=this.fullUserProfile.firstName+" " +this.fullUserProfile.lastName;
                           let userImage=this.fullUserProfile.image;
                          this.messgage.sendMessage(userImage,userName);                          
                         this.fillUserProfile();  
-      // this.ng4LoadingSpinnerService.hide();
+       
        } else{
-          // this.ng4LoadingSpinnerService.hide();
+          
           this.globalService.showNotification(response[0].json.message,4);                     
        }
           })
@@ -161,5 +165,50 @@ updateUserProfile(value){
      }
       reader.readAsDataURL(file)
    }
+
+   reportFormInit(){
+        this.reportForm = this.fb.group({
+            patientId : new FormControl(''),           
+            weight : new FormControl(''),
+            sugar : new FormControl(''),
+            systolic : new FormControl(''),
+            diastolic : new FormControl(''),
+            pulseRate : new FormControl(''),
+            temprature : new FormControl(''),
+            respirationRate : new FormControl(''),         
+         });
+      }
+
+      reportSubmit(){
+          this.reportForm.value.patientId=this.user._id;
+          const url = this.globalService.basePath+'patient/uploadGeneralInfo';
+          this.globalService.PostRequest(url,this.reportForm.value).subscribe((response) => {              
+            if(response[0].json.status==200){ 
+                this.reportForm.reset();
+                this.getPetientsReport(); 
+                this.globalService.showNotification(response[0].json.message,2);                     
+             } else{                 
+                this.globalService.showNotification(response[0].json.message,4);                     
+             }
+          });
+      }
+
+      getPetientsReport(){      
+        const url = this.globalService.basePath+'patient/fetchGeneralInfo';
+        let data ={patientId:this.user._id}
+        this.ng4LoadingSpinnerService.show();
+        this.globalService.PostRequestUnautorized(url,data)
+        .subscribe((response) => {     
+         this.ng4LoadingSpinnerService.hide();
+          if(response[0].json.status==200){    
+           this.reportInfo=response[0].json.data;          
+              this.globalService.showNotification(response[0].json.message,2);  
+           
+           } else{
+              
+              this.globalService.showNotification(response[0].json.message,4);                     
+           }
+              })
+}
 
 }

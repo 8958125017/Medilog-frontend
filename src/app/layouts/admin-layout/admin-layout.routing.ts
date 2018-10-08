@@ -19,7 +19,7 @@ import { LabsComponent } from './labs/labs.component';
 import { PendinglabsComponent } from './pendinglabs/pendinglabs.component';
 import { PendingpharmacyComponent } from './pendingpharmacy/pendingpharmacy.component';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
-
+import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 export const AdminLayoutRoutes: Routes = [
     {
       path: '',
@@ -109,7 +109,14 @@ export const AdminLayoutRoutes: Routes = [
             canActivate:[AuthGuardService]
         }]
     }, 
-
+    {
+        path: '',
+        children: [ {
+            path: 'updatePassword',
+            component: UpdatepasswordComponent,
+            canActivate:[AuthGuardService]
+        }]
+    }, 
     // { path: '',pathMatch : 'full',redirectTo: 'dashboard' },
     // { path: 'dashboard',      component: DashboardComponent},    
     // { path: 'user-profile',   component: UserProfileComponent },    

@@ -533,15 +533,15 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Specialty</label>
-                                            <select class="form-control" name="Specialty" formControlName="Specialty">
+                                            <select class="form-control" name="practiceSpecialties" formControlName="practiceSpecialties">
                                                 <option value="">Select...</option>
                                                 <option value="multiSpecialty">MultiSpecialty</option>
                                                 <option value="Ortho">Ortho</option>
                                             </select>
                                             <div class="small redlabe text-danger"
-                                                *ngIf="!hospitalForm.controls['Specialty'].valid&&hospitalForm.controls['Specialty'].dirty" class="redlabe">
+                                                *ngIf="!hospitalForm.controls['practiceSpecialties'].valid&&hospitalForm.controls['practiceSpecialties'].dirty" class="redlabe">
                                                 <span class="small redlabe text-danger"
-                                                *ngIf="hospitalForm.controls['Specialty'].errors['required']"> Specialty cannot be left blank</span>
+                                                *ngIf="hospitalForm.controls['practiceSpecialties'].errors['required']"> Specialty cannot be left blank</span>
                                             </div>
                                         </div>
                                     </div>

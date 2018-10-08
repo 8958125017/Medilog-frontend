@@ -19,7 +19,7 @@ export class AddpharmacyComponent implements OnInit {
     pharmacyForm : FormGroup;
     loading : boolean = false;
     user :any;
-
+    userImage:any;
     constructor(public globalService:GlobalServiceService,
     private router: Router,
     private fb: FormBuilder,
@@ -36,10 +36,11 @@ export class AddpharmacyComponent implements OnInit {
 
   pharmacyFormInit(){
     this.pharmacyForm = this.fb.group({
+        hospitalMultichainAddress : new FormControl(''),
         name: new FormControl('',Validators.required),
         email : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
         password : new FormControl('',Validators.compose([Validators.required,Validators.minLength(6), Validators.maxLength(16),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,100})/)])),
-        
+        address : new FormControl(''),
         license: new FormControl('', Validators.required),
         contactNo : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[0-9]{6,15}$/)])),
         city : new FormControl('',Validators.required),
@@ -63,22 +64,22 @@ export class AddpharmacyComponent implements OnInit {
     }
   
   pharmacySignup(){
-
    this.loading=true;   
+   this.pharmacyForm.value.image=this.userImage;
    this.pharmacyForm.value.hospitalMultichainAddress = this.user.multichainAddress;
    let postData = this.pharmacyForm.value;
    debugger
    const url=this.globalService.basePath+'pharmacy/pharmacySendRequestToAdmin';
-   this.ng4LoadingSpinnerService.show();  
-   console.log("postData =  ="+JSON.stringify(postData));
-   this.http.post(url,postData).subscribe((res)=>{
-      this.loading=false;
-      if(res.json().status===200){
-        this.ng4LoadingSpinnerService.hide();  
-        this.globalService.showNotification(res.json().message,2);
+   this.ng4LoadingSpinnerService.show(); 
+    
+    this.globalService.PostRequestUnautorized(url,postData).subscribe((res)=>{
+      debugger
+       this.ng4LoadingSpinnerService.hide();  
+      if(res[0].json.status===200){       
+        this.globalService.showNotification(res[0].json.message,2);
         this.router.navigate(['/hospital/viewpharmacy'])
       }else{
-        this.globalService.showNotification(res.json().message,4);
+        this.globalService.showNotification(res[0].json.message,4);
       }
     });
   }
@@ -87,7 +88,7 @@ export class AddpharmacyComponent implements OnInit {
 	     let reader = new FileReader();
 	     let file = event.target.files[0];
 	     reader.onloadend = (e:any) => {            
-	          this.pharmacyForm.value.image = e.target.result;
+	           this.userImage= e.target.result;
 	     }
 	      reader.readAsDataURL(file)
    }

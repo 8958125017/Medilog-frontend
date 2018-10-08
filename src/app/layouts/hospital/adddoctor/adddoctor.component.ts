@@ -21,9 +21,9 @@ export class AdddoctorComponent implements OnInit {
   loading : boolean = false;
   user :any;
   degreee:any=[];
-    bloodgroup:any=[];
-    specialities:any=[];
-    departments:any=[];
+  bloodgroup:any=[];
+  specialities:any=[];
+  departments:any=[];
   constructor(public globalService:GlobalServiceService,
     private router: Router,
     private fb: FormBuilder,
@@ -38,10 +38,18 @@ export class AdddoctorComponent implements OnInit {
                  this.router.navigateByUrl('/login');
                 }
   }
+  
+  ngOnInit() {
+    this.doctorFormInit();
+    this.getDegree();
+    this.getBloodGroup();
+    this.getSpecialities();
+    this.getDepartments();
+  }
 
   getDegree(){
     const url=this.globalService.basePath+'doctor/getDoctorDegree';    
-     this.globalService.GetRequest(url).subscribe(response=>{
+     this.globalService.PostRequestUnautorized(url).subscribe(response=>{
       if(response[0].json.status===200){
          this.degreee=response[0].json.data;
       }else{
@@ -52,7 +60,7 @@ export class AdddoctorComponent implements OnInit {
 
   getBloodGroup(){           
      const url=this.globalService.basePath+'patient/getBloodGroup';    
-     this.globalService.GetRequest(url).subscribe(response=>{
+     this.globalService.PostRequestUnautorized(url).subscribe(response=>{
       if(response[0].json.status===200){
          this.bloodgroup=response[0].json.data;
       }else{
@@ -63,7 +71,7 @@ export class AdddoctorComponent implements OnInit {
 
   getSpecialities(){
      const url=this.globalService.basePath+'doctor/gettypedoctor';    
-     this.globalService.GetRequest(url).subscribe(response=>{
+     this.globalService.PostRequestUnautorized(url).subscribe(response=>{
       if(response[0].json.status===200){
          this.specialities=response[0].json.data;
       }else{
@@ -74,7 +82,7 @@ export class AdddoctorComponent implements OnInit {
 
   getDepartments(){
      const url=this.globalService.basePath+'doctor/getDoctorCategory';    
-     this.globalService.GetRequest(url).subscribe(response=>{
+     this.globalService.PostRequestUnautorized(url).subscribe(response=>{
       if(response[0].json.status===200){
          this.departments=response[0].json.data;
       }else{
@@ -132,7 +140,7 @@ export class AdddoctorComponent implements OnInit {
      debugger
      this.ng4LoadingSpinnerService.show();  
 	   const url=this.globalService.basePath+'doctor/doctorSendRequestToAdmin';
-	   this.http.post(url,postData).subscribe((res)=>{
+	   this.globalService.PostRequest(url,postData).subscribe((res)=>{
 	      this.loading=false;
 	      if(res.json().status===200){
 	        this.globalService.showNotification(res.json().message,2);
@@ -179,12 +187,6 @@ export class AdddoctorComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  	 this.doctorFormInit();
-       this.getDegree();
-    this.getBloodGroup();
-    this.getSpecialities();
-    this.getDepartments();
-  }
+
 
 }

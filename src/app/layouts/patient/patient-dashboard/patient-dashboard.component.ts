@@ -9,12 +9,12 @@ import { Router,ActivatedRoute } from '@angular/router';
 export class PatientDashboardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-	        private router: Router,	       
-	        public globalService:GlobalServiceService,) { 
-   var status = this.globalService.ispatientLogedIn();
-                if(status==false){
-                 this.router.navigateByUrl('/login');
-                }
+	            private router: Router,	       
+	            public globalService:GlobalServiceService) { 
+                  var status = this.globalService.ispatientLogedIn();
+                  if(status==false){
+                   this.router.navigateByUrl('/login');
+                  }
   }
 
   ngOnInit() {

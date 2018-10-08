@@ -15,8 +15,14 @@
                     <li class="menu-item-has-children"><a class="header-link">FEATURES</a>
                     </li>
                     <li><a  class="header-link">CONTACT</a></li>
-                    <li class="header__btn header__btn--login"><a [routerLink]="['/login']">LOGIN</a></li>
-                    <li class="header__btn header__btn--signup"><a [routerLink]="['/signup']">GET STARTED</a></li>          
+                    <li *ngIf="isLogin"><a  class="header-link" (click)="dashboard()">Dashboard</a></li>
+                    <li *ngIf="isLogin"><a  class="header-link" (click)="logout()">Logout</a></li>
+                    <li class="header__btn header__btn--login" *ngIf="isNotLogin">
+                        <a [routerLink]="['/login']">LOGIN</a>
+                    </li>
+                    <li class="header__btn header__btn--signup" *ngIf="isNotLogin">
+                        <a [routerLink]="['/signup']">GET STARTED</a>
+                    </li>          
                 </ul>
             </nav> 
         </div>      

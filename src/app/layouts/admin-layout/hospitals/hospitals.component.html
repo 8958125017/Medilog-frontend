@@ -6,9 +6,9 @@
                                 <div class="page-title">Hospitals List</div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
-                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" [routerLink]="['/home']">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li><a class="parent-item" href="#">Hospitals</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><a class="parent-item" [routerLink]="['/admin/dashboard']">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
                                 <li class="active">Hospitals List</li>
                             </ol>
@@ -26,14 +26,14 @@
                                         <div class="row">
 					                        <div class="col-md-12">
 					                            <div class="card card-topline-red">
-					                                <div class="card-head">
+					                               <!--  <div class="card-head">
 					                                    <header></header>
 					                                    <div class="tools">
 					                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
 						                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
 						                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
 					                                    </div>
-					                                </div>
+					                                </div> -->
 					                                <div class="card-body ">
 					                                    <div class="row">
 					                                        <div class="col-md-6 col-sm-6 col-xs-6">
@@ -43,7 +43,7 @@
 					                                                </a> -->
 					                                            </div>
 					                                        </div>
-					                                        <div class="col-md-6 col-sm-6 col-xs-6">
+					                                        <!-- <div class="col-md-6 col-sm-6 col-xs-6">
 					                                            <div class="btn-group pull-right">
 					                                                <a class="btn deepPink-bgcolor  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
 					                                                    <i class="fa fa-angle-down"></i>
@@ -63,7 +63,7 @@
 					                                                    </li>
 					                                                </ul>
 					                                            </div>
-					                                        </div>
+					                                        </div> -->
 					                                    </div>
 					                                    <div class="table-scrollable">
                                       					   <table class="table table-hover table-checkable order-column full-width" id="example4">
@@ -78,6 +78,7 @@
 					                                                <th>City</th>
 					                                                <th>Open Time</th>
 					                                                <th>Close Time</th>
+					                                                <th> Status </th>
 					                                                <th> Action </th>
 					                                            </tr>
 					                                        </thead>
@@ -87,17 +88,18 @@
 					                                        		<td></td>
 					                                        		<td></td>
 					                                        		<td></td>
-					                                        		<td>No Data Found</td>
 					                                        		<td></td>
+					                                        		<td></td>
+					                                        		<td>No Data Found</td>
 					                                        		<td></td>
 					                                        		<td></td>
 					                                        		<td></td>
 					                                        		<td></td>
 					                                        	</tr>
 
-																<tr class="odd gradeX" *ngFor="let hospital of hospitals">
+																<tr class="odd gradeX" *ngFor="let hospital of hospitals  | paginate: { id: 'hospitals',itemsPerPage: 4, currentPage: p };let i = index">
 																	<td class="patient-img">
-																			<img src="../../.././assets/img/user/user1.jpg" alt="">
+																				<img src="{{hospital.image ? hospital.image : '../../.././assets/img/default-avatar.png'}}" alt="" width="70" height="70" style="border-radius: 800%">
 																	</td>
 																	<td>{{hospital.name ? hospital.name : 'NA'}}</td>
 																	<td class="left">{{hospital.email ? hospital.email : 'NA'}}</td>
@@ -111,8 +113,8 @@
 																	<td class="left">Active</td>
 																	<td>
 																	
-																		<a (click)="deleteHospital()" class="btn btn-danger btn-xs">
-																			<i class="fa fa-trash-o "></i>
+																		<a (click)="deleteHospital(hospital)" class="btn btn-danger btn-xs">
+																			Delete
 																		</a>
 																	</td>
 																</tr>
@@ -121,6 +123,7 @@
 					                                    </table>
 					                                    </div>
 					                                </div>
+					                                <pagination-controls id="hospitals" (pageChange)="p = $event"></pagination-controls>
 					                            </div>
 					                        </div>
 					                    </div>

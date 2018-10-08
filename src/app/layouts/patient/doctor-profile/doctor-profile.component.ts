@@ -22,7 +22,12 @@ loading : boolean = false;
 	        private fb: FormBuilder,
 	        private activatedRoute: ActivatedRoute,
 	        public globalService:GlobalServiceService,
-	        public ng4LoadingSpinnerService:Ng4LoadingSpinnerService) { }
+	        public ng4LoadingSpinnerService:Ng4LoadingSpinnerService) { 
+        var status = this.globalService.ispatientLogedIn();
+                if(status==false){
+                 this.router.navigateByUrl('/login');
+                }
+  }
 
   ngOnInit() {
   	 this.activatedRoute.params.subscribe((params: Params) => {
@@ -32,10 +37,10 @@ loading : boolean = false;
   }
 
 
-  getDoctorByAadharNo(aadharNo){
+  getDoctorByAadharNo(id){
    this.loading=true;
-   let postData = {requestType:"doctor",key : aadharNo};
-   const url=this.globalService.basePath+'doctor/getProfile';   
+   let postData = {requestType:"doctor",id : id};
+   const url=this.globalService.basePath+'api/viewProfile';   
    this.http.post(url,postData).subscribe((res)=>{
       this.loading=false;
       if(res.json().status===200){        

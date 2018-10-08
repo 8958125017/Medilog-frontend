@@ -24,7 +24,11 @@ user : any ;
     private http: Http, public ng4LoadingSpinnerService:Ng4LoadingSpinnerService) { 
 
         var data = localStorage.getItem('labs');
-        debugger
+       
+                   var status = this.globalService.islabsLogedIn();
+                if(status==false){
+                 this.router.navigateByUrl('/login');
+                }
         if(data) {
         	this.user = JSON.parse(data);
         }

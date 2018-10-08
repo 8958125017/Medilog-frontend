@@ -40,9 +40,11 @@ export class NavbarComponent implements OnInit {
 
       var data = '';
        if(localStorage.getItem('doctor')) data = localStorage.getItem('doctor');
+       if(localStorage.getItem('admin')) data = localStorage.getItem('admin');
        if(localStorage.getItem('hospital')) data = localStorage.getItem('hospital');
        if(localStorage.getItem('lab')) data = localStorage.getItem('lab');
        if(localStorage.getItem('pharmacy')) data = localStorage.getItem('pharmacy');
+       if(localStorage.getItem('patient')) data = localStorage.getItem('patient');
 
        this.user = JSON.parse(data);
     }

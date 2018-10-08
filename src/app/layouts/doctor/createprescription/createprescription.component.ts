@@ -7,7 +7,7 @@ import { FormsModule, FormControl, FormBuilder, Validators, FormGroup, ReactiveF
 import { CanActivate,ActivatedRouteSnapshot,RouterStateSnapshot,Params}from '@angular/router';
 import {Http} from '@angular/http';
 declare var $: any;
-
+import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-createprescription',
@@ -37,7 +37,13 @@ medicineDetail={
   private router: Router,
   private fb: FormBuilder,
   private http: Http,
-  private activatedRoute: ActivatedRoute) { }
+  private activatedRoute: ActivatedRoute,public ng4LoadingSpinnerService:Ng4LoadingSpinnerService,) { 
+   this.user=JSON.parse(localStorage.getItem('doctor'));
+            var status = this.globalService.isdoctorLogedIn();
+                if(status==false){
+                  this.router.navigateByUrl('/login');
+                }
+  }
 
   ngOnInit() {
   	this.doctorFormInit();
@@ -114,7 +120,9 @@ medicineDetail={
 
    let postData = this.prescriptionForm.value;
    const url=this.globalService.basePath+'doctor/createPrescription';
+         this.ng4LoadingSpinnerService.show();
    this.http.post(url,postData).subscribe((res)=>{
+           this.ng4LoadingSpinnerService.hide();
       this.loading=false;
       if(res.json().status===200){
 

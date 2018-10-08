@@ -6,9 +6,9 @@
                                 <div class="page-title">Labs List</div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
-                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" [routerLink]="['/home']">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li><a class="parent-item" href="#">Labs</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><a class="parent-item" [routerLink]="['/admin/dashboard']">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
                                 <li class="active">Labs List</li>
                             </ol>
@@ -43,7 +43,7 @@
 					                                                </a> -->
 					                                            </div>
 					                                        </div>
-					                                        <div class="col-md-6 col-sm-6 col-xs-6">
+					                                       <!--  <div class="col-md-6 col-sm-6 col-xs-6">
 					                                            <div class="btn-group pull-right">
 					                                                <a class="btn deepPink-bgcolor  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
 					                                                    <i class="fa fa-angle-down"></i>
@@ -63,7 +63,7 @@
 					                                                    </li>
 					                                                </ul>
 					                                            </div>
-					                                        </div>
+					                                        </div> -->
 					                                    </div>
 					                                    <div class="table-scrollable">
                                       					   <table class="table table-hover table-checkable order-column full-width" id="example4">
@@ -94,9 +94,9 @@
 					                                        		<td></td>
 					                                        	</tr>
 
-																<tr class="odd gradeX" *ngFor="let lab of labs">
+																<tr class="odd gradeX"  *ngFor="let lab of labs  | paginate: { id: 'labs',itemsPerPage: 4, currentPage: p };let i = index" >
 																	<td class="patient-img">
-																	<img src="../../.././assets/img/user/user1.jpg" alt="">
+																		<img src="{{lab.image ? lab.image : '../../.././assets/img/default-avatar.png'}}" alt="" width="70" height="70" style="border-radius: 800%">
 																	</td>
 																	<td>{{lab.name}}</td>
 																	<td class="left">{{lab.email}}</td>
@@ -111,7 +111,7 @@
 																	<td>
 																	
 																		<a (click)="deleteLabs(lab)" class="btn btn-danger btn-xs">
-																			<i class="fa fa-trash-o "></i>
+																			Delete
 																		</a>
 																	</td>
 																</tr>
@@ -120,6 +120,7 @@
 					                                    </table>
 					                                    </div>
 					                                </div>
+					                                <pagination-controls id="labs" (pageChange)="p = $event"></pagination-controls>
 					                            </div>
 					                        </div>
 					                    </div>

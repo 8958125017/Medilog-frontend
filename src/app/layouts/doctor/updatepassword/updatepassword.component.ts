@@ -21,8 +21,7 @@ private doctorForm:FormGroup;
 	            private router: Router,
 	            private fb: FormBuilder,
 	            public globalService:GlobalServiceService,
-	            public ng4LoadingSpinnerService:Ng4LoadingSpinnerService) {
-  	debugger
+	            public ng4LoadingSpinnerService:Ng4LoadingSpinnerService) {  	
   	            this.user=JSON.parse(localStorage.getItem('doctor'));
                  var status = this.globalService.isdoctorLogedIn();
                 if(status==false){

@@ -6,7 +6,7 @@ import { FormsModule, FormControl, FormBuilder, Validators, FormGroup, ReactiveF
 import { CanActivate,ActivatedRouteSnapshot,RouterStateSnapshot}from '@angular/router';
 import {Http} from '@angular/http';
 declare var $: any;
-
+import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-spinner';
 @Component({
   selector: 'app-pendinglabs',
   templateUrl: './pendinglabs.component.html',
@@ -15,10 +15,10 @@ declare var $: any;
 export class PendinglabsComponent implements OnInit {
 labs : any[] = [];
 loading : boolean = false;
-
+p: number = 1;
   constructor(public globalService:GlobalServiceService,
   	private router: Router,
-  	private fb: FormBuilder,
+  	private fb: FormBuilder,public ng4LoadingSpinnerService:Ng4LoadingSpinnerService,
     private http: Http) { 
         var status = this.globalService.isadminLogedIn();
                 if(status==false){
@@ -33,7 +33,9 @@ loading : boolean = false;
   getAllLabs(){   
      this.loading=true;
      const url=this.globalService.basePath+'admin/getRequest';
+     this.ng4LoadingSpinnerService.show();
      this.http.get(url).subscribe((res)=>{
+       this.ng4LoadingSpinnerService.hide();
         this.loading=false;
         if(res.json().status===200){
           debugger
@@ -56,7 +58,9 @@ loading : boolean = false;
     this.loading=true;
     var postData = {requestType : 'labs',mobileNo : item.contactNo,hospitalMultichainAddress: item.hospitalMultichainAddress};
    debugger
+   this.ng4LoadingSpinnerService.show();
    this.http.post(url,postData).subscribe((res)=>{
+     this.ng4LoadingSpinnerService.hide();
       this.loading=false;
       if(res.json().status===200){
         this.router.navigate(['/admin/labs']);

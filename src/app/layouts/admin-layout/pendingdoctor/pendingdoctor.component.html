@@ -6,11 +6,11 @@
                                 <div class="page-title">Doctors List</div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
-                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" [routerLink]="['/home']">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li><a class="parent-item" href="#">Doctors</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><a class="parent-item" [routerLink]="['/admin/dashboard']">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li class="active">Doctor List</li>
+                                <li class="active">Pending Doctors</li>
                             </ol>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
 					                                    </div>
 					                                </div> -->
 					                                <div class="card-body ">
-					                                    <div class="row">
+					                                    <!-- <div class="row">
 					                                        <div class="col-md-6 col-sm-6 col-xs-6">
 					                                            
 					                                        </div>
@@ -54,7 +54,7 @@
                                                                     </a>
                                                                 </div>
 					                                        </div>
-					                                    </div>
+					                                    </div> -->
 					                                    <div class="table-scrollable">
                                       					   <table class="table table-hover table-checkable order-column full-width" id="example4">
 					                                        <thead>
@@ -65,9 +65,8 @@
 					                                                <th> Specialization </th>
 					                                                <th> Degree </th>
 					                                                <th> Mobile </th>
-					                                                
-					                                                <th> Joining Date</th>
-					                                                <th> Email </th>
+					                                                <th> Email</th>
+					                                                <th> Joining Date </th>
 					                                                <th> Status </th>
 					                                                <th> Action </th>
 					                                            </tr>
@@ -78,23 +77,22 @@
 					                                        		<td></td>
 					                                        		<td></td>
 					                                        		<td></td>
+					                                        		<td></td>
 					                                        		<td>No Data Found</td>
-					                                        		<td></td>
-					                                        		<td></td>
 					                                        		<td></td>
 					                                        		<td></td>
 					                                        		<td></td>
 					                                        	</tr>
 
-															<tr class="odd gradeX" *ngFor="let doctor of doctors">
+															<tr class="odd gradeX" *ngFor="let doctor of doctors  | paginate: { id: 'doctors',itemsPerPage: 4, currentPage: p };let i = index" >
 																	<td class="patient-img">
-																			<img src="../../.././assets/img/user/user1.jpg" alt="">
+																		<img src="{{doctor.image ? doctor.image : '../../.././assets/img/default-avatar.png'}}" alt="" width="70" height="70" style="border-radius: 800%">
 																	</td>
 																	<td>{{doctor.name}}</td>
-																	<td class="left">{{doctor?.practiceSpecialties[0]}}</td>
+																	<td class="left">{{doctor.practiceSpecialties[0]?doctor.practiceSpecialties[0] : 'NA'}}</td>
 																	<td class="left">
 																		<p *ngFor="let special of doctor?.practiceSpecialties">
-																			{{special}}
+																			{{special ? special : 'NA'}}
 																		</p>
 																		
 																	</td>
@@ -113,10 +111,10 @@
 																	<td class="left">Pending</td>
 																	<td>
 																		<a (click)="checkRequest(doctor,'approve')" class="btn btn-primary btn-xs">
-																			<i class="fa fa-pencil"></i>
+																			Approve
 																		</a>
 																		<a (click)="checkRequest(doctor,'block')" class="btn btn-danger btn-xs">
-																			<i class="fa fa-trash-o "></i>
+																			Block
 																		</a>
 																	</td>
 																</tr>
@@ -125,6 +123,7 @@
 					                                    </table>
 					                                    </div>
 					                                </div>
+					                                 <pagination-controls id="doctors" (pageChange)="p = $event"></pagination-controls>
 					                            </div>
 					                        </div>
 					                    </div>

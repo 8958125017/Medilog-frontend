@@ -11,7 +11,10 @@ import { AddlabsComponent } from './addlabs/addlabs.component';
 import { ViewdoctorsComponent } from './viewdoctors/viewdoctors.component';
 import { ViewpharmacyComponent } from './viewpharmacy/viewpharmacy.component';
 import { ViewlabsComponent } from './viewlabs/viewlabs.component';
-
+import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
+import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,17 +23,21 @@ import { ViewlabsComponent } from './viewlabs/viewlabs.component';
     RouterModule.forChild(HospitalRoutes),
     FormsModule,
     ReactiveFormsModule,
+    Ng4LoadingSpinnerModule.forRoot(),
+    NgxPaginationModule
   ],
   declarations: [
                  HospitalDashboardComponent,
                  ProfileComponent,
                  HospitalDashboardComponent, 
                  AdddoctorComponent,
+                 DoctorProfileComponent,
                  AddpharmacyComponent,
                  AddlabsComponent,
                  ViewdoctorsComponent,
                  ViewpharmacyComponent,
-                 ViewlabsComponent
+                 ViewlabsComponent,
+                 UpdatepasswordComponent
   ]
 })
 export class HospitalModule { }

@@ -86,16 +86,21 @@ export const PHARMACYROUTES : RouteInfo[]=[
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   user : any;
-
+  userName:any;
+  userImage:any;
   constructor() { }
 
   ngOnInit() {
     this.user = localStorage.getItem('admin');
-    if(this.user) this.menuItems = ROUTES.filter(menuItem => menuItem);
-
-    this.user = localStorage.getItem('doctor');
-    if(this.user) this.menuItems = DOCTORROUTES.filter(menuItem => menuItem);
-
+    this.user=JSON.parse(localStorage.getItem('admin')); 
+    if(this.user) {
+      
+        this.userName=this.user.email;
+      //  this.userImage=this.user.image;
+        this.menuItems = ROUTES.filter(menuItem => menuItem);
+      }
+      
+     
     this.user = localStorage.getItem('patient');
 
     if(this.user) this.menuItems = PATIENTSRROUTES.filter(menuItem => menuItem);

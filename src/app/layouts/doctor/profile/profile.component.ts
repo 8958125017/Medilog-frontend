@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
 user:any;
 fullUserProfile:any;
 private updateUserForm:FormGroup;
-viewProfile:boolean=true;
+viewProfiles:boolean=true;
 updateProfile:boolean=false;
 gender:any;
 userImage:any;
@@ -31,31 +31,35 @@ userImage:any;
 	        public globalService:GlobalServiceService,
 	        public ng4LoadingSpinnerService:Ng4LoadingSpinnerService,private messgage : MessageService) {
   					this.user=JSON.parse(localStorage.getItem('doctor'));
+            var status = this.globalService.isdoctorLogedIn();
+                if(status==false){
+                  this.router.navigateByUrl('/login');
+                }
 	         }
 
  ngOnInit() {
 	  	this.getUserProfile();
 	  	this.updateUserFormInit();
 	  	this.getDegree();
-        this.getBloodGroup();
-        this.getSpecialities();
-        this.getDepartments();
+      this.getBloodGroup();
+      this.getSpecialities();
+      this.getDepartments();
 	  }
 
-	     getUserProfile(){
-	      
-                const url = this.globalService.basePath+'api/viewProfile';
+	     getUserProfile(){	                     
                 let data ={id:this.user._id, requestType :'doctor'}
+                 const url = this.globalService.basePath+'api/viewProfile';
                   this.ng4LoadingSpinnerService.show();
               this.globalService.PostRequestUnautorized(url,data)
               .subscribe((response) => { 
-              	    if(response[0].json.status==200){    
-                      debugger
+              	    if(response[0].json.status==200){ 
+
                         this.fullUserProfile=response[0].json.data;	
+                        debugger
                           let userName=this.fullUserProfile.firstName+" " +this.fullUserProfile.lastName;
                           let userImage=this.fullUserProfile.image;
                          this.messgage.sendMessage(userImage,userName);                          
-                        this.fillUserProfile();	
+                         this.fillUserProfile();   
 
                   this.ng4LoadingSpinnerService.hide();
                    } else{
@@ -68,8 +72,8 @@ userImage:any;
 fillUserProfile(){
     var b = moment(this.fullUserProfile.dob).format('YYYY-MM-DD');
 	this.updateUserForm.controls['doctorId'].setValue(this.fullUserProfile._id);
-	this.updateUserForm.controls['firstName'].setValue(this.fullUserProfile.firstName);
-	this.updateUserForm.controls['lastName'].setValue(this.fullUserProfile.lastName);
+	this.updateUserForm.controls['firstName'].setValue(this.fullUserProfile.firstName ? this.fullUserProfile.firstName : 'NA');
+	this.updateUserForm.controls['lastName'].setValue(this.fullUserProfile.lastName ? this.fullUserProfile.lastName : 'NA');
 	this.updateUserForm.controls['department'].setValue(this.fullUserProfile.department);
 	this.updateUserForm.controls['mobileNo'].setValue(this.fullUserProfile.mobileNo);
 	this.updateUserForm.controls['email'].setValue(this.fullUserProfile.email);
@@ -89,32 +93,31 @@ fillUserProfile(){
 
 	    updateUserFormInit(){
 	      this.updateUserForm = this.fb.group({
-	      	doctorId : new FormControl(''),
-	      	firstName : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,32}$/)])),
-		      lastName : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,32}$/)])),
-		      email : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
-		      gender : new FormControl('',Validators.required),
-		      mobileNo : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[0-9]{10,10}$/)])),
-		      city : new FormControl('',Validators.required),
-		      department : new FormControl('',Validators.required),
-		      designation : new FormControl(''),
-		      description: new FormControl(''),
-		      address : new  FormControl('',Validators.required),
-		      dob : new FormControl('',Validators.required),
-		      degree : new FormControl('',Validators.required),
-		      age : new FormControl(''),
-		      practiceSpecialties : new FormControl(''),		     
-		      bloodgroup : new FormControl(''),
-		      image : new FormControl(''),
-		      aadharNo : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^((?!(0))[0-9]{12,12})$/)])),
-	        });
+    	      	doctorId : new FormControl(''),
+    	      	firstName : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,32}$/)])),
+    		      lastName : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,32}$/)])),
+    		      email : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
+    		      gender : new FormControl('',Validators.required),
+    		      mobileNo : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[0-9]{10,10}$/)])),
+    		      city : new FormControl('',Validators.required),
+    		      department : new FormControl('',Validators.required),
+    		      designation : new FormControl(''),
+    		      description: new FormControl(''),
+    		      address : new  FormControl('',Validators.required),
+    		      dob : new FormControl('',Validators.required),
+    		      degree : new FormControl('',Validators.required),
+    		      age : new FormControl(''),
+    		      practiceSpecialties : new FormControl(''),		     
+    		      bloodgroup : new FormControl(''),
+    		      image : new FormControl(''),
+    		      aadharNo : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^((?!(0))[0-9]{12,12})$/)])),
+    	        });
 	    }
 
 	    updateUserProfile(value){
 	    	this.updateUserForm.value.image=this.userImage;
             const url = this.globalService.basePath+'doctor/updateDoctorprofile';
-            console.log(this.fullUserProfile);
-            debugger
+            console.log(this.fullUserProfile);            
           	this.globalService.PostRequestUnautorized(url,this.updateUserForm.value).subscribe((response) => { 
               if(response[0].json.status==200){
               	  this.getUserProfile(); 
@@ -126,11 +129,11 @@ fillUserProfile(){
           }
 
           tab1(){
-             this.viewProfile=true;
+             this.viewProfiles=true;
              this.updateProfile=false;
           }
           tab2(){
-            this.viewProfile=false;
+            this.viewProfiles=false;
             this.updateProfile=true;
           }
 

@@ -8,7 +8,7 @@
                             <ol class="breadcrumb page-breadcrumb pull-right">
                                 <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li><a class="parent-item" href="#">Doctors</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><a class="parent-item" >Doctors</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
                                 <li class="active">Pull EHR</li>
                             </ol>
@@ -48,8 +48,8 @@
                     <form [formGroup]="requestForm">
                         <div class="form-group">
                             <div class="">
-                                <label>Mobile No*</label>
-                                <input type="tel" [(ngModel)]="aadharNo" formControlName="aadharNo" name="mobile" class="form-control" placeholder="Aadhar Number">
+                                <label>Aadhar No*</label>
+                                <input type="number" [(ngModel)]="aadharNo" formControlName="aadharNo" name="mobile" class="form-control" placeholder="Aadhar Number" min="0" (keydown)="minus($event)" >
                                   <div class="small redlabe text-danger" *ngIf="!requestForm.controls['aadharNo'].valid&&requestForm.controls['aadharNo'].dirty">
                                 <span *ngIf="requestForm.controls['aadharNo'].errors['required']"> Mobile No cannot be left blak</span>
                                 <span class="text-capitalize small text-danger"*ngIf="requestForm.controls['aadharNo'].errors['pattern']" class="small redlabe text-danger">Aadhar No is not valid</span>    
@@ -83,7 +83,7 @@
                         <div class="form-group">
                             <div class="">
                                 <label>OTP*</label>
-                                <input type="tel" [(ngModel)]="otp" formControlName="otp" name="mobile" class="form-control" placeholder="Enter OTP Number">
+                                <input type="number" [(ngModel)]="otp" formControlName="otp" name="mobile" class="form-control" placeholder="Enter OTP Number" min="0" (keydown)="minus($event)">
                                   <div class="small redlabe text-danger" *ngIf="!otpForm.controls['otp'].valid&&otpForm.controls['otp'].dirty">
                                 <span *ngIf="otpForm.controls['otp'].errors['required']"> OTP cannot be left blak</span>
                                 

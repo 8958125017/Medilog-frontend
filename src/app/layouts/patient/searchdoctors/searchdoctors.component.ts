@@ -15,7 +15,8 @@ export class SearchdoctorsComponent implements OnInit {
 doctors : any[]=[];
 loading : boolean = false;
 user : any ;
-
+public filterText: string;
+nofoundStatus:boolean=false;
   constructor(public globalService:GlobalServiceService,
   	private router: Router,
   	private fb: FormBuilder,
@@ -44,7 +45,9 @@ user : any ;
      this.http.post(url,postData).subscribe((res)=>{
         this.loading=false;
         if(res.json().status===200){
+
           this.doctors = res.json().data;
+           
         }else{
           this.globalService.showNotification(res.json().message,4);
         }
@@ -57,11 +60,11 @@ user : any ;
    this.loading=true;
    let patientId = this.user._id;
    const url=this.globalService.basePath+'patient/viewAllDoctors';
-   this.http.post(url,{patientId :patientId}).subscribe((res)=>{
-     debugger
+   this.http.post(url,{patientId :patientId}).subscribe((res)=>{     
       this.loading=false;
       if(res.json().status===200){
       	this.doctors = res.json().data;
+        this.nofoundStatus=true;
         // this.globalService.showNotification(res.json().message,2);
       }else{
         this.globalService.showNotification(res.json().message,4);
