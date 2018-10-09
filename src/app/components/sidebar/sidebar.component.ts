@@ -37,46 +37,7 @@ export const ROUTES: RouteInfo[] = [
 
 ];
 
-// Doctor Routing here----------------------------------
-export const DOCTORROUTES: RouteInfo[] = [
-    { path: 'viewpatients', title: 'View Patients', icon:'accessible', class: '',type: 'sub'},
-    { path : 'addpatient', title : 'Add Patient',icon:'person', type : 'link',class : ''},
-    { path : 'createprescription', title : 'Create Prescription',icon:'person', type : 'link',class : ''},
-    { path: 'recordreview', title : 'Record Review',icon:'person', type : 'link',class : ''},
-    { path: 'doctorrequest', title: 'Send Request', icon:'group', class: '',type: 'sub'},
-    { path: 'profile', title: 'Profile',type:'link',  icon:'person', class: '' },
-];
 
-export const PATIENTSRROUTES : RouteInfo[]=[
-     {  path:'dashboard',title:'Dashboard',icon:'dashboard', class: '',type: 'sub',collapse : 'patient',},
-     {  path:'addoldrecord',title:'  AddOldRecord',icon:'accessible', class: '',type: 'sub',collapse : 'patient',},
-     {  path:'history',title:'EHR History',icon:'accessible', class: '',type: 'sub',collapse : 'patient',},
-     {  path:'healthAnalysis',title:'Health Analysis',icon:'accessible', class: '',type: 'sub',collapse : 'patient',},
-     {  path:'connectDevice',title:'Connect Device',icon:'accessible', class: '',type: 'sub',collapse : 'patient',},
-     { path: 'profile', title: 'Profile',type:'link',  icon:'person', class: '' },
-];
-
-export const HOSPITALROUTES : RouteInfo[]=[
-  { path: 'profile', title: 'Profile',type:'link',  icon:'person', class: '' },
-     {  path:'dashboard',title:'Dashboard',icon:'dashboard', class: '',type: 'link'},
-     {  path:'adddoctor',title:'Add Doctor',icon:'person', class: '',type: 'link'},
-     {  path:'addpharmacy',title:'Add Pharmacy',icon:'person', class: '',type: 'link'},
-     {  path:'addlabs',title:'Add Labs',icon:'person', class: '',type: 'link'},
-
-]
-
-export const LABSROUTES : RouteInfo[]=[
-//  {  path:'dashboard',title:'Dashboard',icon:'dashboard', class: '',type: 'link'},
-  { path: 'uploadbill', title: 'Upload Bill',type:'link',  icon:'person', class: '' },
-  { path: 'uploadreport', title: 'Upload Report',type:'link',  icon:'person', class: '' },
-  { path: 'profile', title: 'Profile',type:'link',  icon:'person', class: '' },
-]
-
-export const PHARMACYROUTES : RouteInfo[]=[
-  {  path:'dashboard',title:'Dashboard',icon:'dashboard', class: '',type: 'link'},
-  { path: 'profile', title: 'Profile',type:'link',  icon:'person', class: '' },
-  { path: 'uploadbill', title: 'Upload Bill',type:'link',  icon:'person', class: '' },
-]
 
 @Component({
   selector: 'app-sidebar',
@@ -91,29 +52,17 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.user = localStorage.getItem('admin');
-    this.user=JSON.parse(localStorage.getItem('admin')); 
-    if(this.user) {
-      
+      if(localStorage.getItem('admin')){        
+       this.user=JSON.parse(localStorage.getItem('admin')); 
+       debugger
+        if(this.user){
         this.userName=this.user.email;
-      //  this.userImage=this.user.image;
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+        // this.userImage=this.user.image;
       }
-      
-     
-    this.user = localStorage.getItem('patient');
-
-    if(this.user) this.menuItems = PATIENTSRROUTES.filter(menuItem => menuItem);
-
-    this.user = localStorage.getItem('hospital');
-    if(this.user) this.menuItems = HOSPITALROUTES.filter(menuItem => menuItem);
-
-    this.user = localStorage.getItem('labs');
-    if(this.user) this.menuItems = LABSROUTES.filter(menuItem => menuItem);
-    
-    this.user = localStorage.getItem('pharmacy');
-    if(this.user) this.menuItems = PHARMACYROUTES.filter(menuItem => menuItem);
+      this.menuItems = ROUTES.filter(menuItem => menuItem);
+    } 
   }
+
   isMobileMenu() {
       if ($(window).width() > 991) {
           return false;

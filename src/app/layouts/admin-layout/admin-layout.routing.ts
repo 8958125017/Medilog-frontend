@@ -122,3 +122,21 @@ export const AdminLayoutRoutes: Routes = [
     // { path: 'user-profile',   component: UserProfileComponent },    
 
 ];
+
+
+// export const AdminLayoutRoutes: Routes = [
+
+//     { path: '',pathMatch : 'full',redirectTo: 'dashboard' },
+//     { path: ' dashboard', component : DashboardComponent },
+//     { path: ' patients',  component: PatientsComponent },
+//     { path : 'doctors',   component : DoctorsComponent},
+//     { path : 'labs',      component : LabsComponent},
+//     { path : 'pharmacy',  component : PharmacyComponent},
+//     { path : 'hospitals', component : HospitalsComponent},   
+
+//     { path : 'pendingpatient', component : PendingdoctorComponent},   
+//     { path: ' pendinghospitals', component: PendinghospitalComponent},
+//     { path : 'pendinglabs', component : PendinglabsComponent},
+//     { path : 'pendingpharmacy', component : PendingpharmacyComponent},
+//     { path : 'pendingdoctors', component : PendingdoctorComponent},
+// ];

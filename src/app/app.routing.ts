@@ -14,7 +14,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { HospitalComponent} from './layouts/hospital/hospital.component';
 import { PharmacyComponent} from './layouts/pharmacy/pharmacy.component';
 import { SignupComponent } from './signup/signup.component';
-import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { UpdatepasswordComponent } from './updatePassword/updatePassword.component';
 const routes: Routes =[
   {
     path: '',
@@ -30,8 +30,8 @@ const routes: Routes =[
     path: 'signup',
     component: SignupComponent,
   },{
-    path: 'changepassword/:token',
-    component: ChangepasswordComponent,
+    path: 'updatePassword/:token',
+    component: UpdatepasswordComponent,
   },
   {
     path: 'admin',

@@ -153,10 +153,10 @@
                                 <label>email*</label>
                              
                         
-                        <input type="email" formControlName="emailId" class="p-2 w-100 small login_input" name="emailId" placeholder="Email"  required>
-                                <div *ngIf="!forgotpasswordForms.controls['emailId'].valid&&forgotpasswordForms.controls['emailId'].dirty">
-                                    <span *ngIf="forgotpasswordForms.controls['emailId'].errors['required']" class="small redlabe text-danger">Email is required</span>
-                                    <span *ngIf="forgotpasswordForms.controls['emailId'].errors['pattern']" class="small redlabe text-danger">Email is not valid</span>
+                        <input type="email" formControlName="email" class="p-2 w-100 small login_input" name="email" placeholder="Email"  required>
+                                <div *ngIf="!forgotpasswordForms.controls['email'].valid&&forgotpasswordForms.controls['email'].dirty">
+                                    <span *ngIf="forgotpasswordForms.controls['email'].errors['required']" class="small redlabe text-danger">Email is required</span>
+                                    <span *ngIf="forgotpasswordForms.controls['email'].errors['pattern']" class="small redlabe text-danger">Email is not valid</span>
                                 </div>
                             </div>
                         </div>

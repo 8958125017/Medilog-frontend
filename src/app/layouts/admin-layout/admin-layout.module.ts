@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder } from '@angul
 import { QRCodeModule } from 'angularx-qrcode';
 import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
-
 import {
   MatButtonModule,
   MatInputModule,

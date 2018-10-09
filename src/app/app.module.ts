@@ -25,7 +25,7 @@ import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/mate
 import { QRCodeModule } from 'angularx-qrcode';
 import { GlobalServiceService }  from   './global-service.service';
 import { SignupComponent } from './signup/signup.component';
-import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { UpdatepasswordComponent } from './updatePassword/updatePassword.component';
 import { MessageService } from './message.service';
 // import { HtmlPipe } from './html.pipe';
 
@@ -58,7 +58,7 @@ import { MessageService } from './message.service';
     HospitalComponent,
     PharmacyComponent,
     SignupComponent,
-    ChangepasswordComponent,
+    UpdatepasswordComponent,
     // HtmlPipe
   ],
    providers: [MessageService,ToasterService,Ng4LoadingSpinnerService,GlobalServiceService],

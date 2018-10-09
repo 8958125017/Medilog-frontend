@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
           forgotPaswordFormInit(){
                  this.forgotpasswordForms = this.fb.group({
                   requestType : new FormControl(''),
-                  emailId : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
+                  email : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
                   
               })
           }
@@ -99,7 +99,8 @@ export class LoginComponent implements OnInit {
           const url = this.globalService.basePath + 'api/login';
           this.loginForm.value.requestType=this.requestType;
           this.globalService.PostRequestUnautorized(url,this.loginForm.value).subscribe((response) => { 
-                this.ng4LoadingSpinnerService.hide(); 
+                this.ng4LoadingSpinnerService.hide();
+                debugger 
                 if(response[0].json.status==200){ 
                     this.loading = false;
                     this.globalService.showNotification(response[0].json.message,2);
@@ -163,9 +164,8 @@ export class LoginComponent implements OnInit {
                  }else{                 
                       this.otp.reset();
                       this.globalService.showNotification(response[0].json.message,4); 
-                      this.ng4LoadingSpinnerService.hide();      
-                     
-                       }
+                      this.ng4LoadingSpinnerService.hide();   
+                      }
              
               })
           }
@@ -175,29 +175,20 @@ export class LoginComponent implements OnInit {
                $('#forgotPasswordModal').modal('show');
           }
 
-          forgotpassword(){
-            $('#forgotPasswordModal').modal('hide');
-           const url = this.globalService.basePath + 'api/forgetPassword';           
-            //this.forgotpasswordForms.value.requestType=this.requestType;
-            console.log("this.forgotpasswordForms.value = = "+JSON.stringify(this.forgotpasswordForms.value));
-            // this.globalService.PostRequestUnautorized(url,this.forgotpasswordForms.value).subscribe((response) => { 
-            // if(response[0].json.statusCode==200){
-            //   this.forgotpasswordForms.reset(); 
-           
-            //   localStorage.setItem('currentUser', JSON.stringify(this.user));
-            //      this.user=JSON.parse(localStorage.getItem('currentUser'));
-            //      this.globalService.showNotification(response[0].json.message,2);
-            //      this.router.navigate(['/admin/dashboard']);
-            //      this.ng4LoadingSpinnerService.hide();      
-                               
-            //      }else{                 
-            //           this.otp.reset();
-            //           this.globalService.showNotification(response[0].json.message,4); 
-            //           this.ng4LoadingSpinnerService.hide();      
-                     
-            //            }
-             
-            //   })
+          forgotpassword(){           
+           $('#forgotPasswordModal').modal('hide');
+           const url = this.globalService.basePath + 'api/forgotPassword';          
+            this.forgotpasswordForms.value.requestType=this.requestType;
+             this.ng4LoadingSpinnerService.show();            
+            this.globalService.PostRequestUnautorized(url,this.forgotpasswordForms.value).subscribe((response) => { 
+             this.ng4LoadingSpinnerService.hide();
+            if(response[0].json.status==200){                  
+                   this.forgotpasswordForms.reset();            
+                   this.globalService.showNotification(response[0].json.message,2); 
+                 }else{     
+                      this.globalService.showNotification(response[0].json.message,4); 
+                 }
+               })
           }
 
 

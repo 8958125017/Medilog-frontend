@@ -124,54 +124,8 @@ export class NavbarComponent implements OnInit {
         }
     };
 
-    // getTitle(){
-    //   debugger;
-    //   this.router
-    //   var titlee = this.location.prepareExternalUrl(this.location.path());
-    //   if(titlee.charAt(0) === '#'){
-    //       titlee = titlee.slice( 2 );
-    //   }
-    //   titlee = titlee.split('/').pop();
 
-    //   for(var item = 0; item < this.listTitles.length; item++){
-    //       if(this.listTitles[item].path === titlee){
-    //           return this.listTitles[item].title;
-    //       }
-    //   }
-    //   return 'Dashboard';
-    // }
-            getTitle(){
             
-              if(this.router.url.split('/')[1]=="dashboard"){
-                return 'Dashboard'; 
-              }else if(this.router.url.split('/')[1]=="dnd"){
-                return 'DND'; 
-              }else if(this.router.url.split('/')[1]=="calls"){
-                return 'Calls'; 
-              }else if(this.router.url.split('/')[1]=="complaints"){
-                return 'Complaints'; 
-              }else if(this.router.url.split('/')[1]=="complaintStatus"){
-                return 'ComplaintStatus'; 
-              }else if(this.router.url.split('/')[1]=="preferences"){
-                return 'Preferences'; 
-              }else if(this.router.url.split('/')[1]=="user-profile"){
-                return 'User Profile'; 
-              }else if(this.router.url.split('/')[1]=="settings"){
-                return 'Settings'; 
-              }else if(this.router.url.split('/')[1]=="discover"){
-                return 'Discover'; 
-              }else if(this.router.url.split('/')[1]=="privacy"){
-                return 'Privacy policy'; 
-              }else if(this.router.url.split('/')[1]=="terms"){
-                return 'Terms&Condition'; 
-              }else if(this.router.url.split('/')[1]=="help"){
-                return 'Help'; 
-              }else if(this.router.url.split('/')[1]=="about"){
-                return 'About'; 
-              }
-
-            }
-
 
     logout(){
       this.globalService.logout();

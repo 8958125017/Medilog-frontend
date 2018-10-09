@@ -18,31 +18,32 @@ user:any;
     this.user = localStorage.getItem('admin');
     this.user=JSON.parse(localStorage.getItem('admin')); 
        if(localStorage.getItem('admin')) {      
-        this.isLogin=true;
-        this.isNotLogin=false;
+             this.isLogin=true;
+             this.isNotLogin=false;
       }else if(localStorage.getItem('patient')){
              this.isLogin=true;
-        this.isNotLogin=false;
+             this.isNotLogin=false;
       }else if(localStorage.getItem('hospital')){
       	     this.isLogin=true;
-        this.isNotLogin=false;
+             this.isNotLogin=false;
       }else if(localStorage.getItem('labs')){
-      	      this.isLogin=true;
-        this.isNotLogin=false;
+      	     this.isLogin=true;
+             this.isNotLogin=false;
       }else if(localStorage.getItem('pharmacy')){
-      	      this.isLogin=true;
-        this.isNotLogin=false;
+      	     this.isLogin=true;
+             this.isNotLogin=false;
+      }else if(localStorage.getItem('doctor')){
+             this.isLogin=true;
+             this.isNotLogin=false;
       }
       
      
    
   }
   dashboard(){
-  	debugger
-      if(localStorage.getItem('admin')) {      
-        this.router.navigate(['/admin/dashboard']);
+  	  if(localStorage.getItem('admin')) {      
+            this.router.navigate(['/admin/dashboard']);
       }else if(localStorage.getItem('patient')){
-      	console.log("json = = "+JSON.parse(localStorage.getItem('patient')));
             this.router.navigate(['/patient/dashboard']);
       }else if(localStorage.getItem('hospital')){
       	    this.router.navigate(['/hospital/dashboard']);
@@ -50,6 +51,8 @@ user:any;
       	     this.router.navigate(['/labs/dashboard']);
       }else if(localStorage.getItem('pharmacy')){
       	     this.router.navigate(['/pharmacy/dashboard']);
+      }else if(localStorage.getItem('doctor')){
+             this.router.navigate(['/doctor/viewpatients']);
       }
   }
 
