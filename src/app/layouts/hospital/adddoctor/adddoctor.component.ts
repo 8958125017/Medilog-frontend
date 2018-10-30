@@ -93,6 +93,7 @@ export class AdddoctorComponent implements OnInit {
 
   doctorFormInit(){
     this.doctorForm = this.fb.group({
+       hospitalId : new FormControl('',),
 	      firstName : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,32}$/)])),
 	      lastName : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,32}$/)])),
 	      email : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
@@ -108,7 +109,7 @@ export class AdddoctorComponent implements OnInit {
 	      password : new FormControl('',Validators.compose([Validators.required,Validators.minLength(6), Validators.maxLength(16),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,100})/)])),
 	      bloodgroup : new FormControl(''),
 	      image : new FormControl(''),
-        aadharNo : new FormControl('',Validators.compose([Validators.required,Validators.minLength(12), Validators.maxLength(12)])),
+        aadharNo : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[0-9]{12,12}$/)])),
 	      confirmPassword:new FormControl('', Validators.required)}, { validator: this.matchingPasswords('password', 'confirmPassword') });
   }
 
@@ -137,18 +138,17 @@ export class AdddoctorComponent implements OnInit {
 	   this.loading=true;
 	   let postData = this.doctorForm.value;
      this.doctorForm.value.hospitalId = this.user._id;
-     debugger
      this.ng4LoadingSpinnerService.show();  
-	   const url=this.globalService.basePath+'doctor/doctorSendRequestToAdmin';
-	   this.globalService.PostRequest(url,postData).subscribe((res)=>{
-	      this.loading=false;
-	      if(res.json().status===200){
-	        this.globalService.showNotification(res.json().message,2);
-          $('#otpModel').modal('show');
-          this.ng4LoadingSpinnerService.hide();  
-	        // this.router.navigate(['/hospital/viewdoctor'])
+	   const url=this.globalService.basePath+'hospital/addDoctor';
+	   this.globalService.PostRequest(url,postData).subscribe((resposnse)=>{
+       debugger
+	       this.ng4LoadingSpinnerService.hide(); 
+         var res=JSON.parse(resposnse[0].json._body);
+	      if(res.status===200){
+	        this.globalService.showNotification(res.message,2);           
+	       this.router.navigate(['/hospital/viewdoctor'])
 	      }else{
-	        this.globalService.showNotification(res.json().message,4);
+	        this.globalService.showNotification(res.message,4);
 	      }
 	    });
   }

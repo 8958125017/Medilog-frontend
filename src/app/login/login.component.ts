@@ -4,7 +4,7 @@ import { Router, ActivatedRoute,NavigationEnd } from '@angular/router';
 import { FormsModule, FormControl, FormBuilder, Validators, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { Http, Headers, RequestOptions, Response  } from '@angular/http';
 import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-spinner';
-import {GlobalServiceService}from'../global-service.service';
+import { GlobalServiceService}from'../global-service.service';
 
 
 @Component({
@@ -24,15 +24,14 @@ export class LoginComponent implements OnInit {
     loginUI :boolean=false;
   
   constructor(
-    private http: Http,
+        private http: Http,
         private route: ActivatedRoute,
         private router: Router,
         private fb: FormBuilder,
         public globalService:GlobalServiceService,
         public ng4LoadingSpinnerService:Ng4LoadingSpinnerService
         ) { 
-       this.dashbord=this.globalService.isLogedIn();
-      
+            this.dashbord=this.globalService.isLogedIn();      
         }
 
         loginUi(type:any){
@@ -99,8 +98,7 @@ export class LoginComponent implements OnInit {
           const url = this.globalService.basePath + 'api/login';
           this.loginForm.value.requestType=this.requestType;
           this.globalService.PostRequestUnautorized(url,this.loginForm.value).subscribe((response) => { 
-                this.ng4LoadingSpinnerService.hide();
-                debugger 
+                this.ng4LoadingSpinnerService.hide();                 
                 if(response[0].json.status==200){ 
                     this.loading = false;
                     this.globalService.showNotification(response[0].json.message,2);
@@ -128,11 +126,11 @@ export class LoginComponent implements OnInit {
 
               case "doctor":
                 localStorage.setItem('doctor',JSON.stringify(type));
-                this.router.navigate(['/doctor/viewpatients']);
+                this.router.navigate(['/doctor/dashboard']);
               break;
               case "labs":
                 localStorage.setItem('labs',JSON.stringify(type));
-                this.router.navigate(['/labs/uploadbill']);
+                this.router.navigate(['/labs/dashboard']);
               break;
               case "hospital":
                 localStorage.setItem('hospital',JSON.stringify(type));
@@ -140,7 +138,7 @@ export class LoginComponent implements OnInit {
               break;
               case "pharmacy":
                 localStorage.setItem('pharmacy',JSON.stringify(type));
-                this.router.navigate(['/pharmacy/uploadbill']);
+                this.router.navigate(['/pharmacy/dashboard']);
               break;
               default:                
               break;

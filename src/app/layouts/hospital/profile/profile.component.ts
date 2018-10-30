@@ -128,14 +128,14 @@ specialities:any=[];
             this.ng4LoadingSpinnerService.show();
           	this.globalService.PostRequest(url,this.hospitalForm.value).subscribe((response) => { 
                this.ng4LoadingSpinnerService.hide();
-               debugger
-              if(response[0].json.status==200){            
+               var res=JSON.parse(response[0].json._body);
+              if(res.status==200){            
                  // this.fullUserProfile=response[0].json.data; 
                    this.getUserProfile();   
-
-                  this.globalService.showNotification(response[0].json.message,2);                     
+                   debugger
+                  this.globalService.showNotification(res.message,2);                     
                } else{                 
-                  this.globalService.showNotification(response[0].json.message,4);                     
+                  this.globalService.showNotification(res.message,4);                     
                }
             });
           }

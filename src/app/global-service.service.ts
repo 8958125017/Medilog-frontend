@@ -32,10 +32,10 @@
                    )
                     {
 
-                        this.basePath = "http://103.201.142.41:5005/";
-                        // this.basePath = "http://192.168.0.71:5005/";
-                     //  this.basePath = "http://192.168.0.57:5005/";
-                      this.toasterService = toasterService
+                       //   this.basePath = "http://103.201.142.41:5005/";
+                         this.basePath = "http://192.168.0.57:5005/";
+                        //    this.basePath = "http://192.168.0.71:5005/";
+                            this.toasterService = toasterService
                      }
 
     			   showNotification(message, type) {
@@ -47,29 +47,10 @@
     			          this.toasterService.pop('error', "", message);
     			         }
     			    }
+ 
 
 
-
-    	public getRequsetOptions(url: string): RequestOptions {
-            let headers;
-            if (localStorage.getItem('token')) {
-                let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-                headers = new Headers();
-                headers.append("Content-Type", "application/json");
-                headers.append("token",this.userInfo.token);
-            }
-            else {
-                 // this.consoleFun('Unautorized Request !');
-                 }
-            let requestoptions = new RequestOptions({
-                method: RequestMethod.Get,
-                url: url,
-                headers: headers
-            });
-            return requestoptions;
-        }
-
-
+    	
 
         public PostRequestUnautorized(url?: string, data?: any): any {
             let headers = new Headers();
@@ -140,6 +121,27 @@
                 return Observable.throw(error);
             });
         }
+
+        public getRequsetOptions(url: string): RequestOptions {
+            let headers;
+            if (localStorage.getItem('token')) {
+                let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                headers = new Headers();
+                headers.append("Content-Type", "application/json");
+                headers.append("token",this.userInfo.token);
+            }
+            else {
+                 // this.consoleFun('Unautorized Request !');
+                 }
+            let requestoptions = new RequestOptions({
+                method: RequestMethod.Get,
+                url: url,
+                headers: headers
+            });
+            return requestoptions;
+        }
+
+
 
 
 

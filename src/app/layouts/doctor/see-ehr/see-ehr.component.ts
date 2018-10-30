@@ -17,9 +17,16 @@ export class SeeEHRComponent implements OnInit {
 aadharNo :any;
 loading: boolean = false;
 EHRhistory : any[] =[];
+precreption : any[] =[];
 user  : any;
 patientName :any;
-
+p: number = 1;
+EHRhistoryss:boolean=false;
+diagonosis:any;
+deseas:any;
+data:any;
+prescription:any;
+doctorName : any;
   constructor(private domSanitizer:DomSanitizer,
   	public globalService:GlobalServiceService,
   	private router: Router,
@@ -46,20 +53,34 @@ patientName :any;
   seeEHRhistory(aadharNo){
      this.loading=true;
    this.ng4LoadingSpinnerService.show();
-   let postData = {aadharNo : aadharNo};
-   // const url=this.globalService.basePath+'doctor/recordReview';
-   const url=this.globalService.basePath+'patient/getPatientVisit';
-
-   this.http.post(url,postData).subscribe((res)=>{
+   let postData = {aadharNo : aadharNo};  
+   const url=this.globalService.basePath+'doctor/getPatientVisit';
+   this.globalService.PostRequestUnautorized(url,postData).subscribe((res)=>{
+   debugger     
+     this.ng4LoadingSpinnerService.hide();          
       this.loading=false;
-      if(res.json().status===200){
+      if(res[0].json.status===200){
         // this.patients = res.json().data;
-        this.EHRhistory = res.json().data;
-        this.ng4LoadingSpinnerService.hide();
+        this.EHRhistory = res[0].json.data;
+        console.log("this.EHRhistory = "+ JSON.stringify(this.EHRhistory ))
       }else{
-        this.globalService.showNotification(res.json().message,4);
+        this.globalService.showNotification(res[0].json.message,4);
       }
     });
+  }
+
+  viewEHR(data:any){    
+    this.precreption=data.data;
+    this.doctorName=data.doctor.firstName+" "+data.doctor.lastName;
+    this.diagonosis=data.diagonosis ?data.diagonosis : "NA";
+    this.deseas=data.diseas ? data.diseas : "NA";
+    this.data=data.date;
+    this.prescription=data.prescription;
+    debugger
+    console.log("this.precreption = = "+this.precreption.length);
+    this.EHRhistoryss=true;
+     $('#prescriptionModal').modal('show');
+       // window.open(data, '_blank')
   }
 
 }

@@ -10,11 +10,11 @@
             </div>
             <nav class="header__menu">                                                                   
                 <ul>
-                    <li><a class="selected header-link" >HOME</a></li>
-                    <li><a  class="header-link">About</a></li>
-                    <li class="menu-item-has-children"><a class="header-link">FEATURES</a>
+                    <li><a class="selected header-link" scrollTo href="#intro">HOME</a></li>
+                    <li><a  class="header-link" scrollTo href="#about">About</a></li>
+                    <li><a class="header-link" scrollTo href="#features">FEATURES</a>
                     </li>
-                    <li><a  class="header-link">CONTACT</a></li>
+                    <li><a  class="header-link" scrollTo href="#support">CONTACT</a></li>
                     <li *ngIf="isLogin"><a  class="header-link" (click)="dashboard()">Dashboard</a></li>
                     <li *ngIf="isLogin"><a  class="header-link" (click)="logout()">Logout</a></li>
                     <li class="header__btn header__btn--login" *ngIf="isNotLogin">
@@ -207,7 +207,7 @@
                         </p>
                     </div>
                     <div class="grid__item grid__item--padding grid__item--centering">
-                        <a href="#" class="grid__more modal-toggle" data-openpopup="signuplogin" data-popup="login">GET IN TOUCH NOW</a>
+                        <a  class="grid__more modal-toggle" (click)="openModalForcontactUsModal()">GET IN TOUCH NOW</a>
                     </div>
                     <svg class="svg-support-bottom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                     <path d="M0,90 Q0,100 3,100 L95,96 Q100,96 99,80 L95,25 Q94,15 90,15 L6,0 Q2,0 2,10 Z" fill="#fb993e"/>
@@ -248,17 +248,90 @@
                 
                     <div class="text-center">
                         <div>
-                            <a href="index.html">
+                            <a >
                                 <img src="../../assets/images/logo.png" alt="logo" width="200">
                             </a>
                         </div>
-                        <p class="grid__text grid__text--copyright text-center mt-2">Copyright &copy; 2018 Medilocks. All Rights Reserved. </p>
+                        <p class="grid__text grid__text--copyright text-center mt-2">Copyright &copy; {{year}} Medilocks. All Rights Reserved. </p>
                         <ul class="grid__list grid__list--sicons">
-                                <li><a href="#"><img src="../../assets/images/twitter.png" alt="" title=""/></a></li>
-                                <li><a href="#"><img src="../../assets/images/facebook.png" alt="" title=""/></a></li>
-                                <li><a href="#"><img src="../../assets/images/linkedin.png" alt="" title=""/></a></li>
+                                <li><a href="https://twitter.com/login?lang=en" target="_blank"><img src="../../assets/images/twitter.png" alt="" title=""/></a></li>
+                                <li><a href="https://facebook.com/login?lang=en" target="_blank"><img src="../../assets/images/facebook.png" alt="" title=""/></a></li>
+                                <li><a href="https://www.linkedin.com" target="_blank"><img src="../../assets/images/linkedin.png" alt="" title=""/></a></li>
                         </ul>
                     </div>                  
                 </div>  
             </div>
         </footer>
+
+         <div class="modal fade" id="contactUsModal" tabindex="-1" role="dialog" aria-labelledby="contactUsModal" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="contactUsModal">Contact Us</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <form class="form ng-untouched ng-pristine ng-valid " novalidate=" " [formGroup]="contactForm">
+                                        <div class="card-content ">
+                                            <div class="col-md-6 ">
+                                                <div class="input-group ">
+                                                    <span class="input-group-addon ">
+                                                            <i class="fa fa-user-circle "></i>
+                                                        </span>
+                                                    <div class="form-group is-empty " style="margin-bottom: 0 !important;">
+                                                        <input class="form-control " placeholder="Name... " type="text " style="border: 0px solid #eee !important;margin: 0!important;" formControlName="name" >
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="!contactForm.controls['name'].valid&&contactForm.controls['name'].dirty"> <span class="small redlabe text-danger">Name is required</span></div>
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <div class="input-group ">
+                                                    <span class="input-group-addon">
+
+                                                            <i class="material-icons ">mail_outline</i>
+                                                        </span>
+                                                    <div class="form-group is-empty" style="margin-bottom: 0 !important;">
+                                                        <input class="form-control " placeholder="Email... " type="text " style="border: 0px solid #eee !important;margin: 0!important;" formControlName="email" >
+                                                    </div>
+                                                </div>
+                                                <div class="small" *ngIf="!contactForm.controls['email'].valid&&contactForm.controls['email'].dirty">
+                                                    <span *ngIf="contactForm.controls['email'].errors['required']" class="small redlabe text-danger">Email id is required</span>
+                                                    <span *ngIf="contactForm.controls['email'].errors['pattern']" class="small redlabe text-danger">Invalid email id</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 ">
+                                                <div class="input-group ">
+                                                    <span class="input-group-addon ">
+                                                        <i class="material-icons ">format_size</i>
+                                                            
+                                                        </span>
+                                                    <div class="form-group is-empty" style="margin-bottom: 0 !important;">
+                                                        <input class="form-control " placeholder="Subject here... " type="text " style="border: 0px solid #eee !important;margin: 0!important;" formControlName="subject">
+                                                    </div>
+                                                    <div *ngIf="!contactForm.controls['subject'].valid&&contactForm.controls['subject'].dirty"> <span class="small redlabe text-danger">Subject is required</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 ">
+                                                <div class="form-group is-empty ">
+                                                    <textarea class="form-control " style="border: 1px solid #eaeaea !important;" placeholder="Your message " rows="5 " formControlName="message" ></textarea>
+                                                    <div *ngIf="!contactForm.controls['message'].valid&&contactForm.controls['message'].dirty"> <span class="small redlabe text-danger">Message is required</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="footer text-center ">
+                                            
+                                            <div class="col-md-12 ">
+                                                <button class="btn btn-info btn-round " [disabled]="!contactForm.valid" (click)="sendMessage(contactForm.value)">Send Message</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+        

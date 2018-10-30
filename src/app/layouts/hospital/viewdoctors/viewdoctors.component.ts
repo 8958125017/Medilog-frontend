@@ -38,21 +38,21 @@ user:any;
   }
 
   getAllDoctors(){
-  	 debugger
   this.loading=true;
   this.ng4LoadingSpinnerService.show();  
   let patientId = this.user._id;
   const url=this.globalService.basePath+'doctor/getAllPatient';
  
-  this.http.post(url,{patientId :patientId,multichainAddress : this.user.multichainAddress,stream :"doctor"}).subscribe((res)=>{
+  this.globalService.PostRequest(url,{patientId :patientId,multichainAddress : this.user.multichainAddress,stream :"doctor"}).subscribe((response)=>{
   	debugger
      this.loading=false;
-     if(res.json().status===200){
-         this.doctors = res.json().data;
+     var res=JSON.parse(response[0].json._body);
+     if(res.status===200){
+         this.doctors = res.data;
          this.ng4LoadingSpinnerService.hide();  
        // this.globalService.showNotification(res.json().message,2);
      }else{
-       this.globalService.showNotification(res.json().message,4);
+       this.globalService.showNotification(res.message,4);
      }
    });
  }

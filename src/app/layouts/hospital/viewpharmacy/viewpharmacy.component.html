@@ -99,12 +99,12 @@
                                                    <img src="{{pharm.image ? pharm.image : '../../.././assets/img/default-avatar.png'}}" alt="" width="70" height="70" style="border-radius: 800%">
                                                 </span></td>
                                                 <td><span class="list-name">{{pharm._id ? pharm._id : 'NA'}}</span></td>
-                                                <td>{{pharm.name ? pharm.name : 'NA'}}}</td>
-                                                <td>{{pharm.open ? pharm.open :'NA'}}</td>
-                                                <td>{{pharm.close ? pharm.close :'NA'}}</td>
+                                                <td>{{pharm.name ? pharm.name : 'NA'}}</td>
+                                                <td>{{pharm.avaliablity.open ? pharm.avaliablity.open :'NA'}}</td>
+                                                <td>{{pharm.avaliablity.close ? pharm.avaliablity.close :'NA'}}</td>
                                                 <td>{{pharm.contactNo ? pharm.contactNo :'NA'}}</td>
-                                                <td ><span class="badge badge-success" *ngIf="lab.isApproved">Approved</span></td>
-                                                 <td ><span class="badge badge-danger" *ngIf="!lab.isApproved">Not Approved</span></td>
+                                                <td ><span class="badge badge-success" *ngIf="pharm.isApproved">Approved</span></td>
+                                                 <td ><span class="badge badge-danger" *ngIf="!pharm.isApproved">Not Approved</span></td>
                                             </tr>
                                            
                                             

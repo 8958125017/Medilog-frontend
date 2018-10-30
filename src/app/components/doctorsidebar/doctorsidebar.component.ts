@@ -30,13 +30,14 @@ declare interface ChildrenItems {
 
 // Doctor Routing here----------------------------------
 export const DOCTORROUTES: RouteInfo[] = [
+   { path: 'dashboard', title: 'Dashboard', icon:'dashboard', class: '',type: 'sub'},
     { path: 'viewpatients', title: 'View Patients', icon:'accessible', class: '',type: 'sub'},
     //{ path : 'addpatient', title : 'Add Patient',icon:'person', type : 'link',class : ''},
     // { path : 'createprescription', title : 'Create Prescription',icon:'person', type : 'link',class : ''},
     // { path: 'recordreview', title : 'Record Review',icon:'person', type : 'link',class : ''},
     //{ path: 'doctorrequest', title: 'Send Request', icon:'group', class: '',type: 'sub'},
     { path: 'profile', title: 'Profile',type:'link',  icon:'person', class: '' },
-    { path: 'updatepassword', title: 'Update Password',type:'link',  icon:'person', class: '' },
+    { path: 'updatepassword', title: 'Update Password',type:'link',  icon:'lock', class: '' },
 ];
 
 

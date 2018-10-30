@@ -1,3 +1,225 @@
-<p>
-  labs-dashboard works!
-</p>
+  <div id="main-content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Lab </h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ul>
+                    </div>            
+                     <div class="col-lg-8 col-md-8 col-sm-12 text-right">
+                        <div class="bh_chart hidden-xs">
+                            <div class="float-left m-r-15">
+                                <small>Todays Visitors</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-user"></i> {{totalvisitLength ? totalvisitLength : 0}}</h6>
+                            </div>
+                            <!-- <span class="bh_visitors float-right">2,5,1,8,3,6,7,5</span> -->
+                        </div>
+                        <div class="bh_chart hidden-sm">
+                            <div class="float-left m-r-15">
+                                <small>This Week Visitors</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-user"></i> {{weekVisitLength ? weekVisitLength : 0}}</h6>
+                            </div>
+                            <!-- <span class="bh_visits float-right">10,8,9,3,5,8,5</span> -->
+                        </div>
+                        <div class="bh_chart hidden-sm">
+                            <div class="float-left m-r-15">
+                                <small>This Month Visitors</small>
+                                <h6 class="mb-0 mt-1"><i class="icon-user"></i> {{monthVisitLength ? monthVisitLength : 0}}</h6>
+                            </div>
+                            <!-- <span class="bh_chats float-right">1,8,5,6,2,4,3,2</span> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-lg-9 col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Visitors Statistics</h2>
+                            <ul class="header-dropdown">
+                                <li><a class="tab_btn" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Weekly" (click)="dataBy('Weekly')">W</a></li>
+                                <li><a class="tab_btn" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Monthly" (click)="dataBy('Monthly')">M</a></li>
+                                <li><a class="tab_btn " href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Yearly" (click)="dataBy('Yearly')">Y</a></li>
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another Action</a></li>
+                                        <li><a href="javascript:void(0);">Something else</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                         <div class="body">
+                           <canvas
+                              baseChart
+                              [chartType]="'line'"
+                              [datasets]="chartData"
+                              [labels]="labels"
+                              [options]="chartOptions"
+                              [legend]="false"
+                              [colors]="colors"
+                              (chartClick)="onChartClick($event)">
+                         </canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-6">
+                            <div class="card top_counter">
+                                <div class="body">
+                                    <div id="top_counte1" class="carouse vert" data-ride="carousel" data-interval="2500">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="icon"><i class="fa fa-user"></i> </div>
+                                                <div class="content">
+                                                    <div class="text">Total Patient</div>
+                                                    <h5 class="number">{{totalpatients ? totalpatients : 0}}</h5>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div id="top_counter2" class="carousel vert slide" data-ride="carousel" data-interval="2100">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="icon"><i class="fa fa-user"></i> </div>
+                                                <div class="content">
+                                                    <div class="text">New Patient</div>
+                                                    <h5 class="number">{{newpatients ? newpatients : 0}}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <hr>
+                                    <div id="top_counter2" class="carousel vert slide" data-ride="carousel" data-interval="2100">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="icon"><i class="fa fa-user"></i> </div>
+                                                <div class="content">
+                                                    <div class="text">Total Visits</div>
+                                                    <h5 class="number">{{totalvisitLength ? totalvisitLength : 0}}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="row clearfix">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="header">
+                            <div class="row">
+                                <h2 class="col-sm-3">Patients List</h2>
+                                <ul class="header-dropdown">
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><a href="javascript:void(0);">Action</a></li>
+                                            <li><a href="javascript:void(0);">Another Action</a></li>
+                                            <li><a href="javascript:void(0);">Something else</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <!-- <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                             <div id="custom-search-input">
+                                                <div class="input-group col-md-12">
+                                                    <input type="text" class="form-control input-lg" placeholder="Search" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-info btn-lg" type="button">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive table_middel">
+                                <table class="table m-b-0 table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>                                       
+                                                <th>SN</th>
+                                                <th>Media</th>
+                                                <th>Name</th>
+                                                <th>Age</th>
+                                                <th>Gender</th>                                
+                                                <th>Mobile</th>
+                                                <th> Blood Group </th>
+                                                <th>DOB</th>
+                                                <th>Last Visit</th>
+                                                <!-- <th>Status</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                             <tr *ngIf="patients.length===0">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                             <td></td>
+                                                            <td>No Data Found</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            
+                                                        </tr>
+                                               <tr class="odd gradeX" *ngFor="let patient of patients  | paginate: { id: 'patients',itemsPerPage: 4, currentPage: p };let i = index">
+                                                 <td >{{patients.indexOf(patient) +1}} </td >
+                                                            <td class="patient-img">
+                                                                <img src="{{patient?.data.image ? patient?.data.image : '../../.././assets/img/default-avatar.png'}}" alt="">
+                                                            </td>
+                                                            <td>{{patient?.data.firstName +' '+patient?.data.lastName}}</td>
+                                                            <td class="left">{{patient?.data.age}}</td>
+                                                             <td class="left">{{patient?.data.gender}}</td>
+                                                             <td><a href="tel:{{patient?.data.mobileNo}}">
+                                                                            {{patient?.data.mobileNo}} </a></td>
+                                                           
+                                                            
+                                                            <td class="left">{{patient.data.bloodgroup ? patient.data.bloodgroup : 'NA'}}</td>
+                                                            <td class="left">{{patient.data.dob | date:'dd-MM-yyyy'  }}</td>
+                                                            <td>{{patient.visitTime | date:'dd/MM/yyyy HH:mm:ss'  }}</td>
+                                                         <!--    <td>
+                                                                <a (click)="seeEHRhistory(patient)" class="btn btn-danger btn-xs">
+                                                                        View EHR
+                                                                            <i class="fa fa-eye-o "></i>
+                                                                        </a>
+                                                                <a (click)="createPrescription(patient)" class="btn btn-danger btn-xs">
+                                                                        Give Prescription
+                                                                            <i class="fa fa-eye-o "></i>
+                                                                        </a>
+                                                            </td> -->
+                                                        </tr>                                        
+                                        </tbody>
+                                    </table> 
+                            </div>
+                        </div>
+                        <pagination-controls id="patients" (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>

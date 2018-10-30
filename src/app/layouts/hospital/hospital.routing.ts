@@ -10,6 +10,8 @@ import { ViewpharmacyComponent } from './viewpharmacy/viewpharmacy.component';
 import { ViewlabsComponent } from './viewlabs/viewlabs.component';
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
+import { ViewpatientComponent } from './viewpatient/viewpatient.component';
+import { AddpatientComponent } from './addpatient/addpatient.component';
 export const HospitalRoutes: Routes = [    
                     { path: '',pathMatch : 'full',redirectTo: 'dashboard' },
                     { path: 'profile', component : ProfileComponent,canActivate:[AuthGuardService]},
@@ -21,8 +23,9 @@ export const HospitalRoutes: Routes = [
                     { path: 'adddiagnostic',component: AddlabsComponent,canActivate:[AuthGuardService] },
                     { path: 'viewdiagnostic',component: ViewlabsComponent,canActivate:[AuthGuardService]},
                     { path: 'updatepassword',component: UpdatepasswordComponent,canActivate:[AuthGuardService]},
-                     { path: 'doctorProfile/:aadharNo',component: DoctorProfileComponent,canActivate:[AuthGuardService] }, 
-
+                    { path: 'doctorProfile/:aadharNo',component: DoctorProfileComponent,canActivate:[AuthGuardService] }, 
+                    { path :'viewpatients',component: ViewpatientComponent },
+                    { path : 'addpatient', component : AddpatientComponent},
 
                  
 ];

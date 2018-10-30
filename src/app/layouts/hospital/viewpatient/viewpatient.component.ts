@@ -27,15 +27,15 @@ otpForm : FormGroup;
   	private fb: FormBuilder,
     public ng4LoadingSpinnerService:Ng4LoadingSpinnerService,
     private http: Http) { 
-  	this.user=JSON.parse(localStorage.getItem('doctor'));
-                 var status = this.globalService.isdoctorLogedIn();
+  	this.user=JSON.parse(localStorage.getItem('hospital'));
+                 var status = this.globalService.ishospitalLogedIn();
                 if(status==false){
                   this.router.navigateByUrl('/login');
                 }
   }
 
   ngOnInit() {
-    var data = localStorage.getItem('doctor');
+    var data = localStorage.getItem('hospital');
     if(data) this.user = JSON.parse(data);
     this.getAllPatient();
     this.requestFormInit();
@@ -47,12 +47,11 @@ otpForm : FormGroup;
    this.ng4LoadingSpinnerService.show();
    let postData = { doctorId : this.user._id,stream : "patient",multichainAddress : this.user.multichainAddress};
    const url=this.globalService.basePath+'doctor/getAllPatient';
-   debugger
-   this.globalService.PostRequest(url,postData).subscribe((response)=>{
+   this.http.post(url,postData).subscribe((res)=>{
       this.loading=false;
-      var res=JSON.parse(response[0].json._body);
-      if(res.status===200){
-        this.patients = res.data;        
+      if(res.json().status===200){
+        this.patients = res.json().data;
+        
         this.ng4LoadingSpinnerService.hide();
         this.loading =false;
       }else{
@@ -79,12 +78,11 @@ otpForm : FormGroup;
   }
 
   seeEHRhistory(patient){
-    debugger
-    this.router.navigate(['/doctor/seeEHR/'+patient.data.aadharNo+'/'+patient.data.firstName+' '+patient.data.lastName]);
+   // this.router.navigate(['/doctor/seeEHR/'+patient.aadharNo+'/'+patient.firstName+' '+patient.lastName]);
   }
 
   createPrescription(patient){
-   this.router.navigate(['/doctor/createprescription/'+patient.data.aadharNo]); 
+   //this.router.navigate(['/doctor/createprescription/'+patient.aadharNo]); 
   }
 
 
@@ -93,23 +91,21 @@ otpForm : FormGroup;
      this.requestForm.reset();
   }
 
-  sendPullEHRrequestByDoctor(){
-    
-    if(this.aadharNo){
+  sendPullEHRrequestByDoctor(){    
+   if(this.aadharNo){
    this.loading=true;
-   let postData = { doctorId : this.user._id,aadharNo :this.aadharNo};
-   const url=this.globalService.basePath+'doctor/sendPullEHRrequestByDoctor';
+   let postData = { hospitalId : this.user._id,aadharNo :this.aadharNo};
+   const url=this.globalService.basePath+'hospital/addPatientByHospital';
    this.http.post(url,postData).subscribe((res)=>{
       this.loading=false;
         $('#exampleModal1').modal('hide');
       if(res.json().status===200){      
         $('#otpModel').modal('show');
-        this.globalService.showNotification(res.json().message,2);
-        // this.router.navigate(['/'])
+        this.globalService.showNotification(res.json().message,2);     
       }else{
-         this.router.navigate(['/doctor/addpatient'])
+         this.router.navigate(['/hospital/addpatient'])
          this.globalService.showNotification(res.json().message,4);
-      //  $('#exampleModal1').modal('show');       
+        // $('#exampleModal1').modal('show');       
       }
     });
  }else{

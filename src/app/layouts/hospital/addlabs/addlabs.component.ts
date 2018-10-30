@@ -36,6 +36,7 @@ export class AddlabsComponent implements OnInit {
 
 labFormInit(){
     this.labForm = this.fb.group({
+        hospitalId : new FormControl('',),
         hospitalMultichainAddress : new FormControl(''),
         name: new FormControl('',Validators.required),
         email : new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
@@ -74,23 +75,25 @@ labFormInit(){
    }
 
    labSignup(){      
-   this.loading=true;   
-   this.labForm.value.image = this.userImage;
-   this.labForm.value.hospitalMultichainAddress = this.user.multichainAddress;
-   let postData = this.labForm.value;
-   const url=this.globalService.basePath+'lab/labSendRequestToAdmin';
-   console.log("postData =  ="+JSON.stringify(postData));
-   this.ng4LoadingSpinnerService.show();  
-   this.globalService.PostRequest(url,postData).subscribe((res)=>{
-      this.loading=false;
-      if(res.json().status===200){
-        this.ng4LoadingSpinnerService.hide();  
-        this.globalService.showNotification(res.json().message,2);
-        this.router.navigate(['/hospital/viewdiagnostic']);
-      }else{
-        this.globalService.showNotification(res.json().message,4);
-      }
-    });
+             this.loading=true;   
+             this.labForm.value.image = this.userImage;
+             this.labForm.value.hospitalId = this.user._id;
+             this.labForm.value.hospitalMultichainAddress = this.user.multichainAddress;
+             let postData = this.labForm.value;
+             const url=this.globalService.basePath+'hospital/addLab';
+             console.log("postData =  ="+JSON.stringify(postData));
+             this.ng4LoadingSpinnerService.show();  
+             this.globalService.PostRequest(url,postData).subscribe((response)=>{
+                 this.ng4LoadingSpinnerService.hide(); 
+                 debugger
+                 var res=JSON.parse(response[0].json._body)
+                if(res.status===200){        
+                  this.globalService.showNotification(res.message,2);
+                  this.router.navigate(['/hospital/viewdiagnostic']);
+                }else{
+                  this.globalService.showNotification(res.message,4);
+                }
+              });
   }
 
   reset(){

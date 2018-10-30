@@ -151,17 +151,17 @@
                                 
                                  <div class="col-sm-6">
                                     <div class="form-group">
-                                          <input type="number" name="aadhar" data-required="1" placeholder="enter Aadhar Number" class="form-control" formControlName="aadharNo"/>
+                                          <input type="number" name="aadharNo" data-required="1" placeholder="enter Aadhar Number" class="form-control" formControlName="aadharNo"/>
                                                 <div class="small" *ngIf="!doctorForm.controls['aadharNo'].valid&&doctorForm.controls['aadharNo'].dirty">
-                                                    <span *ngIf="doctorForm.controls['aadharNo'].errors['required']" class="small redlabe text-danger">Aadhar cannot be left blank</span>
-                                                    <span *ngIf="doctorForm.controls['aadharNo'].errors['minlength']" class="small redlabe text-danger">Aadhar must be atleast 6 characters</span>
-                                                    <span *ngIf="doctorForm.controls['aadharNo'].errors['pattern']&&!doctorForm.controls['aadharNo'].errors['minlength']" class="small redlabe text-danger">Password must contain at 12 number</span>
+                                                    <span *ngIf="doctorForm.controls['aadharNo'].errors['required']" class="small redlabe text-danger">Aadhar No cannot be left blank</span>
+                                                    <span *ngIf="doctorForm.controls['aadharNo'].errors['minlength']" class="small redlabe text-danger">Aadhar No must be atleast 6 characters</span>
+                                                    <span *ngIf="doctorForm.controls['aadharNo'].errors['pattern']&&!doctorForm.controls['aadharNo'].errors['minlength']" class="small redlabe text-danger">Aadhar No must contain at 12 number</span>
                                                 </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                     <textarea class="form-control" placeholder="description" formControlName="description" rows="4"></textarea>
+                                     <textarea class="form-control" name="description" placeholder="description" formControlName="description" rows="4"></textarea>
                                     </div>
                                 </div>
 

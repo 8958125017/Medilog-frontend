@@ -31,6 +31,7 @@ declare interface ChildrenItems {
 
 export const HOSPITALROUTES : RouteInfo[]=[
      {  path:'dashboard',title:'Dashboard',icon:'dashboard', class: '',type: 'link'},
+     { path: 'viewpatients', title: 'Patient', icon:'accessible', class: '',type: 'sub'},
      {  path:'viewdoctor',title:'Doctor',icon:'person', class: '',type: 'link'},
      {  path:'viewpharmacy',title:'Pharmacy',icon:'person', class: '',type: 'link'},
      {  path:'viewdiagnostic',title:'Diagnostic',icon:'person', class: '',type: 'link'},

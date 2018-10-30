@@ -19,7 +19,7 @@ declare var $: any;
   styleUrls: ['./viewpharmacy.component.scss']
 })
 export class ViewpharmacyComponent implements OnInit {
-pharmacys:any=[];
+pharmacys:any[]=[];
 loading:boolean=false;
 user:any;
 pharmacyLength:any=0;
@@ -48,14 +48,14 @@ pharmacyLength:any=0;
   let patientId = this.user._id;
   const url=this.globalService.basePath+'doctor/getAllPatient';
  this.ng4LoadingSpinnerService.show();  
-  this.http.post(url,{patientId :patientId,multichainAddress : this.user.multichainAddress,stream :"pharmacy"}).subscribe((res)=>{
+  this.globalService.PostRequest(url,{patientId :patientId,multichainAddress : this.user.multichainAddress,stream :"pharmacy"}).subscribe((response)=>{
     this.ng4LoadingSpinnerService.hide();  
      this.loading=false;
-     debugger
-     if(res.json().status===200){
-       var result=res.json().data;
+     var res=JSON.parse(response[0].json._body)
+     if(res.status===200){
+       var result=res.data;
        if(result){
-         this.pharmacys = res.json().data;
+         this.pharmacys = result;
          this.pharmacyLength=this.pharmacys.length;
          
        }else{
@@ -64,7 +64,7 @@ pharmacyLength:any=0;
        }
      }else{
        this.pharmacyLength=0;
-       this.globalService.showNotification(res.json().message,4);
+       this.globalService.showNotification(res.message,4);
      }
    });
  }

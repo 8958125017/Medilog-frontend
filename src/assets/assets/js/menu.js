@@ -49,7 +49,7 @@ $(document).ready(function () {
 		button.classList.remove("active");
 		}
 	};
-	toolbar.addEventListener("click", delegate(buttonsFilter, buttonHandler));
+	//toolbar.addEventListener("click", delegate(buttonsFilter, buttonHandler));
 
 	function onScroll(event){
 

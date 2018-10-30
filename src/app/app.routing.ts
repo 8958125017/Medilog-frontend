@@ -55,7 +55,7 @@ const routes: Routes =[
     path:'labs',
     component:LabsComponent,
     loadChildren:'./layouts/labs/labs.module#LabsModule',
-     // canActivate: [AuthGuardService]
+      //canActivate: [AuthGuardService]
   },
   {
     path:'hospital',

@@ -17,6 +17,9 @@ loading : boolean = false;
 user : any ;
 public filterText: string;
 nofoundStatus:boolean=false;
+postData:any;
+specialities:any=[];
+search:any;
   constructor(public globalService:GlobalServiceService,
   	private router: Router,
   	private fb: FormBuilder,
@@ -32,28 +35,73 @@ nofoundStatus:boolean=false;
     var data = localStorage.getItem('patient');
     if(data) this.user = JSON.parse(data);
     this.getAllDoctors();
+     this.getSpecialities();
+  }
+
+  getSpecialities(){
+     const url=this.globalService.basePath+'doctor/gettypedoctor';
+     this.globalService.PostRequestUnautorized(url).subscribe(response=>{
+      if(response[0].json.status===200){
+         this.specialities=response[0].json.data;
+      }else{
+         this.globalService.showNotification(response.json().message,4);
+      }
+    });
+  }
+
+  searchBYkey(event){
+     this.postData = {
+             patientId : this.user._id,
+             kind : '',
+             query : event.target.value,
+             speciality : ''
+         };
+                  this.getData();
   }
 
   searchByCategory(event){
-    if(event.target.value==='All'){
-      this.getAllDoctors();
-    }else{
-      this.loading=true;
+    this.search="";
      let patientId = this.user._id;
-     let postData = {practiceSpecialties :event.target.value};
-     const url=this.globalService.basePath+'patient/searchDoctorBySpeciality';
-     this.http.post(url,postData).subscribe((res)=>{
-        this.loading=false;
-        if(res.json().status===200){
-
-          this.doctors = res.json().data;
-           
+        this.loading=true;  
+        if(event.target.value==='All'){
+             this.postData = {
+                 patientId : patientId,
+                 kind : event.target.value,
+                 query :'',
+                 speciality : ''
+           };
+           this.getData();
+        } else if(event.target.value==='EHR'){
+             this.postData = {
+               patientId : patientId,
+               kind : event.target.value,
+               query : '',
+               speciality : event.target.value
+             };
+             this.getData();
         }else{
-          this.globalService.showNotification(res.json().message,4);
+          this.postData = {
+             patientId : patientId,
+             kind:'',
+             query : '',
+             speciality : event.target.value
+         };
+         this.getData();
+       }
+
+  }
+  getData(){
+    const url=this.globalService.basePath + 'patient/viewAllDoctors';
+     this.globalService.PostRequest(url,this.postData).subscribe((resposne)=>{
+       debugger
+        this.loading=false;
+        var res=JSON.parse(resposne[0].json._body);
+        if(res.status===200){
+          this.doctors = res.data;
+        }else{
+          this.globalService.showNotification(res.message,4);
         }
       });
-    }
-  	 
   }
 
   getAllDoctors(){

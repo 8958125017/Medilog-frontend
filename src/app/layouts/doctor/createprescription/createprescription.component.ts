@@ -16,6 +16,7 @@ import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-
 })
 export class CreateprescriptionComponent implements OnInit {
 prescriptionForm : FormGroup;
+medicineForm : FormGroup;
 loading : boolean = false;
 user : any ;
 patients :any[] = [];
@@ -57,6 +58,7 @@ medicineDetail={
     this.getAllPatient();
     this.getDeseas();
     this.getDiagonosis();
+    this.medicineFormInit();
   }
 
   getDeseas(){
@@ -119,6 +121,7 @@ medicineDetail={
    // this.prescriptionForm.value.patientId = this.prescriptionForm.value.patient;
 
    let postData = this.prescriptionForm.value;
+   debugger
    const url=this.globalService.basePath+'doctor/createPrescription';
          this.ng4LoadingSpinnerService.show();
    this.http.post(url,postData).subscribe((res)=>{
@@ -140,10 +143,12 @@ medicineDetail={
    this.loading=true;
    let postData = {requestType:"patient",key : aadharNo};
    const url=this.globalService.basePath+'doctor/getProfile';
-   this.http.post(url,postData).subscribe((res)=>{
+   this.globalService.PostRequest(url,postData).subscribe((res)=>{
+     debugger
       this.loading=false;
-      if(res.json().status===200){
-        this.patientProfile = res.json().data;
+      var result=JSON.parse(res[0].json._body);
+      if(result.status===200){
+        this.patientProfile = result.data;
       }else{
         this.globalService.showNotification(res.json().msg,4);
       }
@@ -155,11 +160,13 @@ medicineDetail={
   }
 
   addMedicineDetail(){
+    debugger
      // console.log(this.selectedDose);
         // console.log(this.selectedIntake);
-    this.openInput=false;
-    $('#prescriptionModal').modal('hide');
+    //this.openInput=false;
+   // $('#prescriptionModal').modal('hide');
     this.data.push(this.medicineDetail);
+
     console.log("this.data = = "+JSON.stringify(this.data));
     this.cancelMedicineDetail();
   }
@@ -171,10 +178,29 @@ medicineDetail={
                  dose:"",
                  duration:""
                };
-    this.openInput = false;
+   this.medicineForm.reset();
   }
+  medicineFormInit(){
+     this.medicineForm=this.fb.group({
+                 medicineName :new FormControl('',Validators.required),
+                 intake :new FormControl('',Validators.required),
+                 dose :new FormControl(''),
+                 duration :new FormControl('',Validators.required)
+  })
+
+  }
+ 
+ 
+  deleteMedicine(itemNo){
+              var index = this.data.findIndex(function(o,index){
+          return index === itemNo;
+       })
+       if (index !== -1) {this.data.splice(index, 1);
+       }
+    }
 
   reset(){
   	this.prescriptionForm.reset();
+    this.medicineForm.reset();
   }
 }

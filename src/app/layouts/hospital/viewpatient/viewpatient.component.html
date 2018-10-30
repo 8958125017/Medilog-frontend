@@ -3,18 +3,17 @@
         <div class="page-bar">
             <div class="page-title-breadcrumb">
                 <div class=" pull-left">
-                    <div class="page-title">Patients Visit</div>
+                    <div class="page-title">Patients List</div>
                 </div>
                 <ol class="breadcrumb page-breadcrumb pull-right">
                     <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" [routerLink]="['/home']">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
-                    <li><a class="parent-item" [routerLink]="['/doctor/dashboard']">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    <li><a class="parent-item" [routerLink]="['/hospital/dashboard']">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
                     <li class="active">Patient List</li>
                 </ol>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-12">
                 <div class="tabbable-line">
@@ -69,18 +68,16 @@
                                                         <tr>
                                                             <th></th>
                                                             <th> Name </th>
-                                                            <th> Age </th>
                                                             <th> Sex </th>
+                                                            <th> Address </th>
                                                             <th> Mobile </th>
-                                                            <th> Blood Group </th>
-                                                            <th>DOB</th>
-                                                            <th>Last Visit</th>
+                                                            <th>Blood Group</th>
+                                                            <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngIf="patients.length===0">
-                                                            <td></td>
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
@@ -93,18 +90,15 @@
                                                         </tr>
                                                         <tr class="odd gradeX" *ngFor="let patient of patients  | paginate: { id: 'patients',itemsPerPage: 4, currentPage: p };let i = index">
                                                             <td class="patient-img">
-                                                                <img src="{{patient?.data.image ? patient?.data.image : '../../.././assets/img/default-avatar.png'}}" alt="">
+                                                                <img src="{{patient?.image ? patient?.image : '../../.././assets/img/default-avatar.png'}}" alt="">
                                                             </td>
-                                                            <td>{{patient?.data.firstName +' '+patient?.data.lastName}}</td>
-                                                            <td class="left">{{patient?.data.age}}</td>
-                                                             <td class="left">{{patient?.data.gender}}</td>
-                                                             <td><a href="tel:{{patient?.data.mobileNo}}">
-                                                                            {{patient?.data.mobileNo}} </a></td>
-                                                           
-                                                            
-                                                            <td class="left">{{patient.data.bloodgroup ? patient.data.bloodgroup : 'NA'}}</td>
-                                                            <td class="left">{{patient.data.dob | date:'dd/MM/yyyy'  }}</td>
-                                                            <td>{{patient.visitTime | date:'dd/MM/yyyy HH:mm:ss'  }}</td>
+                                                            <td>{{patient?.firstName +' '+patient?.lastName}}</td>
+                                                            <td class="left">{{patient?.gender}}</td>
+                                                            <td class="left">{{patient?.address}}</td>
+                                                            <td><a href="tel:{{patient?.mobileNo}}">
+                                                                            {{patient?.mobileNo}} </a></td>
+                                                            <td class="left">{{patient.bloodgroup ? patient.bloodgroup : 'NA'}}</td>
+                                                            <td class="left">Active</td>
                                                             <td>
                                                                 <a (click)="seeEHRhistory(patient)" class="btn btn-danger btn-xs">
                                                                         View EHR

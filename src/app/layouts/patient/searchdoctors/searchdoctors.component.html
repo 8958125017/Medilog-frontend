@@ -16,24 +16,12 @@
                         &nbsp;
 
                         Search By :
-                        <input type="text" name="searchname" placeholder="Type Name" [(ngModel)]="filterText">
-                        <select (change)="searchByCategory($event)">
-                            <option value="All">All</option>
-                            <option value="Select Degree">Allergists</option>
-                            <option value="Category 3">Anesthesiologists</option>
-                            <option value="Category 4">Cardiologists</option>
-                            <option value="Select Degree">Dermatologists</option>
-                            <option value="Category 3">Dentist</option>
-                            <option value="Category 4">ENT Specialist</option>
-                            <option value="Select Degree">Family Physicians</option>
-                            <option value="Category 3">Gastroenterologists</option>
-                            <option value="Category 4">Gynecologist</option>
-                            <option value="Select Degree">Neurologists</option>
-                            <option value="Category 3">Oncologists</option>
-                            <option value="Category 4">Nephrologists</option>
-                            <option value="Category 4">Medical Geneticists</option>
-                            <option value="Category 4">Pathologists</option>
-                        </select>
+                        <input type="text" name="searchname" placeholder="Type Name" [(ngModel)]="search" (keyup)="searchBYkey($event)">
+                        <select  (change)="searchByCategory($event)">
+                                                <option value="All">All</option>
+                                                 <option value="EHR">By EHR</option>
+                                                 <option  *ngFor="let sp of specialities" value= {{sp}}> {{sp}}</option>
+                                            </select>
                     </div>
                 </div>
             </div>

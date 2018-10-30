@@ -3,140 +3,632 @@
         <div class="page-bar">
             <div class="page-title-breadcrumb">
                 <div class=" pull-left">
-                    <div class="page-title">Upload Bills</div>
+                    <div class="page-title">Pharmacy Profile</div>
                 </div>
                 <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" [routerLink]="['/home']">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                </li>
+                <li><a class="parent-item"  [routerLink]="['/pharmacy/dashboard']">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+            </li>
+            <li class="active">Pharmacy Profile</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PROFILE SIDEBAR -->
+        <div class="profile-sidebar">
+            <div class="card card-topline-aqua">
+                <div class="card-body no-padding height-9">
+                    <div class="row">
+                        <div class="profile-userpic">
+                        <img src="{{fullUserProfile?.image ? fullUserProfile?.image : '../../.././assets/img/default-avatar.png'}}" data-toggle="tooltip" data-placement="top" title="Dr. Avatar" alt="user" class="rounded-circle"/>
+                         </div>
+                    </div>
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">
+                         {{fullUserProfile.name ? fullUserProfile.name : 'NA'}} </div>
+                       
+                    </div>
+              
+                    <!-- END SIDEBAR BUTTONS -->
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-head card-topline-aqua">
+                <header>About Me</header>
+            </div>
+            <div class="card-body no-padding height-9">
+               
+                <ul class="list-group list-group-unbordered">
+                     <!-- <div class="profile-desc-item pull-right">{{fullUserProfile.description?fullUserProfile.description:'NA'}}</div> -->
+                    <li class="list-group-item">
+                        <b>Email </b>
+                        <div class="profile-desc-item pull-right">{{fullUserProfile.email?fullUserProfile.email:'-'}}</div>
                     </li>
-                    <li><a class="parent-item">Pharmacy</a>&nbsp;<i class="fa fa-angle-right"></i>
+                   <!--  <li class="list-group-item">
+                        <b>Operation Done </b>
+                        <div class="profile-desc-item pull-right">30+</div>
+                    </li> -->
+                    <li class="list-group-item">
+                        <b>Contact No </b>
+                        <div class="profile-desc-item pull-right">{{fullUserProfile.contactNo?fullUserProfile.contactNo:'-'}}</div>
                     </li>
-                    <li class="active">profile update</li>
-                </ol>
+                   
+                    
+                </ul>
+               <!--  <div class="row list-separated profile-stat">
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="uppercase profile-stat-title"> 37 </div>
+                        <div class="uppercase profile-stat-text"> Projects </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="uppercase profile-stat-title"> 51 </div>
+                        <div class="uppercase profile-stat-text"> Tasks </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="uppercase profile-stat-title"> 61 </div>
+                        <div class="uppercase profile-stat-text"> Uploads </div>
+                    </div>
+                </div> -->
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="card card-box">
-                    <!-- <div class="card-head">
-                        <header>Basic Information</header>
-                        <button id="panel-button" class="mdl-button mdl-js-button mdl-button--icon pull-right" data-upgraded=",MaterialButton">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" data-mdl-for="panel-button">
-                            <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
-                            <li class="mdl-menu__item"><i class="material-icons">print</i>Another action</li>
-                            <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
-                        </ul>
-                    </div> -->
-                    <div class="card-body" id="bar-parent">
-                        <form [formGroup]="pharmacyForm" id="form_sample_1" class="form-horizontal">
-                            <div class="form-body">
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">Name
-                                        <span class="required"> * </span>
-                                    </label>
-                                    <div class="col-md-5">
-                                        <input type="text" formControlName="name" name="name" data-required="1" placeholder="enter name" class="form-control input-height" /> 
-                                     
-                                        <div *ngIf="!pharmacyForm.controls['name'].valid&&pharmacyForm.controls['name'].dirty">
-                                                    <span class="text-capitalize small text-danger" *ngIf="pharmacyForm.controls['name'].errors['required']" class="small redlabe text-danger">Name is required</span>
-                                                    <span class="text-capitalize small text-danger"*ngIf="pharmacyForm.controls['name'].errors['pattern']" class="small redlabe text-danger">Aadhar Number is not valid</span>
-                                                </div>
-                                    </div>
-                                </div>
-                                  <div class="form-group row">
-                                    <label class="control-label col-md-3">Email
-                                        <span class="required"> * </span>
-                                    </label>
-                                    <div class="col-md-5">
-                                        <input type="text" formControlName="email" name="email" data-required="1" placeholder="enter email" class="form-control input-height" /> 
-                                     
-                                        <div class="small" *ngIf="!pharmacyForm.controls['email'].valid&&pharmacyForm.controls['email'].dirty" class="redlabe">
-                                                    <span *ngIf="pharmacyForm.controls['email'].errors['required']" class="small redlabe text-danger"> Email cannot be left blank</span>
-                                                    <span *ngIf="pharmacyForm.controls['email'].errors['pattern']" class="small redlabe text-danger">Email must be valid</span>
-                                                </div>
-                                    </div>
-                                </div>
-                                  <div class="form-group row">
-                                    <label class="control-label col-md-3">Contact No
-                                        <span class="required"> * </span>
-                                    </label>
-                                    <div class="col-md-5">
-                                        <input type="number" formControlName="contactNo" name="contactNo" data-required="1" placeholder="enter contact number" class="form-control input-height" /> 
-                                     
-                                         <div class="small redlabe text-danger"
-                                                *ngIf="!pharmacyForm.controls['contactNo'].valid&&pharmacyForm.controls['contactNo'].dirty" >
-                                                <span class="small redlabe text-danger"
-                                                *ngIf="pharmacyForm.controls['contactNo'].errors['contactNo']"> Contact No cannot be left blank</span>
-                                                <span class="text-capitalize small text-danger"*ngIf="pharmacyForm.controls['contactNo'].errors['pattern']" class="small redlabe text-danger">Contact No is not valid</span>
-                                            </div>
-                                    </div>
-                                </div>
-                                  <div class="form-group row">
-                                    <label class="control-label col-md-3">License No
-                                        <span class="required"> * </span>
-                                    </label>
-                                    <div class="col-md-5">
-                                        <input type="text" class="form-control" name="license" placeholder="License Number" formControlName="license"/>
-                                            <div class="small" *ngIf="!pharmacyForm.controls['license'].valid&&pharmacyForm.controls['license'].dirty" class="small redlabe text-danger"
-                                                >
-                                                <span class="small redlabe text-danger"
-                                                *ngIf="pharmacyForm.controls['license'].errors['required']"> license number cannot be left blank</span>
-                                               
-                                            </div>
-                                    </div>
-                                </div>
-                                   <div class="form-group row">
-                                    <label class="control-label col-md-3">Open Time
-                                        <span class="required"> * </span>
-                                    </label>
-                                    <div class="col-md-5">
-                                        <input type="time" class="form-control" name="open" placeholder="open time" formControlName="open"/>
-                                            <div class="small" *ngIf="!pharmacyForm.controls['open'].valid&&pharmacyForm.controls['open'].dirty" class="small redlabe text-danger"
-                                                >
-                                                <span class="small redlabe text-danger"
-                                                *ngIf="pharmacyForm.controls['open'].errors['required']"> Open Time cannot be left blank</span>
-                                                
-                                            </div>
-                                    </div>
-                                </div>
-                                  <div class="form-group row">
-                                    <label class="control-label col-md-3">Close Time
-                                        <span class="required"> * </span>
-                                    </label>
-                                    <div class="col-md-5">
-                                        <input type="time" class="form-control" name="close" placeholder="close time" formControlName="close"/>
-                                            <div class="small" *ngIf="!pharmacyForm.controls['close'].valid&&pharmacyForm.controls['close'].dirty" class="small redlabe text-danger"
-                                                >
-                                                <span class="small redlabe text-danger"
-                                                *ngIf="pharmacyForm.controls['close'].errors['required']"> Close Time cannot be left blank</span>
-                                                
-                                            </div>
-                                    </div>
-                                </div>
-
-                                  <div class="form-group row">
-                                    <label class="control-label col-md-3">city                                        
-                                    </label>
-                                    <div class="col-md-5">
-                                        <input type="text" name="city" data-required="1" placeholder="enter your city" class="form-control " formControlName="city"/>
-                                    </div>
-                                </div>
-                               
-                               
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="offset-md-3 col-md-9">
-                                            <button type="submit" data-toggle="modal" class="btn btn-info" (click)="updateUserProfile()" [disabled]="!pharmacyForm.valid">Submit</button>
-                                            <button type="button" class="btn btn-default" (click)="reset()">Clear</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+        <div class="card">
+            <div class="card-head card-topline-aqua">
+            <header>Address</header>
+        </div>
+        <div class="card-body no-padding height-9">
+            <div class="row text-center m-t-10">
+                <div class="col-md-12">
+                    <p>{{fullUserProfile.address ? fullUserProfile.address : 'NA'}}</p>
                 </div>
             </div>
         </div>
     </div>
+    <div class="card">
+        <!-- <div class="card-head card-topline-aqua">
+        <header>Work Progress</header>
+    </div> -->
+    <!-- <div class="card-body no-padding height-9">
+        <div class="work-monitor work-progress">
+            <div class="states">
+                <div class="info">
+                    <div class="desc pull-left">OPD</div>
+                    <div class="percent pull-right">50%</div>
+                </div>
+                <div class="progress progress-xs">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                        <span class="sr-only">50% </span>
+                    </div>
+                </div>
+            </div>
+            <div class="states">
+                <div class="info">
+                    <div class="desc pull-left">Operations</div>
+                    <div class="percent pull-right">85%</div>
+                </div>
+                <div class="progress progress-xs">
+                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                        <span class="sr-only">85% </span>
+                    </div>
+                </div>
+            </div>
+            <div class="states">
+                <div class="info">
+                    <div class="desc pull-left">Patient visit</div>
+                    <div class="percent pull-right">20%</div>
+                </div>
+                <div class="progress progress-xs">
+                    <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 35%">
+                        <span class="sr-only">20% </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+</div>
+<!-- END BEGIN PROFILE SIDEBAR -->
+<!-- BEGIN PROFILE CONTENT -->
+<div class="profile-content">
+<div class="row">
+    <div class="card">
+        <div class="card-topline-aqua">
+        <header></header>
+    </div>
+    <div class="white-box">
+        <!-- Nav tabs -->
+        <div class="p-rl-20">
+            <ul class="nav customtab nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a  class="nav-link active"  data-toggle="tab" (click)="tab1()">About Me</a>
+                </li>
+                <li class="nav-item"><a  class="nav-link" data-toggle="tab" (click)="tab2()">Edit Profile</a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active fontawesome-demo" *ngIf="viewProfile">
+                <div id="biography" >
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6 b-r"> <strong>Name</strong>
+                            <br>
+                            <p class="text-muted">{{fullUserProfile.name ? fullUserProfile.name:'NA'}}</p>
+                        </div>
+                        <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile No</strong>
+                            <br>
+                            <p class="text-muted">{{fullUserProfile.contactNo?fullUserProfile.contactNo:'-'}}</p>
+                        </div>
+                        <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                            <br>
+                            <p class="text-muted">{{fullUserProfile.email?fullUserProfile.email:'-'}}</p>
+                        </div>
+                        <div class="col-md-3 col-xs-6"> <strong>City</strong>
+                            <br>
+                            <p class="text-muted">{{fullUserProfile.city?fullUserProfile.city:'-'}}</p>
+                        </div>
+                        <div class="col-md-3 col-xs-6"> <strong>License No</strong>
+                            <br>
+                            <p class="text-muted">{{fullUserProfile.license?fullUserProfile.license:'-'}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4 class="font-bold">Description</h4>
+                    <p class="m-t-30">
+                      {{fullUserProfile.description?fullUserProfile.description:'NA'}}
+                    </p>
+                
+                    
+                  
+                    <br>
+                   
+                </div>
+            </div>
+
+
+             <div class="tab-pane active fontawesome-demo" *ngIf="updateProfile">
+                <div id="biography1" >
+                    <div class="row">
+                        <div class="card">
+                                <div class="body">                                   
+                                    <form [formGroup]="pharmacyForm" >
+                                       <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="form-group"> 
+                                            <label>Name</label>                     
+                                               <input type="text" formControlName="name" placeholder= "Enter  name" class="form-control" required />
+
+                                               <div class="small" *ngIf="!pharmacyForm.controls['name'].valid&&pharmacyForm.controls['name'].dirty" class="redlabe">
+                                                    <span *ngIf="pharmacyForm.controls['name'].errors['required']" class="small redlabe text-danger"> Name cannot be left blank</span>
+                                                    <span *ngIf="pharmacyForm.controls['name'].errors['pattern']" class="small redlabe text-danger">Name must contain 3-28 characters, only alphabets and no spaces</span>
+                                                    
+                                                </div>
+                                         </div>
+                                           
+                                           <div class="form-group"> 
+                                           <label>Email</label>                     
+                                               <input type="text" formControlName="email" placeholder= "Enter  Email" class="form-control" required readonly="true" />
+
+                                                <div class="small" *ngIf="!pharmacyForm.controls['email'].valid&&pharmacyForm.controls['email'].dirty" class="small redlabe text-danger"
+                                                >
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['email'].errors['required']"> Email cannot be left blank</span>
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['email'].errors['pattern']">Email must be valid</span>
+                                            </div>
+                                         </div>
+
+                                           <div class="form-group">    
+                                           <label>Contact No</label>                  
+                                              <input name="contactNo" type="number" placeholder="contact number" class="form-control "  formControlName="contactNo" min="0" (keydown)="minus($event)"/>
+                                                <div *ngIf="!pharmacyForm.controls['contactNo'].valid&&pharmacyForm.controls['contactNo'].dirty">
+                                                    <span class="text-capitalize small text-danger" *ngIf="pharmacyForm.controls['contactNo'].errors['required']" class="small redlabe text-danger">Contact Number is required</span>
+                                                    <span class="text-capitalize small text-danger"*ngIf="pharmacyForm.controls['contactNo'].errors['pattern']" class="small redlabe text-danger">Contact Number is not valid</span>
+                                                </div>
+                                         </div>
+                                           
+                                           
+                                         
+                                         
+
+                                          
+                                        <div class="form-group">
+                                            <label>Open</label>                      
+                                               <input type="time" name="open" class="form-control" placeholder="open" formControlName="open">
+                                         </div>
+                                         
+                                          <div class="form-group">
+                                            <label>Close</label>                      
+                                               <input type="time" name="close" class="form-control" placeholder="close" formControlName="close">
+                                         </div>
+                                         
+
+                                        
+
+                                        <div class="form-group">
+                                            <label>City</label>                      
+                                               <input type="text" name="city" class="form-control" placeholder="City" formControlName="city">
+                                         </div>
+                                          <div class="form-group">
+                                            <label>License No</label>                      
+                                               <input type="text" name="license" class="form-control" placeholder="license no" formControlName="license">
+                                              
+                                         </div>
+
+
+                                          <div class="form-group">     
+                                          <label>Address</label>                 
+                                               <textarea name="address" placeholder="address" class="form-control-textarea" rows="5" formControlName="address"></textarea>
+                                                <div class="small redlabe text-danger"
+                                                *ngIf="!pharmacyForm.controls['address'].valid&&pharmacyForm.controls['address'].dirty" class="redlabe">
+                                                <span class="small redlabe text-danger"
+                                                *ngIf="pharmacyForm.controls['address'].errors['required']"> Address cannot be left blank</span>
+                                            </div>
+                                         </div>
+                                        
+
+                                          <div class="form-group"> 
+                                          <label>Description</label>                     
+                                               <textarea name="description" placeholder="description" class="form-control-textarea" rows="5" formControlName="description"></textarea>
+                                                 
+                                         </div>
+
+                                          <div class="form-group"> 
+                                          <label>Image</label>                     
+                                            <input (change)="uploadImage($event)" name="..." type="file" accept="image/x-png,image/gif,image/jpeg" id="uploadBtn">
+                                         </div>
+                                         
+                                         <div class="mt-3 text-center">
+                                      
+                                       <button type="submit" [disabled]="!pharmacyForm.valid" class="btn btn-info" (click)="updateUserProfile(pharmacyForm.value)">Update
+                                       </button>
+                                   
+                                    </div>
+                                     </div>
+                                    </div>
+                                </form> 
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                 
+                </div>
+            </div>
+           
+        </div>
+           
+    </div>
+</div>
+</div>
+</div>
+<!-- END PROFILE CONTENT -->
+</div>
+</div>
+</div>
+<!-- end page content -->
+<!-- start chat sidebar -->
+<div class="chat-sidebar-container" data-close-on-body-click="false">
+<div class="chat-sidebar">
+<ul class="nav nav-tabs">
+<li class="nav-item">
+<a href="#quick_sidebar_tab_1" class="nav-link active tab-icon"  data-toggle="tab"> <i class="material-icons">chat</i>Chat
+<span class="badge badge-danger">4</span>
+</a>
+</li>
+<li class="nav-item">
+<a href="#quick_sidebar_tab_3" class="nav-link tab-icon"  data-toggle="tab"> <i class="material-icons">settings</i> Settings
+</a>
+</li>
+</ul>
+<div class="tab-content">
+<!-- Start Doctor Chat -->
+<div class="tab-pane active chat-sidebar-chat in active show" role="tabpanel" id="quick_sidebar_tab_1">
+<div class="chat-sidebar-list">
+<div class="chat-sidebar-chat-users slimscroll-style" data-rail-color="#ddd" data-wrapper-class="chat-sidebar-list">
+    <div class="chat-header"><h5 class="list-heading">Online</h5></div>
+    <ul class="media-list list-items">
+        <li class="media"><img class="media-object" src="img/doc/doc3.jpg" width="35" height="35" alt="...">
+            <i class="online dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">John Deo</h5>
+                <div class="media-heading-sub">Spine Surgeon</div>
+            </div>
+        </li>
+        <li class="media">
+            <div class="media-status">
+                <span class="badge badge-success">5</span>
+            </div> <img class="media-object" src="img/doc/doc1.jpg" width="35" height="35" alt="...">
+            <i class="busy dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">Rajesh</h5>
+                <div class="media-heading-sub">Director</div>
+            </div>
+        </li>
+        <li class="media"><img class="media-object" src="img/doc/doc5.jpg" width="35" height="35" alt="...">
+            <i class="away dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">Jacob Ryan</h5>
+                <div class="media-heading-sub">Ortho Surgeon</div>
+            </div>
+        </li>
+        <li class="media">
+            <div class="media-status">
+                <span class="badge badge-danger">8</span>
+            </div> <img class="media-object" src="img/doc/doc4.jpg" width="35" height="35" alt="...">
+            <i class="online dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">Kehn Anderson</h5>
+                <div class="media-heading-sub">CEO</div>
+            </div>
+        </li>
+        <li class="media"><img class="media-object" src="img/doc/doc2.jpg" width="35" height="35" alt="...">
+            <i class="busy dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">Sarah Smith</h5>
+                <div class="media-heading-sub">Anaesthetics</div>
+            </div>
+        </li>
+        <li class="media"><img class="media-object" src="img/doc/doc7.jpg" width="35" height="35" alt="...">
+            <i class="online dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">Vlad Cardella</h5>
+                <div class="media-heading-sub">Cardiologist</div>
+            </div>
+        </li>
+    </ul>
+    <div class="chat-header"><h5 class="list-heading">Offline</h5></div>
+    <ul class="media-list list-items">
+        <li class="media">
+            <div class="media-status">
+                <span class="badge badge-warning">4</span>
+            </div> <img class="media-object" src="img/doc/doc6.jpg" width="35" height="35" alt="...">
+            <i class="offline dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">Jennifer Maklen</h5>
+                <div class="media-heading-sub">Nurse</div>
+                <div class="media-heading-small">Last seen 01:20 AM</div>
+            </div>
+        </li>
+        <li class="media"><img class="media-object" src="img/doc/doc8.jpg" width="35" height="35" alt="...">
+            <i class="offline dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">Lina Smith</h5>
+                <div class="media-heading-sub">Ortho Surgeon</div>
+                <div class="media-heading-small">Last seen 11:14 PM</div>
+            </div>
+        </li>
+        <li class="media">
+            <div class="media-status">
+                <span class="badge badge-success">9</span>
+            </div> <img class="media-object" src="img/doc/doc9.jpg" width="35" height="35" alt="...">
+            <i class="offline dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">Jeff Adam</h5>
+                <div class="media-heading-sub">Compounder</div>
+                <div class="media-heading-small">Last seen 3:31 PM</div>
+            </div>
+        </li>
+        <li class="media"><img class="media-object" src="img/doc/doc10.jpg" width="35" height="35" alt="...">
+            <i class="offline dot"></i>
+            <div class="media-body">
+                <h5 class="media-heading">Anjelina Cardella</h5>
+                <div class="media-heading-sub">Physiotherapist</div>
+                <div class="media-heading-small">Last seen 7:45 PM</div>
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+<div class="chat-sidebar-item">
+<div class="chat-sidebar-chat-user">
+    <div class="page-quick-sidemenu">
+        <a href="javascript:;" class="chat-sidebar-back-to-list">
+            <i class="fa fa-angle-double-left"></i>Back
+        </a>
+    </div>
+    <div class="chat-sidebar-chat-user-messages">
+        <div class="post out">
+            <img class="avatar" alt="" src="img/dp.jpg" />
+            <div class="message">
+                <span class="arrow"></span> <a href="javascript:;" class="name">Kiran Patel</a> <span class="datetime">9:10</span>
+                <span class="body-out"> could you send me menu icons ? </span>
+            </div>
+        </div>
+        <div class="post in">
+            <img class="avatar" alt="" src="img/doc/doc5.jpg" />
+            <div class="message">
+                <span class="arrow"></span> <a href="javascript:;" class="name">Jacob Ryan</a> <span class="datetime">9:10</span>
+                <span class="body"> please give me 10 minutes. </span>
+            </div>
+        </div>
+        <div class="post out">
+            <img class="avatar" alt="" src="img/dp.jpg" />
+            <div class="message">
+                <span class="arrow"></span> <a href="javascript:;" class="name">Kiran Patel</a> <span class="datetime">9:11</span>
+                <span class="body-out"> ok fine :) </span>
+            </div>
+        </div>
+        <div class="post in">
+            <img class="avatar" alt="" src="img/doc/doc5.jpg" />
+            <div class="message">
+                <span class="arrow"></span> <a href="javascript:;" class="name">Jacob Ryan</a> <span class="datetime">9:22</span>
+                <span class="body">Sorry for
+                the delay. i sent mail to you. let me know if it is ok or not.</span>
+            </div>
+        </div>
+        <div class="post out">
+            <img class="avatar" alt="" src="img/dp.jpg" />
+            <div class="message">
+                <span class="arrow"></span> <a href="javascript:;" class="name">Kiran Patel</a> <span class="datetime">9:26</span>
+                <span class="body-out"> it is perfect! :) </span>
+            </div>
+        </div>
+        <div class="post out">
+            <img class="avatar" alt="" src="img/dp.jpg" />
+            <div class="message">
+                <span class="arrow"></span> <a href="javascript:;" class="name">Kiran Patel</a> <span class="datetime">9:26</span>
+                <span class="body-out"> Great! Thanks. </span>
+            </div>
+        </div>
+        <div class="post in">
+            <img class="avatar" alt="" src="img/doc/doc5.jpg" />
+            <div class="message">
+                <span class="arrow"></span> <a href="javascript:;" class="name">Jacob Ryan</a> <span class="datetime">9:27</span>
+                <span class="body"> it is my pleasure :) </span>
+            </div>
+        </div>
+    </div>
+    <div class="chat-sidebar-chat-user-form">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Type a message here...">
+            <div class="input-group-btn">
+                <button type="button" class="btn deepPink-bgcolor">
+                <i class="fa fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- End Doctor Chat -->
+<!-- Start Setting Panel -->
+<div class="tab-pane chat-sidebar-settings" role="tabpanel" id="quick_sidebar_tab_3">
+<div class="chat-sidebar-settings-list slimscroll-style">
+<div class="chat-header"><h5 class="list-heading">Layout Settings</h5></div>
+<div class="chatpane inner-content ">
+    <div class="settings-list">
+        <div class="setting-item">
+            <div class="setting-text">Sidebar Position</div>
+            <div class="setting-set">
+                <select class="sidebar-pos-option form-control input-inline input-sm input-small ">
+                    <option value="left" selected="selected">Left</option>
+                    <option value="right">Right</option>
+                </select>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-text">Header</div>
+            <div class="setting-set">
+                <select class="page-header-option form-control input-inline input-sm input-small ">
+                    <option value="fixed" selected="selected">Fixed</option>
+                    <option value="default">Default</option>
+                </select>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-text">Sidebar Menu </div>
+            <div class="setting-set">
+                <select class="sidebar-menu-option form-control input-inline input-sm input-small ">
+                    <option value="accordion" selected="selected">Accordion</option>
+                    <option value="hover">Hover</option>
+                </select>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-text">Footer</div>
+            <div class="setting-set">
+                <select class="page-footer-option form-control input-inline input-sm input-small ">
+                    <option value="fixed">Fixed</option>
+                    <option value="default" selected="selected">Default</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="chat-header"><h5 class="list-heading">Account Settings</h5></div>
+    <div class="settings-list">
+        <div class="setting-item">
+            <div class="setting-text">Notifications</div>
+            <div class="setting-set">
+                <div class="switch">
+                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                        for = "switch-1">
+                        <input type = "checkbox" id = "switch-1"
+                        class = "mdl-switch__input" checked>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-text">Show Online</div>
+            <div class="setting-set">
+                <div class="switch">
+                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                        for = "switch-7">
+                        <input type = "checkbox" id = "switch-7"
+                        class = "mdl-switch__input" checked>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-text">Status</div>
+            <div class="setting-set">
+                <div class="switch">
+                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                        for = "switch-2">
+                        <input type = "checkbox" id = "switch-2"
+                        class = "mdl-switch__input" checked>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-text">2 Steps Verification</div>
+            <div class="setting-set">
+                <div class="switch">
+                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                        for = "switch-3">
+                        <input type = "checkbox" id = "switch-3"
+                        class = "mdl-switch__input" checked>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-header"><h5 class="list-heading">General Settings</h5></div>
+    <div class="settings-list">
+        <div class="setting-item">
+            <div class="setting-text">Location</div>
+            <div class="setting-set">
+                <div class="switch">
+                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                        for = "switch-4">
+                        <input type = "checkbox" id = "switch-4"
+                        class = "mdl-switch__input" checked>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-text">Save Histry</div>
+            <div class="setting-set">
+                <div class="switch">
+                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                        for = "switch-5">
+                        <input type = "checkbox" id = "switch-5"
+                        class = "mdl-switch__input" checked>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-text">Auto Updates</div>
+            <div class="setting-set">
+                <div class="switch">
+                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                        for = "switch-6">
+                        <input type = "checkbox" id = "switch-6"
+                        class = "mdl-switch__input" checked>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>

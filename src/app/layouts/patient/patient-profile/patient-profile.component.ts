@@ -15,8 +15,8 @@
 export class PatientProfileComponent implements OnInit {
 user:any;
 fullUserProfile:any;
-private updateUserForm:FormGroup;
-private reportForm:FormGroup;
+public updateUserForm:FormGroup;
+public reportForm:FormGroup;
 activityStatus:boolean=true;
 billingsStatus:boolean=false;
 editProfileStatus:boolean=false;
@@ -75,7 +75,7 @@ getUserProfile(){
            this.fullUserProfile=response[0].json.data;  
                           let userName=this.fullUserProfile.firstName+" " +this.fullUserProfile.lastName;
                           let userImage=this.fullUserProfile.image;
-                         this.messgage.sendMessage(userImage,userName);                          
+                          this.messgage.sendMessage(userImage,userName);                          
                         this.fillUserProfile();  
        
        } else{
@@ -178,8 +178,9 @@ updateUserProfile(value){
             respirationRate : new FormControl(''),         
          });
       }
-
+      
       reportSubmit(){
+        if(this.reportForm.value.weight&&this.reportForm.value.sugar&&this.reportForm.value.systolic&&this.reportForm.value.diastolic&&this.reportForm.value.pulseRate&&this.reportForm.value.temprature&&this.reportForm.value.respirationRate){
           this.reportForm.value.patientId=this.user._id;
           const url = this.globalService.basePath+'patient/uploadGeneralInfo';
           this.globalService.PostRequest(url,this.reportForm.value).subscribe((response) => {              
@@ -191,6 +192,10 @@ updateUserProfile(value){
                 this.globalService.showNotification(response[0].json.message,4);                     
              }
           });
+        }
+          else{
+            this.globalService.showNotification('please fill at least one fields',4);
+          }
       }
 
       getPetientsReport(){      
@@ -202,7 +207,7 @@ updateUserProfile(value){
          this.ng4LoadingSpinnerService.hide();
           if(response[0].json.status==200){    
            this.reportInfo=response[0].json.data;          
-              this.globalService.showNotification(response[0].json.message,2);  
+             // this.globalService.showNotification(response[0].json.message,2);  
            
            } else{
               

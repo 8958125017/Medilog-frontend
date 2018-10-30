@@ -14,6 +14,8 @@ import { Safe } from '../../html.pipe';
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     RouterModule.forChild(DoctorRoutes),
     Ng4LoadingSpinnerModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    ChartsModule
   ],
   declarations: [
   	ViewpatientComponent,
@@ -32,7 +35,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
   	ProfileComponent,
   	SeeEHRComponent,
     Safe,
-    UpdatepasswordComponent
+    UpdatepasswordComponent,
+    DashboardComponent
   ],
   providers: [Ng4LoadingSpinnerService],
 })

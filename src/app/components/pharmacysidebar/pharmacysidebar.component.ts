@@ -6,7 +6,8 @@ import { Http, Headers, RequestOptions, Response  } from '@angular/http';
 import { GlobalServiceService}from'../../global-service.service';
 
 declare const $: any;
-
+import { MessageService } from '../../message.service';
+import { Subscription } from 'rxjs/Subscription';
 declare interface RouteInfo {
     path: string;
     title: string;
@@ -27,7 +28,7 @@ declare interface ChildrenItems {
 
 
 export const PHARMACYROUTES : RouteInfo[]=[
- //  {  path:'dashboard',title:'Dashboard',icon:'dashboard', class: '',type: 'link'}, 
+   {  path:'dashboard',title:'Dashboard',icon:'dashboard', class: '',type: 'link'}, 
    { path: 'uploadbill', title: 'Upload Bill',type:'link',  icon:'person', class: '' },
    { path: 'profile', title: 'Profile',type:'link',  icon:'person', class: '' },
    { path: 'upatepassword', title: 'Upate Password',type:'link',  icon:'person', class: '' },
@@ -45,14 +46,27 @@ export class PharmacySidebarComponent implements OnInit {
   menuItems: any[];
   user:any;
   userName:any;
-  constructor(location: Location,public globalService:GlobalServiceService, private element: ElementRef, private router: Router) { }
+  userImage:any;
+  subscription :Subscription;
+  constructor(private messageservice:MessageService,location: Location,public globalService:GlobalServiceService, private element: ElementRef, private router: Router) { }
 
 
   ngOnInit() {   
-    if(localStorage.getItem('pharmacy')){
+    this.subscription=this.messageservice.getMessage().subscribe(message=>{
+       if(message.text!="undefined" || message.image!="undefined") {
+                       this.userName = message.text;
+                       this.userImage=message.image;
+                     }
+     }) 
+
+     if(localStorage.getItem('pharmacy')){
       this.user=JSON.parse(localStorage.getItem('pharmacy')); 
+      if(this.user){
+        this.userName=this.user.name;
+        this.userImage=this.user.image;
+      }
          this.menuItems = PHARMACYROUTES.filter(menuItem => menuItem);
-    }   
+    } 
   }
   isMobileMenu() {
       if ($(window).width() > 991) {

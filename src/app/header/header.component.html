@@ -1,22 +1,29 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar w/ text</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-    </ul>
-    <span class="navbar-text">
-      Navbar text with an inline element
-    </span>
-  </div>
-</nav>
+<header class="header">
+        <div class="header__content header__content--fluid-width">
+            <div class="header__logo-title">
+                <a >
+                    <img src="assets/../../assets/images/white-logo.png" alt="logo" width="160" class="default-logo">
+                </a>
+                <a >
+                    <img src="assets/../../assets/images/logo.png" alt="logo" width="160" class="active-logo">
+                </a>
+            </div>
+            <nav class="header__menu">                                                                   
+                <ul>
+                    <li><a class="selected header-link" scrollTo href="#intro">HOME</a></li>
+                    <li><a  class="header-link" scrollTo href="#about">About</a></li>
+                    <li><a class="header-link" scrollTo href="#features">FEATURES</a>
+                    </li>
+                    <li><a  class="header-link" scrollTo href="#support">CONTACT</a></li>
+                    <li *ngIf="isLogin"><a  class="header-link" (click)="dashboard()">Dashboard</a></li>
+                    <li *ngIf="isLogin"><a  class="header-link" (click)="logout()">Logout</a></li>
+                    <li class="header__btn header__btn--login" *ngIf="isNotLogin">
+                        <a [routerLink]="['/login']">LOGIN</a>
+                    </li>
+                    <li class="header__btn header__btn--signup" *ngIf="isNotLogin">
+                        <a [routerLink]="['/signup']">GET STARTED</a>
+                    </li>          
+                </ul>
+            </nav> 
+        </div>      
+    </header>

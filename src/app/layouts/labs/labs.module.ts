@@ -10,15 +10,17 @@ import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder } from '@angul
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    Ng4LoadingSpinnerModule,
-    RouterModule.forChild(LabsRoutes),
-    Ng4LoadingSpinnerModule.forRoot(),
-    NgxPaginationModule
+            CommonModule,
+            FormsModule,
+            ReactiveFormsModule,
+            Ng4LoadingSpinnerModule,
+            RouterModule.forChild(LabsRoutes),
+            Ng4LoadingSpinnerModule.forRoot(),
+            NgxPaginationModule,
+            ChartsModule
   ],
   declarations: [
                   LabsDashboardComponent,

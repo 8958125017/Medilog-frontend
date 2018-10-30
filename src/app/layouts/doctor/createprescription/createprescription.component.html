@@ -6,9 +6,9 @@
                     <div class="page-title">Create Prescription</div>
                 </div>
                 <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" [routerLink]="['/home']">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
-                    <li><a class="parent-item">Doctors</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    <li><a class="parent-item" [routerLink]="['/doctor/dashboard']">Doctors</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
                     <li class="active">Create Prescription</li>
                 </ol>
@@ -36,7 +36,7 @@
                                         <span class="required"> * </span>
                                     </label>
                                     <div class="col-md-5">
-                                        <input name="address" class="form-control input-height" disabled="true" value="{{patientProfile?.firstName + ' '+patientProfile?.lastName}}">
+                                        <input name="address" class="form-control input-height" disabled="true" value="{{patientProfile?.data.firstName + ' '+patientProfile?.data.lastName}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -44,7 +44,7 @@
                                         <span class="required"> * </span>
                                     </label>
                                     <div class="col-md-5">
-                                        <input name="mobileNo" class="form-control input-height" disabled="true" value="{{patientProfile?.mobileNo}}">
+                                        <input name="mobileNo" class="form-control input-height" disabled="true" value="{{patientProfile?.data.mobileNo}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -52,7 +52,7 @@
                                         <span class="required"> * </span>
                                     </label>
                                     <div class="col-md-5">
-                                        <input name="mobileNo" class="form-control input-height" disabled="true" value="{{patientProfile?.bloodgroup}}">
+                                        <input name="mobileNo" class="form-control input-height" disabled="true" value="{{patientProfile?.data.bloodgroup}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -60,7 +60,7 @@
                                         <span class="required"> * </span>
                                     </label>
                                     <div class="col-md-5">
-                                        <input name="mobileNo" class="form-control input-height" disabled="true" value="{{patientProfile?.age}}">
+                                        <input name="mobileNo" class="form-control input-height" disabled="true" value="{{patientProfile?.data.age}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -68,7 +68,7 @@
                                         <span class="required"> * </span>
                                     </label>
                                     <div class="col-md-5">
-                                        <input name="aadharNo" class="form-control input-height" disabled="true" value="{{patientProfile?.aadharNo}}">
+                                        <input name="aadharNo" class="form-control input-height" disabled="true" value="{{patientProfile?.data.aadharNo}}">
                                         <!-- <select formControlName="aadharNo" class="form-control input-height">
 
                                                 <select formControlName="aadharNo" class="form-control input-height">
@@ -105,7 +105,7 @@
                                             <option *ngFor="let bg of diseas" value={{bg}}> {{bg}}</option>
                                         </select>
                                         <div class="small redlabe text-danger" *ngIf="!prescriptionForm.controls['diseas'].valid&&prescriptionForm.controls['diseas'].dirty">
-                                            <span *ngIf="prescriptionForm.controls['diseas'].errors['required']"> Deases cannot be left blak</span>
+                                            <span *ngIf="prescriptionForm.controls['diseas'].errors['required']"> deseas cannot be left blak</span>
                                         </div>
                                     </div>
                                     <!-- Add Diseas Button-->
@@ -136,28 +136,6 @@
                             </div>
                         </form>
 
-
-                        <div *ngIf="data.length > 0">
-                            <h2>Prescribed Medicine :</h2>
-                            <table>
-                              <tr>
-                                <th>Medicine Name</th>
-                                <th>InTake</th>
-                                <th>Dose</th>
-                                <th>Duration</th>
-                                <th>Action</th>
-                              </tr>
-                              <tr *ngFor="let item of data">
-                                <td>{{item.medicineName}}</td>
-                                <td>{{item.intake}}</td>
-                                <td>{{item.dose}}</td>
-                                <td>{{item.duration}}</td>
-                                <td><button (click)="deleteMedicine(item)">Delete</button></td>
-                              </tr>
-                          </table>
-                        </div>
-
-                       
                     </div>
                 </div>
             </div>
@@ -178,28 +156,32 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                        <form id="form_sample_2" class="form-horizontal">
+                        <form id="form_sample_2" class="form-horizontal" [formGroup]="medicineForm">
                             <div class="form-body">
 
                                 <!-- Start Diseas -->
 
                                 <div class="form-group row" *ngIf="openInput">
-                                    <label class="control-label col-md-3">Medicine Name
-                                        <span class="required"> * </span>
+                                    <label class="control-label col-md-4">Medicine Name
+                                        <span class="required">*</span>
                                     </label>
                                     <div class="col-md-5">
-                                        <input name="medicineName" class="form-control input-height" [(ngModel)]="medicineDetail.medicineName">
+                                        <input name="medicineName" class="form-control input-height" [(ngModel)]="medicineDetail.medicineName" formControlName="medicineName" />
+                                 <div *ngIf="!medicineForm.controls['medicineName'].valid&&medicineForm.controls['medicineName'].dirty">
+                                    <span *ngIf="medicineForm.controls['medicineName'].errors['required']" class="small redlabe text-danger">Medicine Name is required</span>
+                                   
+                                </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group row" *ngIf="openInput">
-                                    <label class="control-label col-md-3">Dose
+                                    <label class="control-label col-md-4">Dose
                                         <span class="required"> * </span>
                                     </label>
                                     <div class="col-md-5">
-                                        <select name="dose" [(ngModel)]="medicineDetail.dose" class="form-control input-height">
-                                            <option value="">Select dose</option>
-                                            <option value="Half in Morning">Half in Morning</option>
+                                        <select name="medicineDetail.dose" [(ngModel)]="medicineDetail.dose" class="form-control input-height"  formControlName="dose" >
+                                           <!--  <option value="">Half in Morning</option> -->
+                                            <option value="Half in Morning" selected >Half in Morning</option>
                                             <option value="full in Morning">Full in Morning</option>
                                             <option value="Half in Evening">Half in Evening</option>
                                             <option value="Full in Evening">Full in Evening</option>
@@ -208,37 +190,64 @@
                                 </div>
 
                                 <div class="form-group row" *ngIf="openInput">
-                                    <label class="control-label col-md-3">Duration
+                                    <label class="control-label col-md-4">Duration
                                         <span class="required"> * </span>
                                     </label>
                                     <div class="col-md-5">
-                                        <input name="duration" type="time" placeholder="duration" class="form-control" [(ngModel)]="medicineDetail.duration" />
+                                        <input name="duration" type="time" placeholder="duration" class="form-control" [(ngModel)]="medicineDetail.duration" formControlName="duration"/>
+                                        <div *ngIf="!medicineForm.controls['duration'].valid&&medicineForm.controls['duration'].dirty">
+                                    <span *ngIf="medicineForm.controls['duration'].errors['required']" class="small redlabe text-danger">duration is required</span>
+                                   
+                                </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group row" *ngIf="openInput">
-                                    <label class="control-label col-md-3">Intake
+                                    <label class="control-label col-md-4">Intake
                                         <span class="required"> * </span>
                                     </label>
                                     <div class="col-md-5">
-                                        <select [(ngModel)]="medicineDetail.intake" class="form-control input-height">
-                                            <option value="">Select Intake</option>
-                                            <option value="Before Food">Before Food</option>
+                                        <select [(ngModel)]="medicineDetail.intake" class="form-control input-height" name ="medicineDetail.intake" formControlName="intake">
+                                            <option value="Before Food" selected>Before Food</option>
                                             <option value="After Food">After Food</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="form-group row" *ngIf="openInput">
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <div class="offset-md-6 col-md-6">
-                                                <button type="submit" class="btn btn-info" (click)="addMedicineDetail()">Add</button>
-                                                <button type="submit" class="btn btn-info" (click)="cancelMedicineDetail()">Cancel</button>
+                                <div class="row" *ngIf="openInput">
+                                          
+                                               <div class="offset-md-3 col-md-3">
+                                                <button type="submit" class="btn btn-info" (click)="addMedicineDetail()" [disabled]="!medicineForm.valid">Add</button>   
+                                                   
                                             </div>
-                                        </div>
-                                    </div>
+                                         <div class=" col-md-4">
+                                               <button type="submit" class="btn btn-info" (click)="cancelMedicineDetail()">Cancel</button>  
+                                            </div>
+                            
+                                       
+                                    
+                                   
                                 </div>
+
+                    <div *ngIf="data.length > 0">
+                            <h2>Prescribed Medicine :</h2>
+                            <table>
+                              <tr>
+                                <th>Medicine Name</th>
+                                <th>InTake</th>
+                                <th>Dose</th>
+                                <th>Duration</th>
+                                <th>Action</th>
+                              </tr>
+                              <tr *ngFor="let item of data;let i = index">
+                                <td>{{item.medicineName}}</td>
+                                <td>{{item.intake}}</td>
+                                <td>{{item.dose}}</td>
+                                <td>{{item.duration}}</td>
+                                <td><button (click)="deleteMedicine(i)">Delete</button></td>
+                              </tr>
+                          </table>
+                        </div>
                                  <!-- End Diseas -->
                             </div>
                         </form>

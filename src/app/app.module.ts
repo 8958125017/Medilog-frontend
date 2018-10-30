@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ToasterModule, ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
-
 import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -27,7 +26,7 @@ import { GlobalServiceService }  from   './global-service.service';
 import { SignupComponent } from './signup/signup.component';
 import { UpdatepasswordComponent } from './updatePassword/updatePassword.component';
 import { MessageService } from './message.service';
-// import { HtmlPipe } from './html.pipe';
+import { ScrollToModule } from 'ng2-scroll-to';
 
 @NgModule({
   imports: [
@@ -40,11 +39,13 @@ import { MessageService } from './message.service';
     ComponentsModule,
     ToasterModule.forRoot(),
     Ng4LoadingSpinnerModule.forRoot(),
+    ScrollToModule.forRoot(),
     RouterModule,
     AppRoutingModule,    
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    // ChartsModule
   ],
   declarations: [
     AppComponent,

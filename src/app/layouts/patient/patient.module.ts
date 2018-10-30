@@ -18,9 +18,10 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { SearchdoctorsComponent } from './searchdoctors/searchdoctors.component';
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
-import { PdfViewerComponent } from 'ng2-pdf-viewer';
+// import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +29,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     RouterModule.forChild(PatientRoutes),
     Ng4LoadingSpinnerModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ChartsModule
   ],
   declarations: [  	
    	             PatientDashboardComponent,
@@ -46,7 +48,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
    	             DoctorProfileComponent,
                  HtmlPipe,
                  FilterPipe,
-                 PdfViewerComponent
+                // PdfViewerComponent
   ]
 })
 export class PatientModule { }

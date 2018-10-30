@@ -5,7 +5,7 @@ import { Http, Headers, RequestOptions, Response  } from '@angular/http';
 import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-spinner';
 import { GlobalServiceService}from'../../.././global-service.service';
 declare var $: any;
-
+  import { MessageService } from '../../.././message.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -19,15 +19,17 @@ profileInfo:boolean=false;
 pharmacys:any=[];
 private pharmacyForm:FormGroup;
 private updatePasswordForm:FormGroup;
-	
+viewProfile:boolean=true;
+updateProfile:boolean=false;
+private userImage:any;
 
   constructor(private http: Http,
 	            private route: ActivatedRoute,
 	            private router: Router,
-	            private fb: FormBuilder,
+	            private fb: FormBuilder,private messgage : MessageService,
 	            public globalService:GlobalServiceService,
 	            public ng4LoadingSpinnerService:Ng4LoadingSpinnerService) {
-  			      this.user=JSON.parse(localStorage.getItem('pharmacy'));
+  			      this.fullUserProfile=JSON.parse(localStorage.getItem('pharmacy'));
               var status = this.globalService.ispharmacyLogedIn();
                 if(status==false){
                  this.router.navigateByUrl('/login');
@@ -35,22 +37,25 @@ private updatePasswordForm:FormGroup;
 	         }
 
  ngOnInit() {
-	  	this.getUserProfile();
+	  	// this.getUserProfile();
 	  	this.pharmacyFormInit();
        this.updatePasswordFormInit();
 	  }
 
 	     getUserProfile(){
-	       	let self = this;
-                const url = this.globalService.basePath+'doctor/getProfile';
-                let data ={key:this.user.name.toString(), requestType :'pharmacy'}
+	              const url = this.globalService.basePath+'pharmacy/viewPharmacyProfile';
+                let data ={pharmacyid:this.fullUserProfile._id}
                 debugger
                 this.globalService.PostRequestUnautorized(url,data)
               .subscribe((response) => { 
+                debugger
               	if(response[0].json.status==200){  
-                        self.fullUserProfile=response[0].json.data;                       
-                        this.fillUserProfile();	
-
+                       localStorage.setItem('pharmacy',JSON.stringify(response[0].json.data));
+                       this.fullUserProfile=JSON.parse(localStorage.getItem('pharmacy'));                      
+                       let userName=this.fullUserProfile.name;
+                       let userImage=this.fullUserProfile.image;
+                       this.messgage.sendMessage(userImage,userName);                       
+                       this.fillUserProfile();  
                   // this.ng4LoadingSpinnerService.hide();
                    } else{
                       // this.ng4LoadingSpinnerService.hide();
@@ -60,22 +65,24 @@ private updatePasswordForm:FormGroup;
 	          }
 
 		fillUserProfile(){
-                  this.pharmacyForm.controls['pharmacyId'].setValue(this.fullUserProfile._id);
+                  this.pharmacyForm.controls['pharmacyId'].setValue(this.fullUserProfile._id ? this.fullUserProfile._id : 'NA');
 			            this.pharmacyForm.controls['image'].setValue(this.fullUserProfile.image);
-			            this.pharmacyForm.controls['name'].setValue(this.fullUserProfile.name);
-			            this.pharmacyForm.controls['contactNo'].setValue(this.fullUserProfile.contactNo);
-			            this.pharmacyForm.controls['email'].setValue(this.fullUserProfile.email);
-			            this.pharmacyForm.controls['city'].setValue(this.fullUserProfile.city);
-			            this.pharmacyForm.controls['license'].setValue(this.fullUserProfile.license);
-			            this.pharmacyForm.controls['open'].setValue(this.fullUserProfile.timming.open);
-			            this.pharmacyForm.controls['close'].setValue(this.fullUserProfile.timming.close);
+			            this.pharmacyForm.controls['name'].setValue(this.fullUserProfile.name ? this.fullUserProfile.name : 'NA');
+			            this.pharmacyForm.controls['contactNo'].setValue(this.fullUserProfile.contactNo ? this.fullUserProfile.contactNo : 'NA');
+			            this.pharmacyForm.controls['email'].setValue(this.fullUserProfile.email ? this.fullUserProfile.email : 'NA');
+			            this.pharmacyForm.controls['city'].setValue(this.fullUserProfile.city ? this.fullUserProfile.city : 'NA');
+			            this.pharmacyForm.controls['license'].setValue(this.fullUserProfile.license ? this.fullUserProfile.license : 'NA');
+			            this.pharmacyForm.controls['open'].setValue(this.fullUserProfile.avaliablity.open ? this.fullUserProfile.avaliablity.open : 'NA');
+			            this.pharmacyForm.controls['close'].setValue(this.fullUserProfile.avaliablity.close ? this.fullUserProfile.avaliablity.close : 'NA');
+                  this.pharmacyForm.controls['address'].setValue(this.fullUserProfile.address ? this.fullUserProfile.address : 'NA');
+                  this.pharmacyForm.controls['description'].setValue(this.fullUserProfile.description ? this.fullUserProfile.description : 'NA');
 			          
 		}
 
 	    pharmacyFormInit(){
 	      this.pharmacyForm = this.fb.group({
                  pharmacyId    :     new FormControl(''),
-	      	     name          :     new FormControl('',Validators.required),
+	      	       name          :     new FormControl('',Validators.required),
                  email         :     new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z][-_.a-zA-Z0-9]{2,29}\@((\[[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,15}|[0-9]{1,3})(\]?)$/)])),
                  license       :     new FormControl('',Validators.required),
                  contactNo     :     new FormControl('',Validators.compose([Validators.required,Validators.pattern(/^[0-9]{6,15}$/)])),
@@ -83,7 +90,8 @@ private updatePasswordForm:FormGroup;
                  open          :     new FormControl('',Validators.required),
                  close         :     new FormControl('',Validators.required), 
                  image         :     new FormControl(''),
-                 
+                 address       :     new FormControl(''),
+                 description       :     new FormControl(''),
                })
 	    }
 
@@ -113,12 +121,11 @@ private updatePasswordForm:FormGroup;
 
 	    updateUserProfile(value){
             const url = this.globalService.basePath+'pharmacy/updatePharmacyProfile';
-            console.log(this.fullUserProfile);            
-            console.log("JSON = = "+JSON.stringify(this.pharmacyForm.value)); 
-            debugger           
+            this.pharmacyForm.value.image=this.userImage;           
           	this.globalService.PostRequestUnautorized(url,this.pharmacyForm.value).subscribe((response) => { 
+              debugger
               if(response[0].json.status==200){            
-                  this.fullUserProfile=response[0].json.data;                 
+                  this.getUserProfile();                 
                   this.globalService.showNotification(response[0].json.message,2);                     
                } else{                 
                   this.globalService.showNotification(response[0].json.message,4);                     
@@ -146,8 +153,23 @@ private updatePasswordForm:FormGroup;
 
            minus(e){
              if (e.keyCode === 189 ) {return false;}
-  }
-
-
+          }
+          tab1(){
+             this.viewProfile=true;
+             this.updateProfile=false;
+          }
+          tab2(){
+            this.viewProfile=false;
+            this.updateProfile=true;
+              this.getUserProfile();
+          }
           
+          uploadImage(event){
+             let reader = new FileReader();
+             let file = event.target.files[0];
+             reader.onloadend = (e:any) => {
+                 this.userImage = e.target.result;
+             }
+            reader.readAsDataURL(file)
+          }
 }

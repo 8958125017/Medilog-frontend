@@ -15,6 +15,9 @@ import { UpdatepasswordComponent } from './updatepassword/updatepassword.compone
 import { Ng4LoadingSpinnerModule,Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
+import { ChartsModule } from 'ng2-charts';
+import { ViewpatientComponent } from './viewpatient/viewpatient.component';
+import { AddpatientComponent } from './addpatient/addpatient.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +27,8 @@ import { DoctorProfileComponent } from './doctor-profile/doctor-profile.componen
     FormsModule,
     ReactiveFormsModule,
     Ng4LoadingSpinnerModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    ChartsModule
   ],
   declarations: [
                  HospitalDashboardComponent,
@@ -37,7 +41,9 @@ import { DoctorProfileComponent } from './doctor-profile/doctor-profile.componen
                  ViewdoctorsComponent,
                  ViewpharmacyComponent,
                  ViewlabsComponent,
-                 UpdatepasswordComponent
+                 UpdatepasswordComponent,
+                 ViewpatientComponent,
+                 AddpatientComponent
   ]
 })
 export class HospitalModule { }

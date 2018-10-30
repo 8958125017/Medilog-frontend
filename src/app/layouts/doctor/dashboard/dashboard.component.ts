@@ -4,52 +4,55 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { Chart } from 'chart.js';
 import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-spinner';
 @Component({
-  selector: 'app-labs-dashboard',
-  templateUrl: './labs-dashboard.component.html',
-  styleUrls: ['./labs-dashboard.component.scss']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
-export class LabsDashboardComponent implements OnInit {
-
- public labels:any[]=[];
-  chartData:any=[
-           {
-             label: '',
-             data: [] 
-           },
-        ];
-  user:any
-  patients : any[] = [];
-  p: number = 1;
-  totalpatients:number;
-  newpatients:number;
-  totalvisitLength:number;
-  todayVisitLength:number;
-  weekVisitLength:number;
-  monthVisitLength:number;
-  WeekData:any;
-  monthData:any;
-  yearData:any;
-  result:any;
-  constructor(public globalService:GlobalServiceService, private router: Router,public ng4LoadingSpinnerService:Ng4LoadingSpinnerService) { 
-              this.user=JSON.parse(localStorage.getItem('labs'));
-              var status = this.globalService.islabsLogedIn();
+export class DashboardComponent implements OnInit {
+public labels:any[]=[];
+chartData:any=[
+         {
+           label: '',
+           data: [] 
+         },
+      ];
+user:any
+patients : any[] = [];
+p: number = 1;
+totalpatients:number;
+newpatients:number;
+totalvisitLength:number;
+todayVisitLength:number;
+weekVisitLength:number;
+monthVisitLength:number;
+WeekData:any;
+monthData:any;
+yearData:any;
+result:any;
+constructor(public globalService:GlobalServiceService, private router: Router,public ng4LoadingSpinnerService:Ng4LoadingSpinnerService) { 
+  this.user=JSON.parse(localStorage.getItem('doctor'));
+    var status = this.globalService.isdoctorLogedIn();
                 if(status==false){
                  this.router.navigateByUrl('/login');
                 }
-               
+                //this.dataBy('Weekly');
+                //this.chartsData();
   }
 
- ngOnInit() {
-   this.getChartData();
+  ngOnInit() {
+    this.getChartData();
     this.getPatientsVisitList();
   }
 
-   getChartData(){
+
+// get chart data
+
+    getChartData(){
         let postData = {
-                        labId : this.user._id
+                        doctorId : this.user._id
                        
         }
-        const url=this.globalService.basePath +'lab/labDashBoardData';
+        const url=this.globalService.basePath +'api/dashBoardData';
         this.ng4LoadingSpinnerService.show();
         this.globalService.PostRequest(url,postData).subscribe((response)=>{
         this.ng4LoadingSpinnerService.hide();               
@@ -61,7 +64,6 @@ export class LabsDashboardComponent implements OnInit {
                this.todayVisitLength=this.result.data.todayVisitor;
                this.weekVisitLength=this.result.data.totalWeekVisitor;
                this.monthVisitLength=this.result.data.totalMonthVisitor;
-               this.totalvisitLength=this.result.data.totalVisitor;
                this.dataBy('Weekly');
         }else{
               this.globalService.showNotification(this.result.message,4);
@@ -69,7 +71,7 @@ export class LabsDashboardComponent implements OnInit {
     })
   }
 
-   dataBy(data:any){    
+  dataBy(data:any){    
     if(data=="Weekly"){ 
     this.labels=[];  
       this.WeekData=this.result.data.weeklydata;
@@ -147,8 +149,9 @@ export class LabsDashboardComponent implements OnInit {
   chartOptions = {
     responsive: true    // THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
   }
- 
- // CHART COLOR.
+
+
+  // CHART COLOR.
   colors = [
     { // 1st Year.
       backgroundColor: 'rgba(77,83,96,0.2)'
@@ -157,6 +160,13 @@ export class LabsDashboardComponent implements OnInit {
     //   backgroundColor: 'rgba(30, 169, 224, 0.8)'
     // }
   ]
+  
+  // CHART CLICK EVENT.
+  onChartClick(event) {
+    console.log(event);
+  }
+
+  // get visitor list
 
    getPatientsVisitList(){
         let postData = {
@@ -190,7 +200,7 @@ export class LabsDashboardComponent implements OnInit {
         if(result.status==200){
              this.totalpatients=result.data;
              this.newpatients=result.data;
-             
+             this.totalvisitLength=result.data;
              this.todayVisitLength=result.data;
              this.weekVisitLength=result.data;
              this.monthVisitLength=result.data;
@@ -199,13 +209,5 @@ export class LabsDashboardComponent implements OnInit {
         }
     })
   }
-  
-
-    // CHART CLICK EVENT.
-  onChartClick(event) {
-    console.log(event);
-  }
-
-
 
 }
